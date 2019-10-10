@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+        <title>Task2</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="css/reset.css">
+        <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+    <header class="header">
+      <div class="header__container">
+        <p class="header__contact">
+          <a class="header__phone" href="tel:+7 (800) 567 88 88">Call us now: 800-567-8888</a>
+        </p>
+
+        <div class="header__menu"> 
+          <!--Logotype-->
+          <img 
+            class="header__logo" 
+            src="img/logo.jpg"  
+            alt="Logo"
+          >
+          <!--Navigation-->
+          <nav class="header__nav">           
+            <ul class="header__nav-items">
+              <li class="header__nav-item header__nav-item--active">
+                <a class="header__arrow header__arrow--active" href="#">Home</a>  
+              </li>
+              <li class="header__nav-item">
+                <a class="header__arrow" href="epam.com">About Us</a>
+              </li>
+              <li class="header__nav-item">
+                <a class="header__arrow" href="#">Services</a>
+              </li>
+              <li class="header__nav-item">
+                <a class="header__arrow" href="#">Solutions</a>
+              </li>
+              <li class="header__nav-item">
+                <a class="header__arrow" href="#">Support</a>
+              </li>
+              <li class="header__nav-item">
+                <a class="header__arrow header__nav-item--last" href="#"> Contact Us</a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+        <!--Banner-->
+        <div class="banner">
+          <article class="banner__container">
+            <h1 class="banner__title">Fresh Ideas 
+                <span class="banner__subtitle">for you</span>
+            </h1>
+
+            <p class="banner__description elipsis" contenteditable="true">Lorem ipsum dolor sit amet, consectetuer 
+              adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore 
+              magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci 
+              tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
+              tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. 
+            </p>
+            
+            <button class="banner__button button">Click Here</button>
+          </article>
+        </div>
+      </div>
+    </header>
+
+     <!--Content-->
+    <main>
+      <div class="main">
+        <section class="slogan">
+          <h2 class="slogan__title">Let's create your company's growth strategy together!</h2>
+          <p class="slogan__description">&nbsp;We develop personal strategy for your business growing</p>
+        </section>
+        <div class="main__container">
+            <!--Right sidebar-->
+            <aside class="sidebar">
+              <!--Login area-->
+                <section class="sidebar__login">
+                    <h3 class="sidebar__login-title">User login</h3>
+
+                    <form  
+                      class="sidebar__form" 
+                      action="#" 
+                      method="post"
+                    >
+                      <label class="sidebar__input-label" for="username">
+                            username<span class="sidebar__star"> *</span>
+                        <div class="sidebar__ie9-placeholder">
+                          <input  
+                            id="username"
+                            class="sidebar__input" 
+                            type="text" 
+                            name="login" 
+                            placeholder="enter your name"
+                          >
+                          <!--[if IE 9]> 
+                              <span class="sidebar__ie9-placeholder--value">enter your name</span>      
+                          <![endif]-->
+                        </div>
+                      </label>
+                      
+                      <label class="sidebar__input-label" for="password">
+                            password <span class="sidebar__star"> * </span>
+                        <div class="sidebar__ie9-placeholder">  
+                          <input 
+                            id="password"
+                            class="sidebar__input" 
+                            type="password" 
+                            name="password" 
+                            placeholder="●●●●●●"
+                          >
+                          <!--[if IE 9]> 
+                              <span class="sidebar__ie9-placeholder--value">●●●●●●</span>
+                          <![endif]-->
+                        </div>            
+
+                      </label>
+                      
+                      <input 
+                        class="button sidebar__button" 
+                        value="Login" 
+                        type="submit"
+                      >                    
+                    </form>
+
+                    <p class="sidebar__account-param">
+                      <a class="sidebar__arrow" href="#">Create new account</a>
+                    </p>
+
+                    <p class="sidebar__account-param">
+                      <a class="sidebar__arrow" href="#">Request new password</a>
+                    </p>
+                </section>
+                <!--News area-->
+                <section class="sidebar__news">
+                  <h3 class="sidebar__news-title">latest news</h3>
+
+                  <ul class="sidebar__news-list"> 
+                      <li class="sidebar__news-item">
+                        <h4 class="sidebar__news-date">Feb 28, 2010</h4>
+                        <p class="sidebar__news-description elipsis" contenteditable="true">
+                          Lorem ipsum dolor sit amet, consectetuer adipiscing elit, 
+                          sed diam nonummy nibh 
+                        </p>
+                        <p class="sidebar__more click-more">
+                          <a class="sidebar__arrow" href="#">more</a>
+                        </p>
+                      </li>
+
+                      <li class="sidebar__news-item">
+                        <h4 class="sidebar__news-date">Feb 28, 2010</h4>
+                        <p class="sidebar__news-description elipsis" contenteditable="true">
+                          Lorem ipsum dolor sit amet, consectetuer adipiscing elit, 
+                          sed diam nonummy nibh 
+                        </p>
+                        <p class="sidebar__more sidebar__more--last click-more">
+                          <a class="sidebar__arrow" href="#">more</a>
+                        </p>
+                      </li>
+                    </ul>
+                </section>
+            </aside>
+          <!--Main content-->
+          <div class="main__content">
+            <article class="welcome">
+                <h1 class="welcome__title">Welcome<span class="welcome__little-title">&nbsp;to our company website!</span></h1>
+
+                <h2 class="welcome__subtitle">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</h2>
+
+                <p class="weclome__description elipsis"  contenteditable="true">
+                  Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. 
+                  Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. 
+                  Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, 
+                  sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, 
+                  lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. 
+                </p>
+
+                <p class="welcome__more click-more">
+                  <a class="welcome__arrow" href="#">Read more</a>
+                </p>
+            </article>
+
+            <article class="about-us">
+              <h2 class="about-us__title">Work smarter with our business company</h2>
+
+              <p class="about-us__description elipsis"  contenteditable="true">
+                Phasellus viverra nulla ut metus varius laoreet. 
+                Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper 
+                ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus
+              </p>
+
+              <section class="about-us__advantages">
+                <img 
+                  class="about-us__img" 
+                  src="img/pic1.jpg" 
+                  alt="Worker"
+                >
+                <article class="about-us__advantages-content">
+                  <h3 class="about-us__advantages-title">
+                      <a class="about-us__advantages-arrow">
+                          Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum.
+                      </a>
+                  </h3>
+
+                  <p class="about-us__advantages-description elipsis"  contenteditable="true">
+                    Phasellus viverra nulla ut metus varius laoreet. 
+                    Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper 
+                    ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus
+                  </p>
+
+                  <p class="about-us__more click-more">
+                    <a class="about-us__arrow" href="#">Read more</a>
+                  </p>
+                </article>
+              </section>
+
+              <section class="about-us__advantages">
+                <img 
+                  class="about-us__img" 
+                  src="img/pic2.jpg" 
+                  alt="Worker"
+                >
+                <article class="about-us__advantages-content">
+                  <h3 class="about-us__advantages-title">
+                      <a class="about-us__advantages-arrow">
+                          Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum.
+                      </a>
+                  </h3>
+
+                  <p class="about-us__advantages-description elipsis"  contenteditable="true">
+                    Phasellus viverra nulla ut metus varius laoreet. 
+                    Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper 
+                    ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus
+                  </p>
+
+                  <p class="about-us__more about-us__more--last click-more">
+                      <a class="about-us__arrow about-us__arrow--last" href="#">Read more</a>
+                  </p>
+                </article>
+              </section>
+            </article>
+        </div> 
+        </div>
+      </div>
+    </main>
+    <footer class="footer clearfix">
+        <div class="footer__container">
+            <!--footer navigation-->
+            <ul class="footer__nav-items">
+                <li class="footer__nav-item footer__nav-item--active">
+                  <a class="footer__arrow footer__arrow--active" href="#">Home</a>
+                  <span>|</span>
+                </li>
+                <li class="footer__nav-item">
+                  <a class="footer__arrow" href="epam.com">About Us</a>
+                  <span>|</span>
+                </li>
+                <li class="footer__nav-item">
+                  <a class="footer__arrow" href="#">Services</a>
+                  <span>|</span>
+                </li>
+                <li class="footer__nav-item">
+                  <a class="footer__arrow" href="#">Solutions</a>
+                  <span>|</span>
+                </li>
+                <li class="footer__nav-item">
+                  <a class="footer__arrow" href="#">Support</a>
+                  <span>|</span>  
+                </li>
+                <li class="footer__nav-item">
+                  <a class="footer__arrow" href="#">Contact Us</a>
+                </li>
+            </ul>
+          
+            <span class="footer__rights">
+              Copyright © Domain Name, All rights reserved
+            </span>
+          </div>
+    </footer>
+  </body>
+</html>
