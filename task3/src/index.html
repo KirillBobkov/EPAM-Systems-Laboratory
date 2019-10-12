@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Task 3</title>
+</head>
+<body>
+
+    <header class="header">
+        <input class="header__toggle visually-hidden" id="header__toggle" type="checkbox" />
+        <label class="header__button" for="header__toggle">
+          <span class="header__humburger" ></span>
+        </label>
+
+        <img 
+        class="header__logo" 
+        src="../src/image/logo.png"  
+        alt="Logo"
+         >
+
+        <nav class="header__nav">           
+            <ul class="header__nav-items">
+              <li class="header__nav-item">
+                <a class="header__arrow" href="#">Expert Search</a>  
+              </li>
+              <li class="header__nav-item">
+                <a class="header__arrow" href="epam.com">Saved Experts</a>
+              </li>
+              <li class="header__nav-item">
+                  <a class="header__arrow header__arrow--icon-flag" href="#">Projects</a>
+                </li>
+              <li class="header__nav-item">
+                <a class="header__arrow header__arrow--icon-phone" href="#">Consultations</a>
+              </li>
+              <li class="header__nav-item">
+                <a class="header__arrow" href="#">Events</a>
+              </li>
+              <li class="header__nav-item">
+                <a class="header__arrow header__arrow--icon-quit" href="#">Logout</a>
+              </li>
+              <li class="header__nav-item header__nav-item--last">
+                <p class="header__user" href="#">
+                  Logged in as 
+                  <span class="header__username">Kirill Bobkov</span>
+                </p>
+              </li>
+            </ul>
+          </nav>
+        </header>
+
+  <main class="main">
+      <div class="main__container">
+        <p class="main__previous-page">
+          <a href="#" class="main__arrow">Projects list</a>
+        </p>
+
+        <section class="main__hidden">
+          <span class="main__title">Test Project last</span>
+          <input class="main__toggle visually-hidden" id="main__toggle" type="checkbox" />
+          <label class="main__label main__label--plus" for="main__toggle"></label>
+          <label class="main__label main__label--minus" for="main__toggle"></label>
+          
+          
+          <div class="main__tables">
+          <table class="main__table">
+            <tr class="main__tr">
+              <th class="main__td">Create date</th>
+              <td class="main__td main__td--second">01/20/15</td>
+            </tr>
+            <tr class="main__tr">
+              <th class="main__td">Target industries</th>
+              <td class="main__td main__td--second"> Wireline Telephone Equipment</td>
+            </tr>
+            <tr class="main__tr">
+              <th class="main__td">Bios sent</th>
+              <td class="main__td main__td--second">10</td>
+            </tr>
+            <tr class="main__tr">
+              <th class="main__td">Calls scheduled</th>
+              <td class="main__td main__td--second">2</td>
+            </tr>
+          </table>
+
+          <table class="main__table">
+            <tr class="main__tr">
+              <th class="main__td">Requested consultations</th>
+              <td class="main__td main__td--second">10</td>
+            </tr>
+            <tr class="main__tr">
+              <th class="main__td">Target companies</th>
+              <td class="main__td main__td--second">Frontier Communications Corporation [FTR]</td>
+            </tr>
+            <tr class="main__tr">
+              <th class="main__td">Calls completed</th>
+              <td class="main__td main__td--second">2</td>
+            </tr>
+            <tr class="main__tr">
+              <th class="main__td">Calls in scheduling</th>
+              <td class="main__td main__td--second">1</td>
+            </tr>
+          </table>
+        </div>
+        </section>
+
+        <div class="main__panel">
+          <ul class="main__categories">
+            <li class="main__category">Experts</li>
+            <li class="main__category main__category--checked">Consultations</li>
+          </ul>
+
+          <ul class="main__toolbar">
+              <li class="main__tool-item main__tool-item--expand">
+                <button class="main__tool-button">Expand All</button>
+              </li>
+              <li class="main__tool-item main__tool-item--out">
+                <button class="main__tool-button">Export</button>
+              </li>
+              <li class="main__tool-item main__tool-item--filter">
+                <button class="main__tool-button">Filters</button>
+              </li>
+              <li class="main__tool-item main__tool-item--select">
+                <select class="main__tool-select" name="status" id="status" valaue="1">
+                    <option value disabled selected>Sort by status</option>
+                </select>
+              </li>
+          </ul>
+
+          
+
+
+        </div>
+      </div>
+  </main>
+</body>
+</html>

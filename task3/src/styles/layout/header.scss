@@ -1,0 +1,228 @@
+.header {
+    position: fixed;
+    width: 100%;
+    text-align: center;
+    z-index: 0;
+    background: $white;
+    z-index: 4;
+
+    &__nav {
+        display: block;
+        box-sizing: border-box;
+        visibility: hidden;
+        position: fixed;
+        top: 63px;;
+        left: -100%;
+        width: 250px;
+        height: 100%;
+        margin: 0;
+        list-style: none;
+        background-color: $dark-gray;
+        z-index: 2;
+        transition-duration: .25s;
+    }
+
+    &__nav-item {
+        display: block;
+        box-sizing: border-box;
+        padding: 0;
+        text-align: left;
+        color: #adadade1;
+        border-bottom: 2px solid $black;
+        font-size: 1.2rem;
+        text-decoration: none;
+        text-transform: uppercase;
+        transition-duration: .25s;
+
+        &:hover {
+            background-color: $black;
+            color: $white;
+        }
+
+        &--last {
+            border-bottom: none;
+        }
+
+    }
+
+    &__user {
+        padding: 18px 18px 18px 42px;
+        position: relative;
+        font-size: 0.8rem;
+        width: 80px;
+
+        &:before {
+            position: absolute;
+            top: 15px;
+            left: 18px;
+            content: '';
+            width: 15px;
+            height: 15px;
+            background: url(../image/sprite.png) -44px -2px;
+           
+        }
+    }
+
+    &__username {
+        line-height: 20px;
+        font-size: 1rem;
+        text-transform: none;
+    }
+
+    &__arrow {
+        display: block;
+        color: inherit;
+        padding: 18px;
+
+        &--icon-flag { 
+            position: relative;
+
+            &:after {
+                position: absolute;
+                top: 17px;
+                 left: 96px;
+                content: '';
+                width: 15px;
+                height: 15px;
+                background: url(../image/sprite.png) -67px -2px;
+            }
+        }
+
+        &--icon-quit {
+            position: relative;
+            padding-left: 40px;
+
+            &:before {
+                position: absolute;
+                top: 19px;
+                left: 18px;
+                content: '';
+                width: 15px;
+                height: 15px;
+                background: url(../image/sprite.png) -5px -50px;
+            }
+        }
+    }
+
+    &__logo {
+        display: inline-block;
+        height: 60px;
+    }
+
+    &__toggle {
+        opacity: 0;
+        vertical-align: top;
+
+        &:checked ~ .header__nav {
+            display: block;
+            left: 0;
+            visibility: visible;
+        }
+    }
+
+    &__button {
+        display: flex;
+        align-items: center;
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        width: 23px;
+        height: 26px;
+        cursor: pointer;
+        z-index: 3;
+    }
+
+    &__humburger,
+    &__humburger::before,
+    &__humburger::after
+    {
+        display: block;
+        position: absolute;
+        width: 100%;
+        height: 4px;
+        background-color: $red;
+        content: '';
+    }
+
+    &__humburger:after {
+        top: 8px;
+    }
+
+    &__humburger:before {
+        top: -8px;
+    }
+
+}
+
+@media screen and (min-width: 750px) {
+
+    .header {
+        position: fixed;
+        top: 0;
+        left:0;
+        width: 250px;
+        height: 100%;
+
+        &__nav {
+            display: block;
+            box-sizing: border-box;
+            visibility: visible;
+            position: static;
+            height: 100%;
+            margin: 0;
+            transition-duration: .25s;
+            width: 250px;
+            transition-duration: .25s;
+        }
+
+        &__toggle,
+        &__button {
+            display: none;
+        }
+
+        &__logo {
+            height: 100px;
+        }
+
+        &__user {
+    
+            &:before {
+                background: url(../image/sprite.png) -44px -2px;
+               
+            }
+        }
+    
+        &__arrow {
+            
+            &--icon-phone {
+                position: relative;
+    
+                &:after {
+                    position: absolute;
+                    top: 17px;
+                    right: 97px;
+                    content: '';
+                    width: 15px;
+                    height: 15px;
+                    background: url(../image/sprite.png) -1px -1px;
+                }
+            }
+
+            &--icon-flag { 
+               
+                &:after {
+                    background: none;
+                }
+            }
+    
+            &--icon-quit {
+    
+                &:before {
+                    background: url(../image/sprite.png) -22px 0px;
+                }
+            }
+        }
+
+    }
+
+}
