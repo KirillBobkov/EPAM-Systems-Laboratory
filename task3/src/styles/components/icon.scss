@@ -1,0 +1,35 @@
+
+.fa-user {
+    position: absolute;
+    top: 8px;
+    left: 18px;
+    font-size: 1.5rem;
+}
+
+.fa-sign-out-alt {
+    font-size: 1.3rem;
+}
+
+.fa-times {
+    font-size: 1.3rem;
+}
+
+.fa-file-excel {
+    color: $light-blue;
+    background: green;
+}
+
+.fa-flag--red {
+    color: $red;
+}
+
+.fa-phone-alt--red {
+    color: $red;
+}
+
+@media screen and (min-width: 750px) {
+    
+    .fa-sign-out-alt--red {
+        color: $red;
+    }
+}

@@ -3,7 +3,11 @@
 
 @import "helpers/variables";
 
+@import "helpers/mixins";
+
 @import "base/body";
+
+@import "components/icon";
 
 @import "layout/header";
 @import "layout/main";

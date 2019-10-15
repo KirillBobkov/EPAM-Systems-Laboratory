@@ -7,32 +7,26 @@
     z-index: 4;
 
     &__nav {
-        display: block;
-        box-sizing: border-box;
-        visibility: hidden;
+        display: none;
         position: fixed;
-        top: 63px;;
-        left: -100%;
+        top: 63px;
         width: 250px;
         height: 100%;
         margin: 0;
         list-style: none;
         background-color: $dark-gray;
-        z-index: 2;
-        transition-duration: .25s;
+        z-index: 4;  
     }
 
     &__nav-item {
         display: block;
-        box-sizing: border-box;
         padding: 0;
         text-align: left;
-        color: #adadade1;
+        color: $little-dark-gray;
         border-bottom: 2px solid $black;
         font-size: 1.2rem;
         text-decoration: none;
         text-transform: uppercase;
-        transition-duration: .25s;
 
         &:hover {
             background-color: $black;
@@ -50,17 +44,6 @@
         position: relative;
         font-size: 0.8rem;
         width: 80px;
-
-        &:before {
-            position: absolute;
-            top: 15px;
-            left: 18px;
-            content: '';
-            width: 15px;
-            height: 15px;
-            background: url(../image/sprite.png) -44px -2px;
-           
-        }
     }
 
     &__username {
@@ -74,33 +57,10 @@
         color: inherit;
         padding: 18px;
 
-        &--icon-flag { 
-            position: relative;
-
-            &:after {
-                position: absolute;
-                top: 17px;
-                 left: 96px;
-                content: '';
-                width: 15px;
-                height: 15px;
-                background: url(../image/sprite.png) -67px -2px;
-            }
-        }
 
         &--icon-quit {
             position: relative;
-            padding-left: 40px;
-
-            &:before {
-                position: absolute;
-                top: 19px;
-                left: 18px;
-                content: '';
-                width: 15px;
-                height: 15px;
-                background: url(../image/sprite.png) -5px -50px;
-            }
+            
         }
     }
 
@@ -109,14 +69,34 @@
         height: 60px;
     }
 
+    &__hide-menu {
+        z-index: 9;
+    }
+
     &__toggle {
-        opacity: 0;
         vertical-align: top;
 
+        
+
         &:checked ~ .header__nav {
-            display: block;
             left: 0;
-            visibility: visible;
+            display: block;
+            z-index: 10;
+           
+        }
+
+        &:checked ~ .header__logo {
+            outline: 5px solid transparent;
+            
+         }
+
+        &:checked ~ .header__hide-menu {
+           position: fixed;
+           visibility: visible;
+           top: 0;
+           left: 0;
+           right: 0;
+           bottom: 0;
         }
     }
 
@@ -129,7 +109,7 @@
         width: 23px;
         height: 26px;
         cursor: pointer;
-        z-index: 3;
+        z-index: 60;
     }
 
     &__humburger,
@@ -165,7 +145,6 @@
 
         &__nav {
             display: block;
-            box-sizing: border-box;
             visibility: visible;
             position: static;
             height: 100%;
@@ -189,37 +168,6 @@
             &:before {
                 background: url(../image/sprite.png) -44px -2px;
                
-            }
-        }
-    
-        &__arrow {
-            
-            &--icon-phone {
-                position: relative;
-    
-                &:after {
-                    position: absolute;
-                    top: 17px;
-                    right: 97px;
-                    content: '';
-                    width: 15px;
-                    height: 15px;
-                    background: url(../image/sprite.png) -1px -1px;
-                }
-            }
-
-            &--icon-flag { 
-               
-                &:after {
-                    background: none;
-                }
-            }
-    
-            &--icon-quit {
-    
-                &:before {
-                    background: url(../image/sprite.png) -22px 0px;
-                }
             }
         }
 

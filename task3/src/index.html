@@ -1,24 +1,26 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://kit.fontawesome.com/78ee4ddb66.js" crossorigin="anonymous"></script>
   <title>Task 3</title>
 </head>
-<body>
-
+<body class="hide-scroll">
+   
     <header class="header">
-        <input class="header__toggle visually-hidden" id="header__toggle" type="checkbox" />
+        <input class="header__toggle" id="header__toggle" type="checkbox" />
         <label class="header__button" for="header__toggle">
           <span class="header__humburger" ></span>
         </label>
+        <label for="header__toggle" class="header__hide-menu"></label>
 
         <img 
         class="header__logo" 
         src="../src/image/logo.png"  
         alt="Logo"
          >
-
+       
         <nav class="header__nav">           
             <ul class="header__nav-items">
               <li class="header__nav-item">
@@ -28,40 +30,38 @@
                 <a class="header__arrow" href="epam.com">Saved Experts</a>
               </li>
               <li class="header__nav-item">
-                  <a class="header__arrow header__arrow--icon-flag" href="#">Projects</a>
+                  <a class="header__arrow" href="#">Projects <i class="fas fa-flag"></i></a>
                 </li>
               <li class="header__nav-item">
-                <a class="header__arrow header__arrow--icon-phone" href="#">Consultations</a>
+                <a class="header__arrow" href="#">Consultations <i class="fas fa-phone-alt fa-phone-alt--red"></i></a>
               </li>
               <li class="header__nav-item">
                 <a class="header__arrow" href="#">Events</a>
               </li>
-              <li class="header__nav-item">
-                <a class="header__arrow header__arrow--icon-quit" href="#">Logout</a>
+              <li class="header__nav-item ">
+                <a class="header__arrow" href="#"><i class="fas fa-sign-out-alt fa-sign-out-alt--red"></i> Logout</a>
               </li>
               <li class="header__nav-item header__nav-item--last">
-                <p class="header__user" href="#">
-                  Logged in as 
+                  <p class="header__user">
+                      <i class="fas fa-user"></i> Logged in as 
                   <span class="header__username">Kirill Bobkov</span>
                 </p>
               </li>
             </ul>
           </nav>
+        
         </header>
 
   <main class="main">
       <div class="main__container">
         <p class="main__previous-page">
-          <a href="#" class="main__arrow">Projects list</a>
+          <a href="#" class="main__arrow"><i class="fas fa-chevron-left"></i> Projects list</a>
         </p>
 
         <section class="main__hidden">
           <span class="main__title">Test Project last</span>
           <input class="main__toggle visually-hidden" id="main__toggle" type="checkbox" />
-          <label class="main__label main__label--plus" for="main__toggle"></label>
-          <label class="main__label main__label--minus" for="main__toggle"></label>
-          
-          
+          <label class="main__label main__label--hide" for="main__toggle"></label>
           <div class="main__tables">
           <table class="main__table">
             <tr class="main__tr">
@@ -105,31 +105,184 @@
 
         <div class="main__panel">
           <ul class="main__categories">
-            <li class="main__category">Experts</li>
-            <li class="main__category main__category--checked">Consultations</li>
+            <li class="main__category"> 
+              Experts <i class="fas fa-flag fa-flag--red"></i>
+          </li>
+            <li class="main__category main__category--checked">
+              Consultations <i class="fas fa-phone-alt fa-phone-alt--red"></i>
+            </li>
           </ul>
 
           <ul class="main__toolbar">
               <li class="main__tool-item main__tool-item--expand">
-                <button class="main__tool-button">Expand All</button>
+                <button class="main__button">Expand All</button>
               </li>
-              <li class="main__tool-item main__tool-item--out">
-                <button class="main__tool-button">Export</button>
+              <li class="main__tool-item main__tool-item--export">
+                <button class="main__button main__button--out">
+                  <span><i class="fas fa-file-excel"></i> Export</span>
+                </button>
               </li>
               <li class="main__tool-item main__tool-item--filter">
-                <button class="main__tool-button">Filters</button>
+                <button class="main__button main__button--filter">
+                  <span><i class="fas fa-filter"></i> Filters</span>
+                </button>
               </li>
               <li class="main__tool-item main__tool-item--select">
-                <select class="main__tool-select" name="status" id="status" valaue="1">
+                <select class="main__select" name="status" id="status">
                     <option value disabled selected>Sort by status</option>
                 </select>
               </li>
           </ul>
-
-          
-
-
         </div>
+
+
+        <div class="info">
+          <div class="info__container">
+            <section class="info__box">
+              <span class="info__category">Industry expert</span>
+              <span class="info__date">07/13/14</span>
+              <span class="info__badge info__badge--red">New</span>
+              <h1 class="info__name">Mikhail Semichev</h1>
+              <span class="info__company">Epam</span>
+              <span class="info__badge info__badge--white">Public</span>
+              <p class="info__position">FE developer (12/01/11 - Present)</p>
+              <p class="info__description"> 
+                Premium rate: This Expert's hourly consulting
+                rate exceeds our standart rate and would reqire
+                an additional call debit.
+              </p>
+              <p class="info__description"> 
+                Translator Reqired: This Expert reqires a translator, 
+                which we can coordinate for one additional call debit.
+              </p>
+            </section>
+            <section class="info__box info__box--border"> 
+                    <span class="info__timezone-title">
+                        Confirmed Availability
+                    </span>
+                    <p class="info__timezone-value">
+                      Tuesday 07/21/15 11:00 AM - 07:13 AM (UTC-05:00)
+                      Eastern Time (US & Canada)
+                    </p>
+                    
+                    <p class="info__timezone-value">
+                        Monday 07/20/15 07:00 AM - 10:00 AM (UTC-05:00)
+                        Eastern Time (US & Canada)
+                    </p>
+              </section>
+              <ul class="info__buttons-list">
+                    <li class="info__item">
+                        <button class="info__button"><i class="fas fa-times"></i> Decline</button>
+                    </li>
+                    <li class="info__item">
+                        <button class="info__button"><i class="fas fa-info-circle"></i> Request Info</button>
+                    </li>
+                    <li class="info__item">
+                        <button class="info__button"><i class="fas fa-phone-alt"></i> Schedule</button>
+                    </li>
+              </ul>
+            </div>
+        </div>
+
+        <div class="info">
+            <div class="info__container">
+              <section class="info__box">
+                <span class="info__category">Industry expert</span>
+                <span class="info__date">07/13/14</span>
+                <span class="info__badge info__badge--red">New</span>
+                <h1 class="info__name">Mikhail Semichev</h1>
+                <span class="info__company">Epam</span>
+                <span class="info__badge info__badge--white">Public</span>
+                <p class="info__position">FE developer (12/01/11 - Present)</p>
+              </section>
+                <ul class="info__buttons-list">
+                      <li class="info__item">
+                          <button class="info__button"><i class="fas fa-times"></i> Decline</button>
+                      </li>
+                      <li class="info__item">
+                          <button class="info__button"><i class="fas fa-info-circle"></i> Request Info</button>
+                      </li>
+                      <li class="info__item">
+                          <button class="info__button"><i class="fas fa-phone-alt"></i> Schedule</button>
+                      </li>
+                </ul>
+              </div>
+          </div>
+
+          <div class="info">
+              <div class="info__container">
+                <section class="info__box">
+                  <span class="info__category">Industry expert</span>
+                  <span class="info__date">07/13/14</span>
+                  <span class="info__badge info__badge--red">New</span>
+                  <h1 class="info__name">Mikhail Semichev</h1>
+                  <span class="info__company">Epam</span>
+                  <span class="info__badge info__badge--white">Public</span>
+                  <p class="info__position">FE developer (12/01/11 - Present)</p>
+                </section>
+                  <ul class="info__buttons-list">
+                        <li class="info__item">
+                            <button class="info__button"><i class="fas fa-times"></i> Decline</button>
+                        </li>
+                        <li class="info__item">
+                            <button class="info__button"><i class="fas fa-info-circle"></i> Request Info</button>
+                        </li>
+                        <li class="info__item">
+                            <button class="info__button"><i class="fas fa-phone-alt"></i> Schedule</button>
+                        </li>
+                  </ul>
+                </div>
+            </div>
+
+            <div class="info">
+                <div class="info__container">
+                  <section class="info__box">
+                    <span class="info__category">Industry expert</span>
+                    <span class="info__date">07/13/14</span>
+                    <span class="info__badge info__badge--red">New</span>
+                    <h1 class="info__name">Mikhail Semichev</h1>
+                    <span class="info__company">Epam</span>
+                    <span class="info__badge info__badge--white">Public</span>
+                    <p class="info__position">FE developer (12/01/11 - Present)</p>
+                  </section>
+                    <ul class="info__buttons-list">
+                          <li class="info__item">
+                              <button class="info__button"><i class="fas fa-times"></i> Decline</button>
+                          </li>
+                          <li class="info__item">
+                              <button class="info__button"><i class="fas fa-info-circle"></i> Request Info</button>
+                          </li>
+                          <li class="info__item">
+                              <button class="info__button"><i class="fas fa-phone-alt"></i> Schedule</button>
+                          </li>
+                    </ul>
+                  </div>
+              </div>
+
+              <div class="info">
+                  <div class="info__container">
+                    <section class="info__box">
+                      <span class="info__category">Industry expert</span>
+                      <span class="info__date">07/13/14</span>
+                      <span class="info__badge info__badge--red">New</span>
+                      <h1 class="info__name">Mikhail Semichev</h1>
+                      <span class="info__company">Epam</span>
+                      <span class="info__badge info__badge--white">Public</span>
+                      <p class="info__position">FE developer (12/01/11 - Present)</p>
+                    </section>
+                      <ul class="info__buttons-list">
+                            <li class="info__item">
+                                <button class="info__button"><i class="fas fa-times"></i> Decline</button>
+                            </li>
+                            <li class="info__item">
+                                <button class="info__button"><i class="fas fa-info-circle"></i> Request Info</button>
+                            </li>
+                            <li class="info__item">
+                                <button class="info__button"><i class="fas fa-phone-alt"></i> Schedule</button>
+                            </li>
+                      </ul>
+                    </div>
+                </div>
       </div>
   </main>
 </body>
