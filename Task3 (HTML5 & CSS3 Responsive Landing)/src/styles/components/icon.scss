@@ -1,4 +1,3 @@
-
 .fa-user {
     position: absolute;
     top: 8px;
@@ -8,6 +7,10 @@
 
 .fa-sign-out-alt {
     font-size: 1.3rem;
+
+    &--red {
+        color: $red;
+    }
 }
 
 .fa-times {
@@ -23,13 +26,14 @@
     color: $red;
 }
 
-.fa-phone-alt--red {
-    color: $red;
-}
+.fa-phone {
+    transform: rotate(90deg);
 
-@media screen and (min-width: 750px) {
-    
-    .fa-sign-out-alt--red {
+    &--red {
         color: $red;
     }
+}
+
+.fa-filter {
+    z-index:100;
 }

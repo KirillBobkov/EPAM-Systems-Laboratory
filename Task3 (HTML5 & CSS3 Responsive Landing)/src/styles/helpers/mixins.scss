@@ -3,3 +3,11 @@
        -moz-border-radius: $radius;
             border-radius: $radius;
 }
+
+@mixin display($flex) {
+    -webkit-display: $flex;
+       -moz-display: $flex;
+        -ms-display: $flex;
+            display: $flex;
+}
+

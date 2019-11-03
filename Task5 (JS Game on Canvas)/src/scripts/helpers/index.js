@@ -1,0 +1,1 @@
+export { generateRandomXPosition } from './randomXposition'

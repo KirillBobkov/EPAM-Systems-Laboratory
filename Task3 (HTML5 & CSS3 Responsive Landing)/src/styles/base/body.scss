@@ -1,4 +1,5 @@
 html {
+    font-family: Arial;
     font-size: 12px;
     line-height: 12px;
     box-sizing: border-box;
@@ -35,3 +36,9 @@ input[type="radio"].visually-hidden {
   clip: rect(0 0 0 0);
   overflow: hidden;
 }
+
+.button:hover {
+    background: linear-gradient(180deg, $button-bottom-gray, $button-up-gray );
+    cursor: pointer;
+}
+

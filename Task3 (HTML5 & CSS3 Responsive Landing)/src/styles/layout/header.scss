@@ -1,15 +1,17 @@
 .header {
+    $class: &;
     position: fixed;
     width: 100%;
     text-align: center;
-    z-index: 0;
     background: $white;
     z-index: 4;
 
     &__nav {
-        display: none;
+        visibility: hidden;
         position: fixed;
+        transition-duration: .5s;
         top: 63px;
+        left: -100%;
         width: 250px;
         height: 100%;
         margin: 0;
@@ -60,7 +62,6 @@
 
         &--icon-quit {
             position: relative;
-            
         }
     }
 
@@ -73,24 +74,20 @@
         z-index: 9;
     }
 
-    &__toggle {
+    &__visibility-toggle {
         vertical-align: top;
 
-        
-
-        &:checked ~ .header__nav {
+        &:checked ~ #{$class}__nav {
             left: 0;
-            display: block;
-            z-index: 10;
-           
+            visibility: visible;
+            z-index: 10;    
         }
 
-        &:checked ~ .header__logo {
-            outline: 5px solid transparent;
-            
+        &:checked ~ #{$class}__logo {
+            outline: 5px solid transparent;    
          }
 
-        &:checked ~ .header__hide-menu {
+        &:checked ~ #{$class}__hide-menu {
            position: fixed;
            visibility: visible;
            top: 0;
@@ -101,15 +98,16 @@
     }
 
     &__button {
-        display: flex;
+        @include display(flex);
         align-items: center;
+        justify-content: center;
         position: fixed;
-        top: 20px;
-        left: 20px;
-        width: 23px;
-        height: 26px;
-        cursor: pointer;
+        top: 10px;
+        left: 5px;
+        width: 50px;
+        height: 50px;
         z-index: 60;
+        cursor: pointer;
     }
 
     &__humburger,
@@ -118,7 +116,7 @@
     {
         display: block;
         position: absolute;
-        width: 100%;
+        width: 25px;
         height: 4px;
         background-color: $red;
         content: '';
@@ -134,8 +132,7 @@
 
 }
 
-@media screen and (min-width: 750px) {
-
+@media screen and (min-width: $tablet-widths) {
     .header {
         position: fixed;
         top: 0;
@@ -166,8 +163,7 @@
         &__user {
     
             &:before {
-                background: url(../image/sprite.png) -44px -2px;
-               
+                background: url(../image/sprite.png) -44px -2px;   
             }
         }
 

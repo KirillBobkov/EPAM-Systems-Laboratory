@@ -1,0 +1,179 @@
+.panel {
+    &__categories {
+        padding-top: 20px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &__category {
+        width: 40%;
+        text-align: center;
+        text-transform: uppercase;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        padding: 10px 0;
+        border: 1px solid $gray;
+        border-bottom: none;
+        cursor: pointer;
+
+        &--checked {
+            background: $gray;
+            width: 60%;
+        }
+    }
+
+    &__toolbar {
+        @include display(flex);
+        justify-content: center;
+        flex-wrap: wrap;
+        border: 1px solid $gray;
+        border-top: none;
+        padding: 10px 5px 5px 5px;
+        margin-bottom: 10px;
+    }
+
+    &__button {
+        padding: 10px 0;
+        @include border-radius(5px);
+        background: linear-gradient(180deg, $button-up-gray, $button-bottom-gray );
+        border: 1px solid $gray;
+        width: 100%;
+        text-transform: uppercase;
+        
+        &--filter {
+            position: relative;
+            width: 100%;
+            border-left: none;
+            overflow: visible;
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+            outline: 1px solid transparent;
+
+            &:focus {
+                border: 2px solid  rgba(127, 182, 255, 0.7);
+                border-left: none;
+            }
+
+            &:after {
+                content: "";
+                width: 25px;
+                height: 25px;
+                display: block;
+                position: absolute;
+                top: 5px;
+                left: -12px;
+                border: 1px solid #D7D7D7;
+                border-right: 1px solid #D7D7D7;
+                border-left: none;
+                border-bottom: none;
+                border-radius: 0.5px;
+                transform: rotateY(32deg) rotate(229deg) skew(8deg);
+                background-image: linear-gradient(143deg, #E1E1E1 0%, #F0F0F0 100%);
+            }
+
+            &:focus:after {
+                -ms-border: 1px solid transparent;
+                border: 2px solid rgba(127, 182, 255, 0.7);
+                border-bottom: none;
+                border-left: none;
+                left: -13px;
+                
+            }
+
+            &:hover:after {
+                background: linear-gradient(-40deg, $button-bottom-gray, $button-up-gray );
+            }
+
+        }
+
+        &--out {
+            width: 95%;
+            padding-left: 5%;
+        }
+            
+    }
+
+    &__tool-item {
+        margin-bottom: 8px;
+
+        &--expand {
+            width: 31.333%;
+            margin-right:2%;
+        }
+
+        &--filter {
+            width: 30.333%;
+            margin-left: 4%;
+        }
+
+        &--export {
+            width: 32.333%;
+        }
+
+        &--select {
+            width: 100%;
+        }
+    }
+
+    &__select {
+        width: 100%;
+        border-radius: 5px;
+        padding:11px 5px;
+        border: 1px solid $gray;
+        font-size: 0.8rem;
+        color: $dark-gray-lighter;
+    }
+
+}
+
+@media screen and (min-width: $tablet-widths) {
+    .panel {
+
+        &__toolbar {
+            flex-wrap: nowrap;
+            padding-bottom: 10px;
+        }
+
+        &__tool-item {
+            margin: 0;
+
+            &--export {
+                position: absolute;
+                top: 15px;
+                right: 0px;
+                width: 100px;
+            }
+
+            &--expand {
+                width: 23%;
+                margin-right: 2%;
+            }
+
+            &--filter {
+                order: 2;
+                width: 21%;
+                margin-left: 4%;
+            }
+
+            &--select {
+                order: 1;  
+                width: 50%; 
+            }
+        }
+
+        &__button {
+            width: 100%;
+
+            &--filter {
+                width: 97%;
+                  margin-left: 3%;
+            }
+
+            &--export {
+                width: 90%;
+                padding-left: 10%;
+            }
+        }
+
+    }
+}

@@ -1,0 +1,41 @@
+.content {
+    position: fixed;
+    overflow-y: auto;
+    top: 63px;
+    left: 0;
+    right:0;
+    bottom: 0;
+    background: $gray-background;
+    padding: 10px;
+
+    &__container {
+        margin: 0 auto;
+    }
+
+    &__previous-page {
+        padding: 10px 0;
+    }
+
+    &__arrow {
+        color: inherit;
+    }
+
+}
+
+@media screen and (min-width: $tablet-widths) {
+    .content {
+        position: absolute;
+        top: 0;
+        left: 250px;
+        right:0;
+        bottom: 0;
+        padding: 10px 40px;  
+
+        &__container {
+            max-width: 900px;
+            position: relative;
+        }
+    } 
+}
+
+

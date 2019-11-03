@@ -1,238 +1,243 @@
-import { WSANOTINITIALISED } from "constants";
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-mixed-operators */
 
-const canvas = document.getElementById('canvas');
-const ctx = canvas.getContext('2d');
+import { KEY_CODES } from './constants/index';
+import { generateRandomXPosition } from './helpers/index';
 
-function Component(image, src, positionX, positionY, width, height ) {
-    this.image = image;
-    this.image.src = src;
-    this.positionX = positionX;
-    this.positionY = positionY;
-    this.width = width;
-    this.height = height;
+
+function Context() {
+  this.canvas = null;
+  this.ctx = null;
 }
 
-const background = new Component( new Image(), "src/image/back3.png", 0, 0, 592, 900);
-const enemy = new Component( new Image(), `src/image/barrier5.png`, 100, -100, 52, 120);
-const unit  = new Component( new Image(), "src/image/superman.png", 170, 700, 33, 85);
-const bonus = new Component( new Image(), `src/image/bonus.png`, 100, -100, 30, 34);
+Context.prototype.create = function (canvasId) {
+  this.canvas = document.getElementById(canvasId);
+  this.ctx = this.canvas.getContext('2d');
+};
 
+const playField = new Context();
+playField.create('canvas');
 
-//event listener
-document.addEventListener("keydown", keyDownHandler, false);
-document.addEventListener("keyup", keyUpHandler, false);
-
-function keyDownHandler(e) {
-    if (e.keyCode == 39) {
-        rightPressed = true;
-    }
-    else if (e.keyCode == 37) {
-        leftPressed = true;
-    }
-
-    if (e.keyCode == 38) {
-        upPressed = true;
-    }
-
-    if (e.keyCode == 40) {
-        downPressed = true;
-    }
-}
-
-function keyUpHandler(e) {
-    if (e.keyCode == 39) {
-        rightPressed = false;
-    }
-    else if (e.keyCode == 37) {
-        leftPressed = false;
-    }
-    if (e.keyCode == 38) {
-        upPressed = false;
-    }
-    if (e.keyCode == 40) {
-        downPressed = false;
-    }
-}
-
-
-
-//flags
-let rightPressed = false;
-let leftPressed = false;
-let upPressed = false;
-let downPressed = false;
+// flags and variables
 let running = true;
-
-//creating arrays of entities
+let speedY = 10;
+let timer = 0;
 const enemyArray = [];
 const bonusArray = [];
-const explosions = [];
-let health = 100;
-let score  = 0;
-let speedY = 5;
+const keyState = [];
 
-enemyArray.push({
-    positionX: 30,
-    positionY: -100,
-    width: 52,
-    height: 120
-});
-
-bonusArray.push({
-    positionX: 70,
-    positionY: -300,
-    width: 25,
-    height: 37
-});
-
-function generateRandomXPosition() {
-    const randomPositionX = Math.floor( 0 + Math.random() * (canvas.width-48) );
-    return randomPositionX;
+// class Component
+function Component(image, src, positionX, positionY, width, height) {
+  this.image = image;
+  this.image.src = src;
+  this.positionX = positionX;
+  this.positionY = positionY;
+  this.width = width;
+  this.height = height;
 }
 
-function unitMove() {
-    if (rightPressed) {
-        unit.positionX += 8;
-    } else if (leftPressed) {
-        unit.positionX -= 8;
-    }
-
-    if (upPressed) {
-        speedY = 10;
-    }
-
-    if (downPressed) {
-        speedY = 5;
-    }
-
-    if (unit.positionX > canvas.width-30) {
-        unit.positionX = canvas.width-30;
-    }
-    if (unit.positionX < 0) {
-        unit.positionX = 0;
-    }
+// class Background
+function Background(image, src, positionX, positionY, width, height) {
+  Component.call(this, image, src, positionX, positionY, width, height);
 }
 
-function backgroundMove() {
-    if (background.image.height >=  canvas.height) {
-        background.image.height = 0;
+Background.prototype = Object.create(Component.prototype);
+Background.prototype.constructor = Background;
+
+Background.prototype.draw = function draw() {
+  playField.ctx.drawImage(this.image, this.positionX, this.positionY);
+  playField.ctx.drawImage(this.image, this.positionX, this.positionY - playField.canvas.height);
+};
+
+Background.prototype.move = function move() {
+  if (this.positionY > playField.canvas.height) {
+    const newPosition = this.positionY - playField.canvas.height;
+    this.positionY = newPosition;
+  }
+  this.positionY += speedY;
+};
+
+const background = new Background(new Image(), 'src/image/back3.png', 0, 0, 592, 900);
+
+// class Enemy
+function Enemy(image, src, positionX, positionY, width, height) {
+  Component.call(this, image, src, positionX, positionY, width, height);
+}
+
+Enemy.prototype = Object.create(Component.prototype);
+Enemy.prototype.constructor = Enemy;
+
+Enemy.prototype.draw = function draw() {
+  playField.ctx.drawImage(this.image, this.positionX, this.positionY);
+};
+
+
+// class Unit
+function Unit(image, src, positionX, positionY, width, height, health) {
+  Component.call(this, image, src, positionX, positionY, width, height);
+
+  this.health = health;
+  this.score = 0;
+}
+
+Unit.prototype = Object.create(Component.prototype);
+Unit.prototype.constructor = Unit;
+
+Unit.prototype.move = function move() {
+  if (keyState[KEY_CODES.RIGHT_ARROW] && this.positionX < playField.canvas.width - this.width) {
+    this.positionX += 6;
+  }
+  if (keyState[KEY_CODES.LEFT_ARROW] && this.positionX > 0) {
+    this.positionX -= 6;
+  }
+  if (keyState[KEY_CODES.UP_ARROW]) {
+    speedY += 0.1;
+  }
+  if (keyState[KEY_CODES.DOWN_ARROW]) {
+    speedY -= 0.1;
+    if (speedY < 10) {
+      speedY = 10;
     }
-    background.image.height += speedY;
+  }
+};
+
+Unit.prototype.draw = function draw() {
+  playField.ctx.drawImage(this.image, this.positionX, this.positionY);
+};
+
+const unit = new Unit(new Image(), 'src/image/superman.png', 170, 700, 33, 85, 30);
+
+// class Bonus
+function Bonus(image, src, positionX, positionY, width, height) {
+  Component.call(this, image, src, positionX, positionY, width, height);
+}
+
+Bonus.prototype = Object.create(Component.prototype);
+Bonus.prototype.constructor = Bonus;
+
+Bonus.prototype.draw = function draw() {
+  playField.ctx.drawImage(this.image, this.positionX, this.positionY);
+};
+
+// event listeners
+function onKeyDown(event) {
+  keyState[event.keyCode] = true;
+}
+
+function onKeyUp(event) {
+  keyState[event.keyCode] = false;
+}
+
+document.addEventListener('keydown', onKeyDown, false);
+document.addEventListener('keyup', onKeyUp, false);
+
+// const generateRandomXPosition = () => {
+//   const randomPositionX = Math.floor(Math.random() * (canvas.width - unit.width));
+//   return randomPositionX;
+// };
+
+// collisions
+function collisionCheck(a, b) {
+  return a.positionX + a.width - 10 > b.positionX &&
+    a.positionX < b.positionX + b.width - 10 &&
+    a.positionY + a.height - 10 > b.positionY &&
+    a.positionY < b.positionY + b.height - 10;
 }
 
 function collisionOccursBonus() {
-    bonusArray.forEach( (bonusItem) => {
-        if (collisionCheck(bonusItem, unit)) {
-            bonusArray.splice( bonusItem, 1);
-            score++;
-        } 
-    });
-}
-
-function collisionOccursEnemy() {
-    enemyArray.forEach( (enemy) => {
-        if (collisionCheck(enemy, unit)) {
-            --health;
-            if (health == 0) {
-                gameOver();
-            }
-        } 
-    });
-}
-
-
-
-function collisionCheck(a, b) {
-    return (a.positionX < b.positionX + b.width - 10) &&
-           (a.positionX + a.width-10 > b.positionX) &&
-           (a.positionY < b.positionY + b.height - 20) &&
-           (a.positionY + a.height - 10 > b.positionY + 10);
-}
-
-
-function generateEnemy() {
-    for (let i in enemyArray) {
-        enemyArray[i].positionY += speedY;
-
-        if (enemyArray[i].positionY == (enemyArray[i].positionY % speedY + 60) ) {
-            enemyArray.push({
-                positionX: generateRandomXPosition(),
-                positionY: -100,
-                width: 52,
-                height: 120
-            }); 
-        }
-        
-        if (enemyArray[i].positionY > canvas.height+300) {
-            enemyArray.splice(enemyArray[i], 1);
-        }
+  bonusArray.forEach((bonusItem, index) => {
+    if (collisionCheck(bonusItem, unit)) {
+      unit.score += 1;
+      bonusArray.splice(index, 1);
     }
-}
-
-function generateBonus() {
-    for (let i in bonusArray) {
-        bonusArray[i].positionY += speedY;
-
-        if (bonusArray[i].positionY == (bonusArray[i].positionY % speedY + 60)) {
-            bonusArray.push({
-                positionX: generateRandomXPosition(),
-                positionY: -120,
-                width: 25,
-                height: 37
-            }); 
-        }
-        if (bonusArray[i].positionY > canvas.height+300) {
-            bonusArray.splice(bonusArray[i], 1);
-        }
-    }
-}
-
-function update() {
-    backgroundMove();
-    unitMove();
-    collisionOccursEnemy();
-    collisionOccursBonus();
-    generateEnemy();
-    generateBonus();
-}
-
-function render() {
-    //render background
-    ctx.drawImage(background.image, 0, background.image.height);
-    ctx.drawImage(background.image,  0, background.image.height - canvas.height);
-
-    //render enemies
-    for (let i in enemyArray) {
-        ctx.drawImage(enemy.image, enemyArray[i].positionX, enemyArray[i].positionY);
-    }
-    //render bonuses
-    for (let i in bonusArray) {
-        ctx.drawImage(bonus.image, bonusArray[i].positionX, bonusArray[i].positionY);
-    }
-    //render unit
-    ctx.drawImage(unit.image, unit.positionX, unit.positionY);
-
-    //render score and health info
-    ctx.fillStyle = "#000000";
-    ctx.fillRect(10, canvas.height - 40, 150, 30);
-    ctx.fillRect(410, canvas.height - 40, 150, 30);
-    ctx.font = "26px Arial";
-    ctx.fillStyle = "#ffffff";
-    ctx.fillText(`Health: ${health}`, 15, canvas.height - 15 );
-    ctx.fillText(`Score: ${score}`, canvas.width - 150, canvas.height - 15 );
+  });
 }
 
 function gameOver() {
-    running = false;
-    alert('Врезался!');
+  running = false;
+}
+
+function collisionOccursEnemy() {
+  enemyArray.forEach((enemyItem) => {
+    if (collisionCheck(enemyItem, unit)) {
+      unit.health -= 1;
+      if (unit.health === 0) {
+        gameOver();
+      }
+    }
+  });
+}
+
+function generateEnemy() {
+  timer += 1;
+  if (timer % 20 === 0) {
+    const enemy = new Enemy(new Image(), 'src/image/barrier1.png', generateRandomXPosition(), -200, 43, 180);
+    enemyArray.push(enemy);
+  }
+
+  enemyArray.forEach((enemyItem, index) => {
+    enemyItem.positionY += speedY;
+    if (enemyItem.positionY > playField.canvas.height + 400) {
+      enemyArray.splice(index, 1);
+    }
+  });
+}
+
+function generateBonus() {
+  if (timer % 10 === 0) {
+    const bonus = new Enemy(new Image(), 'src/image/bonus.png', generateRandomXPosition(), -100, 29, 41);
+    bonusArray.push(bonus);
+  }
+
+  bonusArray.forEach((bonusItem, index) => {
+    bonusItem.positionY += speedY;
+    if (bonusItem.positionY > playField.canvas.height + 500) {
+      bonusArray.splice(index, 1);
+    }
+  });
+}
+
+function update() {
+  background.move();
+  unit.move();
+  collisionOccursEnemy();
+  collisionOccursBonus();
+  generateEnemy();
+  generateBonus();
+}
+
+function render() {
+  // render background
+  background.draw();
+
+  // render enemies
+  enemyArray.forEach((enemyItem) => {
+    enemyItem.draw();
+  });
+
+  // render bonuses
+  bonusArray.forEach((bonusItem) => {
+    bonusItem.draw();
+  });
+
+  // render unit
+  unit.draw();
+
+  // render score and health info
+  playField.ctx.fillStyle = '#000000';
+  playField.ctx.fillRect(10, playField.canvas.height - 40, 150, 30);
+  playField.ctx.fillRect(410, playField.canvas.height - 40, 150, 30);
+  playField.ctx.font = '26px Arial';
+  playField.ctx.fillStyle = '#ffffff';
+  playField.ctx.fillText(`Health: ${unit.health}`, 15, playField.canvas.height - 15);
+  playField.ctx.fillText(`Score: ${unit.score}`, playField.canvas.width - 150, playField.canvas.height - 15);
 }
 
 function gameStart() {
-    update();
-    render();
-    if (running) {
-        requestAnimationFrame(gameStart);
-    } 
+  update();
+  render();
+  if (running) {
+    requestAnimationFrame(gameStart);
+  }
 }
-
 gameStart();

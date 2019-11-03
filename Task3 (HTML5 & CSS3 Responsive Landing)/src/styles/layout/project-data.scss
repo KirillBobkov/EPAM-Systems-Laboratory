@@ -1,0 +1,85 @@
+.project-data {
+    $class: &;
+
+    &__title {
+        font-size: 2rem;
+    }
+
+    &__label {
+        width: 20px;
+        height: 18px;
+        display: inline-block;
+        cursor: pointer;
+
+        &--hidden {
+            background: url(../image/sprite.png) -57px -24px;
+            visibility: visible;
+        }
+    }
+
+    &__icon-visibility-toggle {
+
+        &:checked ~ #{$class}__tables {
+            display: block;
+            margin-top: 20px;
+        }
+
+        &:checked ~ #{$class}__label--hidden {
+           background-position:  -23px -45px;
+        }
+    }
+
+    &__tables {
+        display: none;
+        
+    }
+
+    &__table {
+        width: 100%;
+        font-size: 1rem;
+        border-top: 1px solid $gray;
+        
+        &--margin {
+            border-top: none; 
+        }
+        
+    }
+
+    &__table-row {
+        border-bottom: 1px solid $gray;
+    }
+
+    &__table-cell {
+        width: 50%;
+        padding: 5px;
+        font-weight: bold;
+        text-align: left;
+
+        &--data {
+            text-align: right;
+            font-weight: normal;
+        }
+    }
+}
+
+@media screen and (min-width: $desktop-widths) {
+    .project-data {
+        &__icon-visibility-toggle {
+
+            &:checked ~ .#{$project}__tables {
+                @include display(flex);
+                justify-content: space-between;
+            }
+        }
+    
+        &__table {
+            width: 50%;
+
+            &--margin {
+                margin-left: 2%;
+                width: 48%;
+                border-top: 1px solid $gray;
+            }
+        }
+    }
+}

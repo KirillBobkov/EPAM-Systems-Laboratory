@@ -1,0 +1,119 @@
+.info {
+    &__container {
+        margin-bottom: 20px;
+        box-shadow:  2px 2px 2px rgba(0,0,0,0.1);
+    }
+
+    &__box {
+        background: $white;
+        border: 1px solid $gray;
+        color: $red;
+        position: relative;
+        line-height: 1.5rem;
+        padding: 10px;
+
+        &--border {
+            border-top:  1px solid $gray-background;
+        }
+    }
+
+    &__box-title {
+        @include display(flex);
+        justify-content: space-between;
+        flex-wrap: nowrap;
+    }
+
+    &__category {
+        text-transform: uppercase;
+    }
+
+    &__date {
+        color: $gray;
+        margin-right: 5px;
+    }
+
+    &__badge {
+        color: $gray;
+        padding: 4px 10px;
+        border-radius: 5px ;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        line-height: 0.8rem;
+
+        &--red {
+            background: $red;
+            color: $white;
+        }
+
+        &--white {
+            background: $white;
+            color: $red;
+            border: 1px solid $red;
+        }
+
+        &--off {
+            background: $dark-gray-lighter;
+            color: $white;
+        }
+    }
+
+    &__name {
+        color: $black;
+        font-size: 2rem;
+        line-height: 2.5rem;
+    }
+
+    &__company {
+        text-transform: uppercase;
+        color: $black;
+        line-height: 2rem;
+    }
+
+    &__position {
+        color: $black;
+    }
+
+    &__timezone {
+        border-top: 1px solid $gray;
+    }
+
+    &__timezone-title {
+        text-decoration: underline;
+    }
+
+    &__timezone-value {
+        padding-left: 20px;
+    }
+
+    &__button {
+        padding: 5px;
+        text-align: left;
+        text-transform: uppercase;
+        width: 100%;
+        border: 1px solid $gray;
+        border-bottom: 1px solid $gray;
+        background: $gray-background;
+    }
+
+}
+
+@media screen and (min-width: $tablet-widths) {
+    .info {
+
+        &__buttons-list {
+            @include display(flex);
+        }
+
+        &__button {
+            text-align: center;
+            line-height: 20px;
+        }
+
+        &__item {
+            align-content: center;
+            width: 33.3333%;
+        }
+
+    }
+
+}
