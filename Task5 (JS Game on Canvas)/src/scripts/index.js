@@ -1,125 +1,54 @@
-/* eslint-disable no-param-reassign */
-/* eslint-disable no-mixed-operators */
+import '../styles/index.scss';
 
 import { KEY_CODES } from './constants/index';
-import { generateRandomXPosition } from './helpers/index';
 
+import { playField } from './services/index';
 
-function Context() {
-  this.canvas = null;
-  this.ctx = null;
-}
+import { Enemy, Bonus, Unit, Background, Explosion } from './entities/index';
 
-Context.prototype.create = function (canvasId) {
-  this.canvas = document.getElementById(canvasId);
-  this.ctx = this.canvas.getContext('2d');
-};
+import { collisionCheck, generateRandomXPosition, generateRandomSrc } from './helpers/index';
 
-const playField = new Context();
-playField.create('canvas');
 
 // flags and variables
-let running = true;
-let speedY = 10;
-let timer = 0;
-const enemyArray = [];
-const bonusArray = [];
-const keyState = [];
-
-// class Component
-function Component(image, src, positionX, positionY, width, height) {
-  this.image = image;
-  this.image.src = src;
-  this.positionX = positionX;
-  this.positionY = positionY;
-  this.width = width;
-  this.height = height;
+function Game() {
+  this.running = true;
+  this.speedY = 8;
+  this.timer = 0;
+  this.enemyArray = [];
+  this.bonusArray = [];
+  this.explosionArray = [];
 }
 
-// class Background
-function Background(image, src, positionX, positionY, width, height) {
-  Component.call(this, image, src, positionX, positionY, width, height);
-}
-
-Background.prototype = Object.create(Component.prototype);
-Background.prototype.constructor = Background;
-
-Background.prototype.draw = function draw() {
-  playField.ctx.drawImage(this.image, this.positionX, this.positionY);
-  playField.ctx.drawImage(this.image, this.positionX, this.positionY - playField.canvas.height);
-};
-
-Background.prototype.move = function move() {
-  if (this.positionY > playField.canvas.height) {
-    const newPosition = this.positionY - playField.canvas.height;
-    this.positionY = newPosition;
-  }
-  this.positionY += speedY;
-};
+const game = new Game();
 
 const background = new Background(new Image(), 'src/image/back3.png', 0, 0, 592, 900);
 
-// class Enemy
-function Enemy(image, src, positionX, positionY, width, height) {
-  Component.call(this, image, src, positionX, positionY, width, height);
-}
+const unit = new Unit(new Image(), 'src/image/superman.png', 170, 400, 25, 67, 300);
 
-Enemy.prototype = Object.create(Component.prototype);
-Enemy.prototype.constructor = Enemy;
-
-Enemy.prototype.draw = function draw() {
-  playField.ctx.drawImage(this.image, this.positionX, this.positionY);
-};
-
-
-// class Unit
-function Unit(image, src, positionX, positionY, width, height, health) {
-  Component.call(this, image, src, positionX, positionY, width, height);
-
-  this.health = health;
-  this.score = 0;
-}
-
-Unit.prototype = Object.create(Component.prototype);
-Unit.prototype.constructor = Unit;
-
-Unit.prototype.move = function move() {
-  if (keyState[KEY_CODES.RIGHT_ARROW] && this.positionX < playField.canvas.width - this.width) {
-    this.positionX += 6;
-  }
-  if (keyState[KEY_CODES.LEFT_ARROW] && this.positionX > 0) {
-    this.positionX -= 6;
-  }
-  if (keyState[KEY_CODES.UP_ARROW]) {
-    speedY += 0.1;
-  }
-  if (keyState[KEY_CODES.DOWN_ARROW]) {
-    speedY -= 0.1;
-    if (speedY < 10) {
-      speedY = 10;
-    }
-  }
-};
-
-Unit.prototype.draw = function draw() {
-  playField.ctx.drawImage(this.image, this.positionX, this.positionY);
-};
-
-const unit = new Unit(new Image(), 'src/image/superman.png', 170, 700, 33, 85, 30);
-
-// class Bonus
-function Bonus(image, src, positionX, positionY, width, height) {
-  Component.call(this, image, src, positionX, positionY, width, height);
-}
-
-Bonus.prototype = Object.create(Component.prototype);
-Bonus.prototype.constructor = Bonus;
-
-Bonus.prototype.draw = function draw() {
-  playField.ctx.drawImage(this.image, this.positionX, this.positionY);
-};
+const keyState = [];
 
 // event listeners
+function userEvent() {
+  if (keyState[KEY_CODES.RIGHT_ARROW]) {
+    unit.moveLeft();
+  }
+  if (keyState[KEY_CODES.LEFT_ARROW]) {
+    unit.moveRight();
+  }
+  if (keyState[KEY_CODES.UP_ARROW]) {
+    game.speedY += 0.2;
+    if (game.speedY > 20) {
+      game.speedY = 20;
+    }
+  }
+  if (keyState[KEY_CODES.DOWN_ARROW]) {
+    game.speedY -= 0.2;
+    if (game.speedY < 8) {
+      game.speedY = 8;
+    }
+  }
+}
+
 function onKeyDown(event) {
   keyState[event.keyCode] = true;
 }
@@ -128,102 +57,114 @@ function onKeyUp(event) {
   keyState[event.keyCode] = false;
 }
 
-document.addEventListener('keydown', onKeyDown, false);
-document.addEventListener('keyup', onKeyUp, false);
+window.document.addEventListener('keydown', onKeyDown, false);
+window.document.addEventListener('keyup', onKeyUp, false);
 
-// const generateRandomXPosition = () => {
-//   const randomPositionX = Math.floor(Math.random() * (canvas.width - unit.width));
-//   return randomPositionX;
-// };
 
-// collisions
-function collisionCheck(a, b) {
-  return a.positionX + a.width - 10 > b.positionX &&
-    a.positionX < b.positionX + b.width - 10 &&
-    a.positionY + a.height - 10 > b.positionY &&
-    a.positionY < b.positionY + b.height - 10;
-}
+Game.prototype.generateEnemy = function generateEnemy() {
+  this.timer += 1;
+  if (this.timer % 30 === 0) {
+    const enemy = new Enemy(new Image(), generateRandomSrc(), generateRandomXPosition(), -350, 70, 240);
+    this.enemyArray.push(enemy);
+  }
 
-function collisionOccursBonus() {
-  bonusArray.forEach((bonusItem, index) => {
-    if (collisionCheck(bonusItem, unit)) {
-      unit.score += 1;
-      bonusArray.splice(index, 1);
+  this.enemyArray.forEach((enemyItem, index) => {
+    enemyItem.positionY += this.speedY;
+    if (enemyItem.positionY > playField.canvas.height * 2) {
+      this.enemyArray.splice(index, 1);
     }
   });
-}
+};
 
-function gameOver() {
-  running = false;
-}
+Game.prototype.generateBonus = function generateBonus() {
+  if (this.timer % 10 === 0) {
+    const bonus = new Bonus(new Image(), 'src/image/bonus.png', generateRandomXPosition(), -32, 16, 32);
+    this.bonusArray.push(bonus);
+  }
+  if (this.timer % 100 === 0) {
+    const bonus = new Bonus(new Image(), 'src/image/bonusSpeed.png', generateRandomXPosition(), -32, 34, 44);
+    bonus.run = false;
+    this.bonusArray.push(bonus);
+  }
 
-function collisionOccursEnemy() {
-  enemyArray.forEach((enemyItem) => {
+  this.bonusArray.forEach((bonusItem, index) => {
+    bonusItem.positionY += this.speedY;
+    if (bonusItem.positionY > playField.canvas.height * 2) {
+      this.bonusArray.splice(index, 1);
+    }
+  });
+};
+
+Game.prototype.collisionOccursEnemy = function collisionOccursEnemy() {
+  this.enemyArray.forEach((enemyItem) => {
     if (collisionCheck(enemyItem, unit)) {
       unit.health -= 1;
       if (unit.health === 0) {
-        gameOver();
+        this.running = false;
       }
+
+      const explosion = new Explosion(new Image(), 'src/image/explosion.png', enemyItem.positionX + 10, enemyItem.positionY + 90, 80, 80, 0, 0);
+      this.explosionArray.push(explosion);
     }
   });
-}
 
-function generateEnemy() {
-  timer += 1;
-  if (timer % 20 === 0) {
-    const enemy = new Enemy(new Image(), 'src/image/barrier1.png', generateRandomXPosition(), -200, 43, 180);
-    enemyArray.push(enemy);
+  this.explosionArray.forEach((explosionItem) => {
+    explosionItem.positionY += this.speedY;
+  });
+};
+
+
+Game.prototype.collisionOccursBonus = function collisionOccursBonus() {
+  this.bonusArray.forEach((bonusItem, index) => {
+    if (collisionCheck(bonusItem, unit)) {
+      unit.score += 1;
+      if (bonusItem.hasOwnProperty('run')) {
+        game.speedY = 15;
+      }
+      this.bonusArray.splice(index, 1);
+    }
+  });
+};
+
+Game.prototype.moveBackground = function moveBackground() {
+  if (background.positionY > playField.canvas.height) {
+    const newPosition = background.positionY - playField.canvas.height;
+    background.positionY = newPosition;
   }
+  background.positionY += this.speedY;
+};
 
-  enemyArray.forEach((enemyItem, index) => {
-    enemyItem.positionY += speedY;
-    if (enemyItem.positionY > playField.canvas.height + 400) {
-      enemyArray.splice(index, 1);
-    }
-  });
-}
+Game.prototype.update = function update() {
+  userEvent();
+  this.moveBackground();
+  this.collisionOccursEnemy();
+  this.collisionOccursBonus();
+  // this.generateExplosion();
+  this.generateEnemy();
+  this.generateBonus();
+};
 
-function generateBonus() {
-  if (timer % 10 === 0) {
-    const bonus = new Enemy(new Image(), 'src/image/bonus.png', generateRandomXPosition(), -100, 29, 41);
-    bonusArray.push(bonus);
-  }
-
-  bonusArray.forEach((bonusItem, index) => {
-    bonusItem.positionY += speedY;
-    if (bonusItem.positionY > playField.canvas.height + 500) {
-      bonusArray.splice(index, 1);
-    }
-  });
-}
-
-function update() {
-  background.move();
-  unit.move();
-  collisionOccursEnemy();
-  collisionOccursBonus();
-  generateEnemy();
-  generateBonus();
-}
-
-function render() {
+Game.prototype.render = function render() {
   // render background
   background.draw();
 
   // render enemies
-  enemyArray.forEach((enemyItem) => {
+  this.enemyArray.forEach((enemyItem) => {
     enemyItem.draw();
   });
 
   // render bonuses
-  bonusArray.forEach((bonusItem) => {
+  this.bonusArray.forEach((bonusItem) => {
     bonusItem.draw();
+  });
+
+  this.explosionArray.forEach((explosionItem) => {
+    explosionItem.draw();
   });
 
   // render unit
   unit.draw();
 
-  // render score and health info
   playField.ctx.fillStyle = '#000000';
   playField.ctx.fillRect(10, playField.canvas.height - 40, 150, 30);
   playField.ctx.fillRect(410, playField.canvas.height - 40, 150, 30);
@@ -231,13 +172,16 @@ function render() {
   playField.ctx.fillStyle = '#ffffff';
   playField.ctx.fillText(`Health: ${unit.health}`, 15, playField.canvas.height - 15);
   playField.ctx.fillText(`Score: ${unit.score}`, playField.canvas.width - 150, playField.canvas.height - 15);
-}
+};
 
-function gameStart() {
-  update();
-  render();
-  if (running) {
-    requestAnimationFrame(gameStart);
+
+function start() {
+  game.update();
+  game.render();
+  if (game.running) {
+    requestAnimationFrame(start);
   }
 }
-gameStart();
+
+window.document.addEventListener('load', start());
+
