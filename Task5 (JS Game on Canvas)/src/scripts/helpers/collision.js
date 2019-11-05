@@ -1,8 +1,9 @@
 function collisionCheck(a, b) {
-  return (a.positionX + a.width) - 10 > b.positionX &&
-      a.positionX < (b.positionX + b.width) - 10 &&
-      (a.positionY + a.height) - 10 > b.positionY &&
-      a.positionY < (b.positionY + b.height) - 10;
+  const collisionPadding = 5;
+  return (a.positionX + a.width) - collisionPadding > b.positionX &&
+          a.positionX < (b.positionX + b.width) - collisionPadding &&
+         (a.positionY + a.height) - collisionPadding > b.positionY &&
+          a.positionY < (b.positionY + b.height) - collisionPadding;
 }
 
 export { collisionCheck };

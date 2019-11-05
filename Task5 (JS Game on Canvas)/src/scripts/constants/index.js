@@ -1,1 +1,1 @@
-export { KEY_CODES } from './keyCodes'
+export { KEY_CODES } from './keyCodes';

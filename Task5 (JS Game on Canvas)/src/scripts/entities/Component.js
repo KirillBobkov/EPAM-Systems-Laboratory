@@ -1,8 +1,16 @@
-import { playField } from '../services/index';
+import { playField } from '../services';
 
-function Component(image, src, positionX, positionY, width, height) {
+
+function Component({
+  image,
+  src,
+  positionX,
+  positionY,
+  width,
+  height,
+}) {
   this.image = image;
-  this.image.src = src;
+  this.src = src;
   this.positionX = positionX;
   this.positionY = positionY;
   this.width = width;

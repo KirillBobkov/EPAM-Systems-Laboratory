@@ -1,4 +1,4 @@
-import { playField } from '../services/index';
+import { playField } from '../services';
 
 const generateRandomXPosition = () => {
   const canvasPadding = 50;

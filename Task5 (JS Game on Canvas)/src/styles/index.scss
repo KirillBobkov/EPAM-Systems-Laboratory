@@ -1,5 +1,114 @@
-.playfield {
-    width: 592px;
-    height: 900px;
+@import "reset";
+
+html, body {
+    height: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 14px;
 }
+
+.main {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    background: #060920;
+    color: #ffffff;
+}
+
+.control {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 50px;
+}
+
+
+.info {
+    padding: 50px;
+
+    &__description {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    &__title {
+        text-transform: uppercase;
+        text-align: center;
+        color: red;
+        font-size: 30px;
+        margin-bottom: 10px;
+    }
+}
+
+.playfield {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &__canvas {
+        border: 2px solid red;
+    }
+}
+
+.box {
+  display: block;
+  width: 200px;
+  outline: none;
+  color: white;
+  position: relative;
+  padding: 15px 30px;
+  margin-bottom: 30px;
+  border: 2px solid blue;
+  background: linear-gradient(180deg, #ff3000, #ed0200, #ff096c, #d50082);
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  text-align: center;
+  transition: .8s cubic-bezier(.165,.84,.44,1);
+
+  &--hover:hover {
+    background: rgb(46, 50, 255);
+    font-size: 24px;
+  }
+
+  &--big-font {
+      font-size: 24px;
+      padding: 15px;
+  }
+}
+
+p {
+    margin-bottom: 20px;
+}
+
+.welcome {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: url(/src/image/welcomeBackground.jpg);
+    background-size: cover;
+
+    &__title {
+        margin-left: 100px;
+        margin-top: 100px;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+        color: red;
+        font-size: 50px;
+    }
+
+    &__description {
+        color: blue;
+        margin-left: 100px;
+        font-size: 18px;
+    }
+
+    &__button {
+        margin-left: 100px;
+        width: 300px;
+    }
+}
+
+
+
 
