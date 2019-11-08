@@ -12,3 +12,4 @@ const playField = new Context();
 playField.create('canvas');
 
 export { playField };
+

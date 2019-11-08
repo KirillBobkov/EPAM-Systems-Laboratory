@@ -1,5 +1,6 @@
 import '../styles/index.scss';
-import { Game, unit } from './entities/index';
+import { Game, background, unit } from './entities/';
+import { welcomePage, gameOverPage, resetGame, restartGame, pauseGame, best, startGame } from './services';
 
 const game = new Game();
 
@@ -11,46 +12,67 @@ function onKeyUp(event) {
   game.keyState[event.keyCode] = false;
 }
 
+window.document.addEventListener('keydown', onKeyDown);
+window.document.addEventListener('keyup', onKeyUp);
 
-const pauseButton = document.getElementById('pauseButton');
-pauseButton.addEventListener('click', pauseGame);
-
-function pauseGame() {
-  game.running = !game.running; 
-  if (game.running) start();
+function disablePage(page) {
+  page.style.display = 'none';
 }
 
+function checkGameOver() {
+  if (unit.health === 0 && game.running === false) {
+    gameOverPage.style.display = 'block';
 
-const restartButton = document.getElementById('restartButton');
-restartButton.addEventListener('click', restartGame);
+    const data = sessionStorage.getItem('bestScore');
+    if (data < unit.score || data == null) {
+      sessionStorage.setItem('bestScore', unit.score);
+    }
+  }
+}
 
-function restartGame() {
-  game.enemyArray = [];
-  game.bonusArray = [];
-  unit.health = 300;
-  unit.score = 0;
-  outputScore.innerHTML = unit.score;
-  outputHealth.innerHTML = unit.health;
+function getBestResult() {
+  best.innerHTML = sessionStorage.getItem('bestScore') || 0;
 }
 
 function start() {
-  disableWeclomePage();
+  getBestResult();
+  disablePage(welcomePage);
   game.update();
   game.render();
+  checkGameOver();
+
   if (game.running) {
     requestAnimationFrame(start);
   }
 }
 
-function disableWeclomePage() {
-  const welcomePage = document.getElementById('welcomePage');
-  welcomePage.style.display = 'none';
+function pause() {
+  game.running = !game.running;
+  if (game.running) {
+    pauseGame.innerHTML = 'Pause';
+    start();
+  } else {
+    pauseGame.innerHTML = 'Resume';
+    start();
+  }
 }
 
+function reset() {
+  disablePage(gameOverPage);
+  game.bonusArray = [];
+  game.enemyArray = [];
+  game.explosionArray = [];
+  game.speedY = 6;
+  unit.score = 0;
+  unit.health = 100;
+  background.positionY = 0;
+  if (!game.running) {
+    game.running = !game.running;
+    start();
+  }
+}
 
-const buttonStart = document.getElementById("buttonStart");
-buttonStart.addEventListener('click', start);
-
-window.document.addEventListener('keydown', onKeyDown, false);
-window.document.addEventListener('keyup', onKeyUp, false);
-
+pauseGame.addEventListener('click', pause);
+resetGame.addEventListener('click', reset);
+restartGame.addEventListener('click', reset);
+startGame.addEventListener('click', start);

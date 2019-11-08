@@ -2,7 +2,6 @@ import { Component } from './Component';
 
 function Enemy({
   image,
-  src,
   positionX,
   positionY,
   width,
@@ -10,12 +9,11 @@ function Enemy({
 }) {
   Component.call(this, {
     image,
-    src,
     positionX,
     positionY,
-    width,
-    height,
   });
+  this.width = width;
+  this.height = height;
 }
 
 Enemy.prototype = Object.create(Component.prototype);

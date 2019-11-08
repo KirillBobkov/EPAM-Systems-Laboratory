@@ -1,4 +1,4 @@
 export { generateRandomXPosition } from './randomXposition';
-export { generateRandomSrc } from './generateRandomSrc';
 export { collisionCheck } from './collision';
+export { imageAdapter, chooseSrcForEnemy } from './imageAdapter';
 

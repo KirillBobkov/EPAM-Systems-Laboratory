@@ -1,34 +1,23 @@
 import { KEY_CODES } from '../constants';
 import { playField, outputScore, outputHealth } from '../services';
 import { Enemy, Bonus, Explosion, Background, Unit } from './index';
-import { collisionCheck, generateRandomXPosition, generateRandomSrc } from '../helpers';
-
-
-const unitImg = new Image();
-unitImg.src = 'src/image/superman.png';
-const unitSrc = unitImg.src;
+import { collisionCheck, generateRandomXPosition, imageAdapter, chooseSrcForEnemy } from '../helpers';
 
 const unit = new Unit({
-  image: unitImg,
-  src: unitSrc,
+  image: imageAdapter('src/image/superman.png'),
   positionX: 170,
   positionY: 400,
   width: 25,
-  height: 67,
-  health: 300,
+  height: 78,
+  health: 100,
 });
 
-const backgroundImg = new Image();
-backgroundImg.src = 'src/image/back3.png';
-const backgroundSrc = backgroundImg.src;
-
 const background = new Background({
-  image: backgroundImg,
-  src: backgroundSrc,
+  image: imageAdapter('src/image/back3.png'),
   positionX: 0,
   positionY: 0,
   width: playField.canvas.width,
-  height: playField.canvas.width,
+  height: playField.canvas.height,
 });
 
 function Game() {
@@ -44,88 +33,49 @@ function Game() {
 
 Game.prototype.generateEnemy = function generateEnemy() {
   this.timer += 1;
-  if (this.timer % 50 === 0) {
-    const enemyImg = new Image();
-    enemyImg.src = generateRandomSrc();
-    const enemySrc = enemyImg.src;
-
+  if (this.timer % 40 === 0) {
     const enemy = new Enemy({
-      image: enemyImg,
-      src: enemySrc,
+      image: chooseSrcForEnemy(),
       positionX: generateRandomXPosition(),
       positionY: -350,
       width: 70,
       height: 240,
     });
-
     this.enemyArray.push(enemy);
   }
-
-  this.enemyArray.forEach((enemyItem, index) => {
-    enemyItem.positionY += this.speedY;
-    if (enemyItem.positionY > playField.canvas.height * 2) {
-      this.enemyArray.splice(index, 1);
-    }
-  });
 };
 
 Game.prototype.generateBonus = function generateBonus() {
   if (this.timer % 10 === 0) {
-    const bonusImg = new Image();
-    bonusImg.src = 'src/image/bonus.png';
-    const bonusSrc = bonusImg.src;
-
     const bonus = new Bonus({
-      image: bonusImg,
-      src: bonusSrc,
+      image: imageAdapter('src/image/bonus.png'),
       positionX: generateRandomXPosition(),
       positionY: -32,
       width: 16,
       height: 32,
     });
 
+    if (this.timer % 100 === 0) {
+      bonus.image = imageAdapter('src/image/bonusSpeed.png');
+      bonus.boost = true;
+      bonus.width = 37;
+      bonus.height = 43;
+    }
     this.bonusArray.push(bonus);
   }
-  if (this.timer % 100 === 0) {
-    const bonusSpeedImg = new Image();
-    bonusSpeedImg.src = 'src/image/bonusSpeed.png';
-    const bonusSpeedSrc = bonusSpeedImg.src;
-
-    const bonusSpeed = new Bonus({
-      image: bonusSpeedImg,
-      src: bonusSpeedSrc,
-      positionX: generateRandomXPosition(),
-      positionY: -32,
-      width: 34,
-      height: 44,
-    });
-
-    bonusSpeed.run = true;
-    this.bonusArray.push(bonusSpeed);
-  }
-
-  this.bonusArray.forEach((bonusItem, index) => {
-    bonusItem.positionY += this.speedY;
-    if (bonusItem.positionY > playField.canvas.height * 2) {
-      this.bonusArray.splice(index, 1);
-    }
-  });
 };
 
 Game.prototype.collisionOccursEnemy = function collisionOccursEnemy() {
   this.enemyArray.forEach((enemyItem) => {
     if (collisionCheck(enemyItem, unit)) {
       unit.health -= 1;
+
       if (unit.health === 0) {
         this.running = false;
       }
-      const explosionImg = new Image();
-      explosionImg.src = 'src/image/explosion.png';
-      const explosionSrc = explosionImg.src;
 
       const explosion = new Explosion({
-        image: explosionImg,
-        src: explosionSrc,
+        image: imageAdapter('src/image/explosion.png'),
         positionX: enemyItem.positionX,
         positionY: enemyItem.positionY + (enemyItem.height / 2),
         width: 100,
@@ -136,17 +86,13 @@ Game.prototype.collisionOccursEnemy = function collisionOccursEnemy() {
       this.explosionArray.push(explosion);
     }
   });
-
-  this.explosionArray.forEach((explosionItem) => {
-    explosionItem.positionY += this.speedY;
-  });
 };
 
 Game.prototype.collisionOccursBonus = function collisionOccursBonus() {
   this.bonusArray.forEach((bonusItem, index) => {
     if (collisionCheck(bonusItem, unit)) {
       unit.score += 1;
-      if (bonusItem.hasOwnProperty('run')) {
+      if ('boost' in bonusItem) {
         this.speedY = 10;
       }
       this.bonusArray.splice(index, 1);
@@ -154,12 +100,37 @@ Game.prototype.collisionOccursBonus = function collisionOccursBonus() {
   });
 };
 
-Game.prototype.moveBackground = function moveBackground() {
+Game.prototype.moveEntities = function moveEntities() {
+  // move background
   if (background.positionY > playField.canvas.height) {
     const newPosition = background.positionY - playField.canvas.height;
     background.positionY = newPosition;
   }
   background.positionY += this.speedY;
+
+  // move explosions
+  this.explosionArray.forEach((explosionItem, index) => {
+    explosionItem.positionY += this.speedY;
+    if (explosionItem.positionY > playField.canvas.height * 2) {
+      this.explosionArray.splice(index, 1);
+    }
+  });
+
+  // move bonuses
+  this.bonusArray.forEach((bonusItem, index) => {
+    bonusItem.positionY += this.speedY;
+    if (bonusItem.positionY > playField.canvas.height * 2) {
+      this.bonusArray.splice(index, 1);
+    }
+  });
+
+  // move enemies
+  this.enemyArray.forEach((enemyItem, index) => {
+    enemyItem.positionY += this.speedY;
+    if (enemyItem.positionY > playField.canvas.height * 2) {
+      this.enemyArray.splice(index, 1);
+    }
+  });
 };
 
 Game.prototype.userEvent = function userEvent() {
@@ -171,24 +142,23 @@ Game.prototype.userEvent = function userEvent() {
   }
   if (this.keyState[KEY_CODES.DOWN_ARROW]) {
     this.speedY -= 0.2;
-    if (this.speedY < 8) {
-      this.speedY = 8;
+    if (this.speedY < 6) {
+      this.speedY = 6;
     }
   }
 };
 
 Game.prototype.update = function update() {
   this.userEvent();
-  this.moveBackground();
-  this.collisionOccursEnemy();
-  this.collisionOccursBonus();
   this.generateEnemy();
   this.generateBonus();
+  this.collisionOccursEnemy();
+  this.collisionOccursBonus();
+  this.moveEntities();
 };
 
-
 Game.prototype.render = function render() {
-  background.draw();
+  background.drawBack();
 
   this.enemyArray.forEach((enemyItem) => {
     enemyItem.draw();
@@ -199,7 +169,7 @@ Game.prototype.render = function render() {
   });
 
   this.explosionArray.forEach((explosionItem) => {
-    explosionItem.draw();
+    explosionItem.drawExplosion();
   });
 
   unit.draw();
@@ -208,4 +178,4 @@ Game.prototype.render = function render() {
   outputHealth.innerHTML = unit.health;
 };
 
-export { Game, unit };
+export { Game, unit, background };

@@ -3,7 +3,6 @@ import { playField } from '../services';
 
 function Explosion({
   image,
-  src,
   positionX,
   positionY,
   width,
@@ -11,29 +10,28 @@ function Explosion({
 }) {
   Component.call(this, {
     image,
-    src,
     positionX,
     positionY,
-    width,
-    height,
   });
-
-  this.animationX = 5;
+  this.width = width;
+  this.height = height;
+  this.animationX = 165;
   this.animationY = 0;
 }
+
 
 Explosion.prototype = Object.create(Component.prototype);
 Explosion.prototype.constructor = Explosion;
 
-Explosion.prototype.draw = function draw() {
+Explosion.prototype.drawExplosion = function drawExplosion() {
   playField.ctx.drawImage(
     this.image,
     this.animationX,
-    this.animationY, 
+    this.animationY,
     80,
     80,
-    this.positionX - 25,
-    this.positionY - 50,
+    this.positionX - 30,
+    this.positionY - 55,
     120,
     120,
   );

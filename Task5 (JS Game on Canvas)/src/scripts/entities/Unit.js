@@ -1,10 +1,8 @@
-
 import { Component } from './Component';
 import { playField } from '../services';
 
 function Unit({
   image,
-  src,
   positionX,
   positionY,
   width,
@@ -13,16 +11,18 @@ function Unit({
 }) {
   Component.call(this, {
     image,
-    src,
     positionX,
     positionY,
-    width,
-    height,
   });
 
+  this.width = width;
+  this.height = height;
   this.health = health;
   this.score = 0;
+  this.animationX = 3;
+  this.animationY = 0;
 }
+
 
 Unit.prototype = Object.create(Component.prototype);
 Unit.prototype.constructor = Unit;

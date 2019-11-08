@@ -2,7 +2,6 @@ import { Component } from './Component';
 
 function Bonus({
   image,
-  src,
   positionX,
   positionY,
   width,
@@ -10,12 +9,11 @@ function Bonus({
 }) {
   Component.call(this, {
     image,
-    src,
     positionX,
     positionY,
-    width,
-    height,
   });
+  this.width = width;
+  this.height = height;
 }
 
 Bonus.prototype = Object.create(Component.prototype);

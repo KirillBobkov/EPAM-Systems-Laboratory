@@ -3,7 +3,6 @@ import { playField } from '../services';
 
 function Background({
   image,
-  src,
   positionX,
   positionY,
   width,
@@ -11,19 +10,18 @@ function Background({
 }) {
   Component.call(this, {
     image,
-    src,
     positionX,
     positionY,
-    width,
-    height,
   });
+  this.width = width;
+  this.height = height;
 }
 
 Background.prototype = Object.create(Component.prototype);
 Background.prototype.constructor = Background;
 
-Background.prototype.draw = function draw() {
-  playField.ctx.drawImage(this.image, this.positionX, this.positionY);
+Background.prototype.drawBack = function drawBack() {
+  this.draw();
   playField.ctx.drawImage(this.image, this.positionX, this.positionY - playField.canvas.height);
 };
 
