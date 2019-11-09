@@ -1,24 +1,7 @@
 import { KEY_CODES } from '../constants';
-import { playField, outputScore, outputHealth } from '../services';
+import { playField } from '../services';
 import { Enemy, Bonus, Explosion, Background, Unit } from './index';
 import { collisionCheck, generateRandomXPosition, imageAdapter, chooseSrcForEnemy } from '../helpers';
-
-const unit = new Unit({
-  image: imageAdapter('src/image/superman.png'),
-  positionX: 170,
-  positionY: 400,
-  width: 25,
-  height: 78,
-  health: 100,
-});
-
-const background = new Background({
-  image: imageAdapter('src/image/back3.png'),
-  positionX: 0,
-  positionY: 0,
-  width: playField.canvas.width,
-  height: playField.canvas.height,
-});
 
 function Game() {
   this.running = true;
@@ -29,6 +12,23 @@ function Game() {
   this.bonusArray = [];
   this.explosionArray = [];
   this.keyState = [];
+
+  this.background = new Background({
+    image: imageAdapter('src/image/back3.png'),
+    positionX: 0,
+    positionY: 0,
+    width: playField.canvas.width,
+    height: playField.canvas.height,
+  });
+
+  this.unit = new Unit({
+    image: imageAdapter('src/image/superman.png'),
+    positionX: 170,
+    positionY: 400,
+    width: 25,
+    height: 78,
+    health: 100,
+  });
 }
 
 Game.prototype.generateEnemy = function generateEnemy() {
@@ -67,10 +67,10 @@ Game.prototype.generateBonus = function generateBonus() {
 
 Game.prototype.collisionOccursEnemy = function collisionOccursEnemy() {
   this.enemyArray.forEach((enemyItem) => {
-    if (collisionCheck(enemyItem, unit)) {
-      unit.health -= 1;
+    if (collisionCheck(enemyItem, this.unit)) {
+      this.unit.health -= 1;
 
-      if (unit.health === 0) {
+      if (this.unit.health === 0) {
         this.running = false;
       }
 
@@ -90,8 +90,8 @@ Game.prototype.collisionOccursEnemy = function collisionOccursEnemy() {
 
 Game.prototype.collisionOccursBonus = function collisionOccursBonus() {
   this.bonusArray.forEach((bonusItem, index) => {
-    if (collisionCheck(bonusItem, unit)) {
-      unit.score += 1;
+    if (collisionCheck(bonusItem, this.unit)) {
+      this.unit.score += 1;
       if ('boost' in bonusItem) {
         this.speedY = 10;
       }
@@ -102,11 +102,11 @@ Game.prototype.collisionOccursBonus = function collisionOccursBonus() {
 
 Game.prototype.moveEntities = function moveEntities() {
   // move background
-  if (background.positionY > playField.canvas.height) {
-    const newPosition = background.positionY - playField.canvas.height;
-    background.positionY = newPosition;
+  if (this.background.positionY > playField.canvas.height) {
+    const newPosition = this.background.positionY - playField.canvas.height;
+    this.background.positionY = newPosition;
   }
-  background.positionY += this.speedY;
+  this.background.positionY += this.speedY;
 
   // move explosions
   this.explosionArray.forEach((explosionItem, index) => {
@@ -133,12 +133,26 @@ Game.prototype.moveEntities = function moveEntities() {
   });
 };
 
+Game.prototype.over = function over() {
+  return this.unit.health === 0;
+};
+
+Game.prototype.reset = function reset() {
+  this.bonusArray = [];
+  this.enemyArray = [];
+  this.explosionArray = [];
+  this.speedY = 6;
+  this.unit.score = 0;
+  this.unit.health = 100;
+  this.background.positionY = 0;
+};
+
 Game.prototype.userEvent = function userEvent() {
   if (this.keyState[KEY_CODES.RIGHT_ARROW]) {
-    unit.moveRight();
+    this.unit.moveRight();
   }
   if (this.keyState[KEY_CODES.LEFT_ARROW]) {
-    unit.moveLeft();
+    this.unit.moveLeft();
   }
   if (this.keyState[KEY_CODES.DOWN_ARROW]) {
     this.speedY -= 0.2;
@@ -158,7 +172,7 @@ Game.prototype.update = function update() {
 };
 
 Game.prototype.render = function render() {
-  background.drawBack();
+  this.background.drawBack();
 
   this.enemyArray.forEach((enemyItem) => {
     enemyItem.draw();
@@ -172,10 +186,7 @@ Game.prototype.render = function render() {
     explosionItem.drawExplosion();
   });
 
-  unit.draw();
-
-  outputScore.innerHTML = unit.score;
-  outputHealth.innerHTML = unit.health;
+  this.unit.draw();
 };
 
-export { Game, unit, background };
+export { Game };

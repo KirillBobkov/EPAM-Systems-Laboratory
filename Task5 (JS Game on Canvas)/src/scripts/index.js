@@ -1,6 +1,6 @@
 import '../styles/index.scss';
-import { Game, background, unit } from './entities/';
-import { welcomePage, gameOverPage, resetGame, restartGame, pauseGame, best, startGame } from './services';
+import { Game } from './entities/';
+import { welcomePage, gameOverPage, resetGame, restartGame, pauseGame, bestScoreField, startGame, currentScoreField, currentHealthField } from './services';
 
 const game = new Game();
 
@@ -12,31 +12,41 @@ function onKeyUp(event) {
   game.keyState[event.keyCode] = false;
 }
 
-window.document.addEventListener('keydown', onKeyDown);
-window.document.addEventListener('keyup', onKeyUp);
-
 function disablePage(page) {
   page.style.display = 'none';
 }
 
-function checkGameOver() {
-  if (unit.health === 0 && game.running === false) {
-    gameOverPage.style.display = 'block';
+function enablePage(page) {
+  page.style.display = 'block';
+}
 
-    const data = sessionStorage.getItem('bestScore');
-    if (data < unit.score || data == null) {
-      sessionStorage.setItem('bestScore', unit.score);
-    }
+function setBestResult() {
+  const data = sessionStorage.getItem('bestScore');
+  if (data < game.unit.score || data == null) {
+    sessionStorage.setItem('bestScore', game.unit.score);
   }
 }
 
 function getBestResult() {
-  best.innerHTML = sessionStorage.getItem('bestScore') || 0;
+  bestScoreField.innerHTML = sessionStorage.getItem('bestScore') || 0;
+}
+
+function checkGameOver() {
+  if (game.over()) {
+    enablePage(gameOverPage);
+    setBestResult();
+  }
+}
+
+function setCurrentDataOfGame() {
+  currentScoreField.innerHTML = game.unit.score;
+  currentHealthField.innerHTML = game.unit.health;
 }
 
 function start() {
-  getBestResult();
   disablePage(welcomePage);
+  getBestResult();
+  setCurrentDataOfGame();
   game.update();
   game.render();
   checkGameOver();
@@ -50,29 +60,30 @@ function pause() {
   game.running = !game.running;
   if (game.running) {
     pauseGame.innerHTML = 'Pause';
-    start();
   } else {
     pauseGame.innerHTML = 'Resume';
-    start();
   }
+  start();
 }
 
 function reset() {
-  disablePage(gameOverPage);
-  game.bonusArray = [];
-  game.enemyArray = [];
-  game.explosionArray = [];
-  game.speedY = 6;
-  unit.score = 0;
-  unit.health = 100;
-  background.positionY = 0;
+  game.reset();
+
   if (!game.running) {
     game.running = !game.running;
     start();
   }
 }
 
+function restart() {
+  disablePage(gameOverPage);
+  reset();
+}
+
 pauseGame.addEventListener('click', pause);
 resetGame.addEventListener('click', reset);
-restartGame.addEventListener('click', reset);
+restartGame.addEventListener('click', restart);
 startGame.addEventListener('click', start);
+
+window.document.addEventListener('keydown', onKeyDown);
+window.document.addEventListener('keyup', onKeyUp);
