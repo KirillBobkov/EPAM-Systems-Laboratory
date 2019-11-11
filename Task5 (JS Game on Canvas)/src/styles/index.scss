@@ -34,6 +34,9 @@ p {
 
 
 .info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     padding: 50px;
 
     &__description {
@@ -89,10 +92,10 @@ p {
 
 .welcome {
     position: absolute;
-    top: 4%;
-    left: 4%;
-    bottom: 4%;
-    right: 4%;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0 ;
     background-image: url(/src/image/welcomeBackground.jpg);
     background-size: cover;
 
@@ -120,10 +123,10 @@ p {
 .gameOverPage {
     position: absolute;
     display: none;
-    top: 4%;
-    left: 4%;
-    bottom: 4%;
-    right: 4%;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
     background: black;
     background-image: url(/src/image/gameOver.jpg);
     background-size: cover;

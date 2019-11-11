@@ -1,12 +1,11 @@
-import { KEY_CODES } from '../constants';
+import { KEY_CODES, unitConfig, backgroundConfig, enemyConfig, bonusConfig, explosionConfig } from '../constants';
 import { playField } from '../services';
 import { Enemy, Bonus, Explosion, Background, Unit } from './index';
 import { collisionCheck, generateRandomXPosition, imageAdapter, chooseSrcForEnemy } from '../helpers';
 
 function Game() {
   this.running = true;
-  this.pause = false;
-  this.speedY = 6;
+  this.speedY = 8;
   this.timer = 0;
   this.enemyArray = [];
   this.bonusArray = [];
@@ -14,33 +13,35 @@ function Game() {
   this.keyState = [];
 
   this.background = new Background({
-    image: imageAdapter('src/image/back3.png'),
-    positionX: 0,
-    positionY: 0,
+    image: backgroundConfig.image,
+    positionX: backgroundConfig.positionX,
+    positionY: backgroundConfig.positionY,
     width: playField.canvas.width,
     height: playField.canvas.height,
   });
 
   this.unit = new Unit({
-    image: imageAdapter('src/image/superman.png'),
-    positionX: 170,
-    positionY: 400,
-    width: 25,
-    height: 78,
-    health: 100,
+    image: unitConfig.image,
+    positionX: unitConfig.positionX,
+    positionY: unitConfig.positionY,
+    width: unitConfig.width,
+    height: unitConfig.height,
+    health: unitConfig.health,
+    score: unitConfig.score,
   });
 }
 
 Game.prototype.generateEnemy = function generateEnemy() {
   this.timer += 1;
-  if (this.timer % 40 === 0) {
+  if (this.timer % 35 === 0) {
     const enemy = new Enemy({
       image: chooseSrcForEnemy(),
       positionX: generateRandomXPosition(),
-      positionY: -350,
-      width: 70,
-      height: 240,
+      positionY: enemyConfig.positionY,
+      width: enemyConfig.width,
+      height: enemyConfig.height,
     });
+
     this.enemyArray.push(enemy);
   }
 };
@@ -50,17 +51,18 @@ Game.prototype.generateBonus = function generateBonus() {
     const bonus = new Bonus({
       image: imageAdapter('src/image/bonus.png'),
       positionX: generateRandomXPosition(),
-      positionY: -32,
-      width: 16,
-      height: 32,
+      positionY: bonusConfig.positionY,
+      width: bonusConfig.width,
+      height: bonusConfig.height,
     });
 
     if (this.timer % 100 === 0) {
       bonus.image = imageAdapter('src/image/bonusSpeed.png');
+      bonus.width = bonusConfig.widthSpeedBonus;
+      bonus.height = bonusConfig.heightSpeedBonus;
       bonus.boost = true;
-      bonus.width = 37;
-      bonus.height = 43;
     }
+
     this.bonusArray.push(bonus);
   }
 };
@@ -75,13 +77,13 @@ Game.prototype.collisionOccursEnemy = function collisionOccursEnemy() {
       }
 
       const explosion = new Explosion({
-        image: imageAdapter('src/image/explosion.png'),
+        image: explosionConfig.image,
         positionX: enemyItem.positionX,
         positionY: enemyItem.positionY + (enemyItem.height / 2),
-        width: 100,
-        height: 100,
-        animationX: 0,
-        animationY: 0,
+        width: explosionConfig.width,
+        height: explosionConfig.height,
+        animationX: explosionConfig.animationX,
+        animationY: explosionConfig.animationY,
       });
       this.explosionArray.push(explosion);
     }
@@ -92,9 +94,11 @@ Game.prototype.collisionOccursBonus = function collisionOccursBonus() {
   this.bonusArray.forEach((bonusItem, index) => {
     if (collisionCheck(bonusItem, this.unit)) {
       this.unit.score += 1;
+
       if ('boost' in bonusItem) {
-        this.speedY = 10;
+        this.speedY = 12;
       }
+
       this.bonusArray.splice(index, 1);
     }
   });
@@ -104,6 +108,7 @@ Game.prototype.moveEntities = function moveEntities() {
   // move background
   if (this.background.positionY > playField.canvas.height) {
     const newPosition = this.background.positionY - playField.canvas.height;
+
     this.background.positionY = newPosition;
   }
   this.background.positionY += this.speedY;
@@ -137,17 +142,18 @@ Game.prototype.over = function over() {
   return this.unit.health === 0;
 };
 
-Game.prototype.reset = function reset() {
+Game.prototype.restart = function restart() {
   this.bonusArray = [];
   this.enemyArray = [];
   this.explosionArray = [];
-  this.speedY = 6;
-  this.unit.score = 0;
-  this.unit.health = 100;
-  this.background.positionY = 0;
+  this.speedY = 8;
+  this.unit.score = unitConfig.score;
+  this.unit.health = unitConfig.health;
+  this.background.positionY = backgroundConfig.positionX;
+  this.running = true;
 };
 
-Game.prototype.userEvent = function userEvent() {
+Game.prototype.unitMoving = function unitMoving() {
   if (this.keyState[KEY_CODES.RIGHT_ARROW]) {
     this.unit.moveRight();
   }
@@ -156,14 +162,23 @@ Game.prototype.userEvent = function userEvent() {
   }
   if (this.keyState[KEY_CODES.DOWN_ARROW]) {
     this.speedY -= 0.2;
-    if (this.speedY < 6) {
-      this.speedY = 6;
+    if (this.speedY < 8) {
+      this.speedY = 8;
     }
   }
 };
 
+Game.prototype.changeUnit = function changeUnit() {
+  if (this.speedY >= 12) {
+    this.unit.image = imageAdapter('src/image/supermanBoost.png');
+  } else {
+    this.unit.image = unitConfig.image;
+  }
+};
+
 Game.prototype.update = function update() {
-  this.userEvent();
+  this.unitMoving();
+  this.changeUnit();
   this.generateEnemy();
   this.generateBonus();
   this.collisionOccursEnemy();

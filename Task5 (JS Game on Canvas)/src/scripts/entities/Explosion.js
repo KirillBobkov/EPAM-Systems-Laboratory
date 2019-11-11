@@ -7,6 +7,8 @@ function Explosion({
   positionY,
   width,
   height,
+  animationX,
+  animationY,
 }) {
   Component.call(this, {
     image,
@@ -15,10 +17,9 @@ function Explosion({
   });
   this.width = width;
   this.height = height;
-  this.animationX = 165;
-  this.animationY = 0;
+  this.animationX = animationX;
+  this.animationY = animationY;
 }
-
 
 Explosion.prototype = Object.create(Component.prototype);
 Explosion.prototype.constructor = Explosion;
@@ -28,12 +29,12 @@ Explosion.prototype.drawExplosion = function drawExplosion() {
     this.image,
     this.animationX,
     this.animationY,
-    80,
-    80,
+    this.width * 0.8,
+    this.height * 0.8,
     this.positionX - 30,
     this.positionY - 55,
-    120,
-    120,
+    this.width * 1.2,
+    this.height * 1.2,
   );
 
   this.animationX += 80;
