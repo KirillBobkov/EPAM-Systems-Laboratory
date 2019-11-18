@@ -6,10 +6,11 @@ html, body {
     font-size: 14px;
     font-weight: 700;
     text-transform: uppercase;
+    background-color: #000000;
 }
 
 body {
-    background-image: url(/src/image/gameBackground.jpg);
+ 
     background-size: cover;
 }
 
@@ -96,7 +97,8 @@ p {
     left: 0;
     bottom: 0;
     right: 0 ;
-    background-image: url(/src/image/welcomeBackground.jpg);
+    background-color: #000000;
+ 
     background-size: cover;
 
     &__title {
@@ -128,7 +130,7 @@ p {
     bottom: 0;
     right: 0;
     background: black;
-    background-image: url(/src/image/gameOver.jpg);
+
     background-size: cover;
     z-index: 3;
 

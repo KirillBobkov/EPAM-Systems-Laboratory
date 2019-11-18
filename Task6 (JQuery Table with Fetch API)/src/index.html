@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Task 6</title>
+</head>
+<body id="body">
+
+<div class="container">
+      <table id="table" class="table table-bordered">
+        <thead id="table_head">
+            <tr>
+              <td colspan="3">
+                <div class="toolbar">
+                  <div class="toolbar">
+                    <input type="text" class="form-control" id="searchInput" placeholder="enter name products" />
+                    <input data-action="search" type="button" class="btn btn-info" id="searchButton" value="Search">
+                  </div>
+                  <button  class="btn btn-success" data-type="addNew" data-action="openAddWindow">Add New</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <th class="table_head-cell">
+                Name
+                <input data-action="sort" type="button" id="sortButtonName" class="button--hidden">
+                <label for="sortButtonName" class="button button--label-name button--down"></label>
+              </th>
+              <th class="table_head-cell">
+                Price
+                <input data-action="sort" type="button" id="sortButtonPrice" class="button--hidden">
+                <label for="sortButtonPrice" class="button button--label-price button--down"></label>
+              </th>
+              <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="table_content">
+        </tbody>
+      </table>
+
+ <div class="modalWindow">
+    <h3>Are you sure?</h3>
+    <p>Are you sure you want to perform this action?</p>
+    <div class="modalWindow_buttons">
+      <input data-action="deleteItem" type="button" class="btn btn-success" value="Yes">
+      <input data-action="close" id="closeDeleteWindow" type="button" class="btn btn-danger" value="No">
+    </div>
+  </div>
+
+</div>
+
+<div id="overlay"></div>
+
+  <div class="modalWindow--edit panel panel-default">
+    <div class="panel-body">
+      <div class="d-flex justify-content-end">
+        <button data-action="close" id="closeEditWindow" class="btn btn-danger btn--left">Close</button>
+      </div>
+
+      <form role="form" class="form-add-product">
+        <div class="form-group">
+          <label class="form-label" for="name-product">Name:</label>
+          <input type="text" class="form-control" id="name-product-input" name="name-product" />
+          <div class="error"></div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="email-supplier">Supplier e-mail:</label>
+          <input type="text" class="form-control" id="email-supplier-input" name="email-supplier"/>
+          <div class="error"></div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="count-product">Count:</label>
+          <input type="text" class="form-control form-control--short" id="count-product-input" name="count-product"/>
+          <div class="error"></div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="price-product">Price</label>
+          <input type="text" class="form-control" id="price-product-input" name="price-product"  />
+          <div class="error"></div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label"></label>
+
+          <div class="blocks-of-seletions">
+           <div class="block-delivery">
+              <label for="delivery-product">Delivery:</label>
+              <select id="delivery-product" name="delivery-product" class="form-control  form-control--short">
+                <option value=""></option>
+              </select>
+            </div>
+            <div class="block-country form-control form-control--margin form-control--short">
+                <div class="radio">
+                  <label>
+                    <input type="radio" name="" id="first" value="" />
+                  </label>
+                </div>
+            </div>
+            <div  class="block-city form-control form-control--margin form-control--short">
+                <label>
+                  <input id="" type="checkbox" value="" />
+                </label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+         <button type="submit" id="btnAddProduct" class="btn btn-success">Add</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+<script src='./scripts/index.js'></script>
+
+</body>
+</html>

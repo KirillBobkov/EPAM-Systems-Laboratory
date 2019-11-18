@@ -7,7 +7,7 @@ function imageAdapter(src) {
 function chooseSrcForEnemy() {
   const image = new Image();
   const rand = Math.floor(1 + (Math.random() * 7));
-  image.src = `src/image/barrier${rand}.png`;
+  image.src = `public/barrier${rand}.png`;
   return image;
 }
 

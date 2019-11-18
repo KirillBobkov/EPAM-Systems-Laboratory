@@ -49,7 +49,7 @@ Game.prototype.generateEnemy = function generateEnemy() {
 Game.prototype.generateBonus = function generateBonus() {
   if (this.timer % 10 === 0) {
     const bonus = new Bonus({
-      image: imageAdapter('src/image/bonus.png'),
+      image: bonusConfig.image,
       positionX: generateRandomXPosition(),
       positionY: bonusConfig.positionY,
       width: bonusConfig.width,
@@ -57,7 +57,7 @@ Game.prototype.generateBonus = function generateBonus() {
     });
 
     if (this.timer % 100 === 0) {
-      bonus.image = imageAdapter('src/image/bonusSpeed.png');
+      bonus.image = imageAdapter('public/bonusSpeed.png');
       bonus.width = bonusConfig.widthSpeedBonus;
       bonus.height = bonusConfig.heightSpeedBonus;
       bonus.boost = true;
@@ -170,7 +170,7 @@ Game.prototype.unitMoving = function unitMoving() {
 
 Game.prototype.changeUnit = function changeUnit() {
   if (this.speedY >= 12) {
-    this.unit.image = imageAdapter('src/image/supermanBoost.png');
+    this.unit.image = imageAdapter('public/supermanBoost.png');
   } else {
     this.unit.image = unitConfig.image;
   }

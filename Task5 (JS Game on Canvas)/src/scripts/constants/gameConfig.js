@@ -1,7 +1,7 @@
 import { imageAdapter } from '../helpers';
 
 export const unitConfig = {
-  image: imageAdapter('src/image/superman.png'),
+  image: imageAdapter('public/superman.png'),
   width: 25,
   height: 78,
   health: 100,
@@ -13,7 +13,7 @@ export const unitConfig = {
 };
 
 export const backgroundConfig = {
-  image: imageAdapter('src/image/back3.png'),
+  image: imageAdapter('public/back3.png'),
   positionX: 0,
   positionY: 0,
 };
@@ -25,6 +25,7 @@ export const enemyConfig = {
 };
 
 export const bonusConfig = {
+  image: imageAdapter('public/bonus.png'),
   positionY: -32,
   width: 16,
   height: 32,
@@ -33,7 +34,7 @@ export const bonusConfig = {
 };
 
 export const explosionConfig = {
-  image: imageAdapter('src/image/explosion.png'),
+  image: imageAdapter('public/explosion.png'),
   width: 100,
   height: 100,
   animationX: 5,
