@@ -22,11 +22,18 @@ export class TableView {
     this.countInputValue = $('#count-product-input');
     this.nameInputValue = $('#name-product-input');
     this.emailInputValue = $('#email-supplier-input');
+
+    this.delivery = $('#delivery-product');
+    this.blockCountry = $('.block-country');
+    this.blockCity = $('.block-city');
+    this.form = $('.form-add-product');
+
+    this.spinner = $('.spin-wrapper');
   }
 
   empty = () => {
     this.tableBody.empty();
-  };
+  }
 
   renderTable = (array) => {
     this.empty();
@@ -34,30 +41,30 @@ export class TableView {
     array.forEach((item) => {
       const tableRowTemplate = 
         `<tr id="${item.id}" >
-          <td>${item.name}<span class="badge badge-pill badge-dark float-right">${item.count}</span></td>
-          <td>${item.price}</td>
-          <td data="${item.id}"></td>
+          <td><a class="arrow" data-action="openEditWindow">${item.name}</a><span class="badge badge-pill badge-dark float-right">${item.count}</span></td>
+          <td>$ ${item.price.toString().replace(/(\d)(?=(\d{3})+([^\d]|$))/g, '$1,')}</td>
+          <td class="action-buttons" data="${item.id}"></td>
         </tr>`;
 
       this.tableBody.append(tableRowTemplate);
 
       const buttonEdit = $('<input>', {
-        "type": "button",
-        "value": "Edit",
-        "class": 'btn btn-warning',
-        "id": item.id,
-        "data-action": "openEditWindow",             
+        type: "button",
+        value: "Edit",
+        class: 'btn btn-warning',
+        id: item.id,
+        "data-action":"openEditWindow",             
       });
 
       const buttonDelete = $('<input>', {
-        "type": "button",
-        "value": "Delete",
-        "class": 'btn btn-danger',
-        "id": item.id,
+        type: "button",
+        value: "Delete",
+        class: 'btn btn-danger',
+        id: item.id,
         "data-action": "openDeleteWindow",                                  
       });
 
-      $(`[data="${item.id}"]`).append(buttonEdit, buttonDelete);
+      $(`.action-buttons`).empty().append(buttonEdit, buttonDelete);
     });
   }
 
@@ -74,7 +81,6 @@ export class TableView {
       this.reverseName = false;
       this.sortLabelName.removeClass('button--up')
                         .addClass('button--down');
-    
     }
     this.renderTable(sortedArray);
   }
@@ -107,13 +113,60 @@ export class TableView {
 
   renderAfterDelete = (identificator, array) => {
     let changedArray = array;
-    const removeIndex = changedArray.map( item => item.id).indexOf(identificator);
+    const removeIndex = changedArray.map(item => item.id).indexOf(identificator);
     changedArray.splice(removeIndex, 1);
     this.renderTable(changedArray);
   }
 
+  getInputsValues = () => {
+    let name =  this.nameInputValue.val();
+    let price = this.priceInputValue.val();
+    let count = this.countInputValue.val();
+    let email = this.emailInputValue.val();
+
+    const newItem = {
+      delivery: {
+        country: "bif",
+        city: "bif"
+      },
+      count: count,
+      price: price,
+      name: name,
+      email: email,
+      id: 1111,
+    }
+    return newItem;
+  }
+
   fillInputs = (currentItem) => {
-    let {name, price, count, email} = currentItem;
+    let {
+      count,
+      price,
+      name,
+      email,
+    } = currentItem;
+
+    // if (country) {
+    //  this.blockCountry.css("display", "flex");
+
+    //   let template = `<label for="${country}1">
+    //   <input type="radio" id="${country}1">
+    //   ${country}</label>`;
+      
+    //   this.blockCountry.append(template);
+    // }
+
+    // if (rest.length) {
+    //   this.changeStateOfWindow( this.blockCity, "flex");
+
+    //   rest.forEach(city => {
+    //     let template = `<label for="${city}1">
+    //     <input type="checkbox" id="${city}1">
+    //     ${city}</label>`;
+
+    //     this.blockCity.append(template);
+    //   });
+    // }
 
     this.nameInputValue.val(name);
     this.priceInputValue.val(price);
@@ -121,12 +174,107 @@ export class TableView {
     this.emailInputValue.val(email);
   }
 
-  clearInputs = () => {
-    this.nameInputValue.val('');
-    this.priceInputValue.val('');
-    this.countInputValue.val('');
-    this.emailInputValue.val('');
-  }
+  fillDelivery = (defaultDelivery) => {
+      const selectedCheckbox = $('#delivery-product :selected');
+      
+      if (selectedCheckbox.text() === 'Country') {
+        this.changeStateOfWindow( this.blockCity, "none");
+        this.changeStateOfWindow( this.blockCountry, "flex");
 
+        this.blockCountry.empty();
+        for (let key in defaultDelivery) {
+          let template = `<label for="${key}-identificator">
+          <input class="radio-buttons" name="country" type="radio" value="${key}" id="${key}-identificator">
+          ${key}</label>`;
+        
+          this.blockCountry.append(template);
+        } 
+      } else if (selectedCheckbox.text() === 'City') {
+          this.changeStateOfWindow( this.blockCity, "flex");
+          this.changeStateOfWindow( this.blockCountry, "none");
+    
+          this.blockCity.empty();
+          for (let key in defaultDelivery) {
+                defaultDelivery[key].forEach(item => {
+      
+                this.changeStateOfWindow( this.blockCity, "flex");
+      
+                let template = `<label for="${item}-identificator">
+                <input class="checkbox-buttons" type="checkbox" value="${item}" id="${item}-identificator">
+                ${item}</label>`;
+        
+                this.blockCity.append(template);
+              });   
+          }
+        } else if (selectedCheckbox.text() === 'Choose region'){
+          this.changeStateOfWindow( this.blockCity, "none");
+          this.changeStateOfWindow( this.blockCountry, "none");
+        }
+      } 
+
+  
+//   fillDeliveryCity = (defaultDelivery) => {
+//     const selectedCheckbox = $('#delivery-product :selected');
+    
+    // if (selectedCheckbox.text() === 'City') {
+    //   this.changeStateOfWindow( this.blockCity, "flex");
+    //   this.changeStateOfWindow( this.blockCountry, "none");
+
+    //   this.blockCity.empty();
+    //   for (let key in defaultDelivery) {
+    //   let template = `<label for="${key}-identificator">
+    //   <input class="radio-buttons" name="country" type="radio" value="${key}" id="${key}-identificator">
+    //   ${key}</label>`;
+    
+    //   this.blockCountry.append(template);
+    //   } 
+    // }
+
+    
+// }
+
+
+
+
+  // fillDeliveryCity = (event, defaultDelivery) => {
+  //   this.blockCity.empty();
+
+   
+  // }
+
+  // fillDeliveryOfCurrentItem = (event, defaultDelivery) => {
+  //   this.blockCountry.empty();
+
+  //   this.changeStateOfWindow( this.blockCountry, "flex");
+  //   this.changeStateOfWindow( this.blockCity, "flex");
+
+  //     for (let key in defaultDelivery) {
+  //       let template = `<label for="${key}-identificator">
+  //       <input class="radio-buttons" name="country" type="radio" value="${key}" id="${key}-identificator">
+  //       ${key}</label>`;
+  //       this.blockCountry.append(template);
+
+
+
+  //       if (event.target.value == key) {
+  //         defaultDelivery[key].forEach(item => {
+  //         let template = `<label for="${item}-identificator">
+  //         <input class="checkbox-buttons" type="checkbox" value="${item}" id="${item}-identificator">
+  //         ${item}</label>`;
+  //         this.blockCity.append(template);
+  //       });   
+  //     }
+
+  //     }
+  // }
+  
+
+  clearInputs = () => {
+    this.form.trigger("reset");
+    this.blockCity.empty();
+    this.blockCountry.empty();
+    this.changeStateOfWindow( this.blockCity, "none");
+    this.changeStateOfWindow( this.blockCountry, "none");
+  }
 }
 
