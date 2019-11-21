@@ -52,33 +52,31 @@
 </div>
 
 <div id="overlay"></div>
-
   <div class="modalWindow--edit panel panel-default">
-    <div class="panel-body">
-      <button data-action="close" id="closeEditWindow" class="btn btn-danger btn--left float-right">Close</button>
-      
+      <div class="panel-body">
+      <button type="button" data-action="close" id="closeEditWindow" class="btn btn-danger btn--left float-right">Close</button>
       <form role="form" class="form-add-product"> 
         <div class="form-group">
           <label class="form-label" for="name-product">Name:</label>
-          <input type="text" class="form-control" id="name-product-input" name="name-product" placeholder="Enter name"/>
+          <input type="text" data-reset="clearStyles" class="form-control" id="name-product-input" name="name-product" placeholder="Enter name"/>
           <div class="error"></div>
         </div>
 
         <div class="form-group">
           <label class="form-label" for="email-supplier">Supplier e-mail:</label>
-          <input type="text" class="form-control" id="email-supplier-input" name="email-supplier" placeholder="Enter e-mail"/>
+          <input type="email" data-reset="clearStyles" class="form-control" id="email-supplier-input" name="email-supplier" placeholder="Enter e-mail"/>
           <div class="error"></div>
         </div>
 
         <div class="form-group">
           <label class="form-label" for="count-product">Count:</label>
-          <input type="text" class="form-control form-control--short" id="count-product-input" name="count-product" placeholder="Enter count"/>
+          <input type="number" min="0" max="1000000000000" data-reset="clearStyles" class="form-control form-control--short" id="count-product-input" name="count-product" placeholder="Enter count"/>
           <div class="error"></div>
         </div>
 
         <div class="form-group">
-          <label class="form-label" for="price-product">Price</label>
-          <input type="text" class="form-control" id="price-product-input" name="price-product"  placeholder="Enter price of product"/>
+          Price
+          <input type="text" data-reset="clearStyles" class="form-control" id="price-product-input" name="price-product"  placeholder="Enter price of product"/>
           <div class="error"></div>
         </div>
 
@@ -86,11 +84,12 @@
           <div class="blocks-of-seletions">
            <div class="block-delivery">
               <label for="delivery-product">Delivery:</label>
-              <select id="delivery-product" name="delivery-product" class="form-control  form-control--short">
+              <select data-reset="clearStyles" id="delivery-product" name="delivery-product" class="form-control  form-control--short">
                 <option selected>Choose region</option>
-                <option value="country">Country</option>
-                <option value="city">City</option>
+                <option id="option-country" value="country">Country</option>
+                <option id="option-city" value="city">City</option>
               </select>
+              <div class="error"></div>
             </div>
 
             <div class="block-country form-control--margin form-control--short">
@@ -102,15 +101,15 @@
             </div>
           </div>
         </div>
-         <button type="button" data-action="add" id="btnAddProduct" class="btn btn-success">Add</button>
       </form>
+      <button type="button" data-action="add" id="btnAddProduct" class="btn btn-success">Add</button>
     </div>
   </div>
 
-<div class="spin-wrapper">
-    <div class="spinner">
-     
-    </div>
+  <div class="spin-wrapper">
+      <div class="spinner"> 
+  </div>
+
 </div>
 
 <script src='./scripts/index.js'></script>

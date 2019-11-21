@@ -135,14 +135,16 @@ input[type="button"] {
 /*spinner*/
 
 .spin-wrapper{
-  position: absolute;
+  position: fixed;
+  top: 0;
+  right: 0;
   width: 100%;
   height: 100vh;
   background: #ffffff;
 }
 
 .spinner {
-  position: absolute;
+  position: fixed;
   height: 120px;
   width: 120px;
   border: 10px solid transparent;
@@ -158,4 +160,11 @@ input[type="button"] {
 @keyframes spin{
   0% {transform: rotate(0deg);}
   100% {transform: rotate(360deg);}
+}
+
+.errorName {
+  display: none;
+  width: 100px;
+  height: 30px;
+  background: red;
 }
