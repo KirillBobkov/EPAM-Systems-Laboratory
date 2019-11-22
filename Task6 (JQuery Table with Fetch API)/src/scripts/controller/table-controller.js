@@ -102,7 +102,6 @@ export class TableController {
       }
 
       this.view.changeStateOfWindow(this.view.spinner, "block");
-      // this.loadTable();
       this.view.changeStateOfWindow(this.view.editWindow, "none");
       this.view.changeOverlayState(false);
       this.view.addScrollOfPage();
@@ -114,7 +113,6 @@ export class TableController {
     this.view.changeStateOfWindow(this.view.deleteWindow, "none");
     this.view.changeOverlayState(false);
     this.view.changeStateOfWindow(this.view.spinner, "block");
-    // this.loadTable();
     this.view.addScrollOfPage();
   }
 
@@ -151,9 +149,19 @@ export class TableController {
     this.view.radioButtons.click(this.saveCheckedCountry);
     this.view.fillDeliveryCity(this.model.checkedCountry, this.model.checkedCities, this.model.defaultDelivery);
     this.view.checkboxButtons.click(this.saveCheckedCity);
-    this.view.selectAll.click(this.view.selectAllCheckboxes());
+    this.view.selectAll.click(this.selectAllCheckboxes);
   }
 
+  selectAllCheckboxes = () => {
+    this.view.selectAll.on('change', () => {
+      if (this.view.selectAll.prop("checked")) {
+        this.view.checkboxButtons.prop("checked", true);
+      } else {
+        this.view.checkboxButtons.prop("checked", false);
+      }
+    });
+  }
+  
   //helpers
   makePriceToNumber = () => {
       this.view.priceInputValue.val(this.model.formatToDigit( this.view.priceInputValue.val() ));

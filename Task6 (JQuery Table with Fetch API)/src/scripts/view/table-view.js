@@ -172,7 +172,6 @@ export class TableView {
         let checkedCountry = key;
       
         defaultDelivery[checkedCountry].forEach(item => {
-          
           let template = `<label for="${item}-identificator">
           <input class="checkbox-buttons" type="checkbox" value="${item}" id="${item}-identificator">
           ${item}</label>`;
@@ -186,7 +185,6 @@ export class TableView {
           });
         });  
       }
-     
     }
   }
 
@@ -252,16 +250,7 @@ export class TableView {
     
     }
     this.selectAll = $('.selectAll');
-
-  
     this.checkboxButtons = $('.checkbox-buttons');
-  }
-
-  selectAllCheckboxes = () => {
-    this.selectAll.change( function() {
-      // let status = this.selectAll.attr("checked") ? "checked" : false;
-      this.checkboxButtons.attr("checked", true);
-    });
   }
 
   stopScroll = () => {
@@ -271,7 +260,6 @@ export class TableView {
   addScrollOfPage = () => {
     this.body.removeClass("modal-open");
   }
-  
       
   clearInputs = () => {
     this.form.trigger("reset");

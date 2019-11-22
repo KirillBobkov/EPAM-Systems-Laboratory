@@ -32,7 +32,7 @@ export class TableModel {
       },
       body: JSON.stringify(newItem),
     })
-    //этот присваивает отправленному объекту сгенерированный id
+    //этот код присваивает отправленному объекту сгенерированный id
     // .then(response  => {
     //     this.arrayData.map(item => {
     //     item.id = response.Data.id
@@ -49,8 +49,7 @@ export class TableModel {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(newItem),
-    })
-    // .then(response => console.log(response));
+    });
   }
 
 
