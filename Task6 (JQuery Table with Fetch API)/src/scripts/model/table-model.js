@@ -2,8 +2,6 @@ import { request } from '../utils';
 import { PRODUCTS_URL} from '../contants';
 import $ from 'jquery';
 
-
-
 export class TableModel {
   constructor() {
     this.currentItemId = undefined;
@@ -15,13 +13,12 @@ export class TableModel {
 
   loadProducts = () => request(PRODUCTS_URL);
 
-  deleteProducts = (id, DELETE_PRODUCT_URL) => {
+  deleteProductOnServer = (id, DELETE_PRODUCT_URL) => {
     let deleteUrl = DELETE_PRODUCT_URL + `${id}`;
 
     return request(deleteUrl, {
       method: 'DELETE'
     })
-    .then(response => console.log(response));
   }
 
   pushNewProductToServer = (addUrl, newItem) => {
@@ -52,7 +49,6 @@ export class TableModel {
     });
   }
 
-
   getCurrentItem = identificator => {
     this.currentObject = this.arrayData.find(obj => obj.id === identificator);
   }
@@ -73,7 +69,6 @@ export class TableModel {
     const removeIndex = this.arrayData.map(item => item.id).indexOf(this.currentItemId);
     this.arrayData.splice(removeIndex, 1, newItem);
   }
-
 
   checkEmpty = event => {
     if (event.target.value !== '') {

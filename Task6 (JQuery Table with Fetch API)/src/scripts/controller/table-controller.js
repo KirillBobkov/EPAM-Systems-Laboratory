@@ -27,7 +27,7 @@ export class TableController {
   }
 
   deleteFromTable = () => {
-    return this.model.deleteProducts(this.model.currentItemId, DELETE_PRODUCT_URL)
+    return this.model.deleteProductOnServer(this.model.currentItemId, DELETE_PRODUCT_URL)
     .then(this.loadTable());
   }
 

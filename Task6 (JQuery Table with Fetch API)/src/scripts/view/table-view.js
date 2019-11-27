@@ -85,7 +85,7 @@ export class TableView {
     if (this.reverseName === false) {
       sortedArray.sort((a, b) => a["name"].localeCompare(b["name"]));
       this.reverseName = true;
-      this.sortLabelName.removeClass('button--down')  
+      this.sortLabelName.removeClass('button--down')
                         .addClass('button--up');
     } else {
       sortedArray.sort((a, b) => b["name"].localeCompare(a["name"]));
@@ -103,23 +103,14 @@ export class TableView {
       sortedArray.sort((a, b) => a.price - b.price);
       this.reversePrice = true;
       this.sortLabelPrice.removeClass('button--down')
-                        .addClass('button--up');
+                         .addClass('button--up');
     } else {
       sortedArray.sort((a, b) => b.price - a.price);
       this.reversePrice = false;
       this.sortLabelPrice.removeClass('button--up')
-                        .addClass('button--down');
+                         .addClass('button--down');
     }
     this.renderTable(sortedArray);
-  }
-
-  changeStateOfWindow = (window, state) => {
-    window.css("display", state);
-  }
-
-  changeOverlayState = state => {
-    if (state) this.overlay.fadeIn(400)
-    else this.overlay.fadeOut(400)
   }
 
   getInputsValues = (obj, cities, country) => {
@@ -143,7 +134,6 @@ export class TableView {
   fillInputs = (currentItem, changedPrice, defaultDelivery) => {
     let {
       count,
-      price,
       name,
       email,
       delivery: {
@@ -260,7 +250,16 @@ export class TableView {
   addScrollOfPage = () => {
     this.body.removeClass("modal-open");
   }
-      
+
+  changeStateOfWindow = (window, state) => {
+    window.css("display", state);
+  }
+
+  changeOverlayState = state => {
+    if (state) this.overlay.fadeIn(400)
+    else this.overlay.fadeOut(400)
+  }
+  
   clearInputs = () => {
     this.form.trigger("reset");
     this.blockCity.empty();
