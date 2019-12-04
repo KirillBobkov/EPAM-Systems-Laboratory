@@ -1,0 +1,10 @@
+.category-list-container {
+    width: 39%;
+    padding-right: 1%;
+  }
+
+.category-list {
+  padding-right: 10px;
+  min-height: 500px;
+  overflow-y: scroll;
+}

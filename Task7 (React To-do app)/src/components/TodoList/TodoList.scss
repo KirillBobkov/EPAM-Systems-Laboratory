@@ -1,0 +1,13 @@
+.todo-list-container {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+  
+  .todo-list {
+    min-height: 500px;
+    width: 100%;
+    padding-right: 10px;
+    overflow-y: scroll;
+  }
