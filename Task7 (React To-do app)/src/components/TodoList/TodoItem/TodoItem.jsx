@@ -9,8 +9,10 @@ export function TodoItem(props) {
   return (
     <div className='todo-item-container'>
       <div>
-        <Checkbox className='checkbox' />
-        <span>{item.name}</span>
+        <label>
+          <Checkbox className='checkbox checkbox--margin' id={item.name} />
+          <span>{item.name}</span>
+        </label>
       </div>
       <Button className='fas fa-edit' />
     </div>

@@ -9,7 +9,7 @@ export class Toolbar extends Component {
   render () {
     return (
       <div className='search-bar'>
-        <label><Checkbox />Show done</label>
+        <label><Checkbox id='search' className='checkbox' />Show done</label>
         <div>
           <Input type='search' placeholder='Search' />
           <Button className='fa fa-times' />

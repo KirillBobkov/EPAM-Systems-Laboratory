@@ -5,7 +5,6 @@ import { TodoAdd } from './TodoAdd';
 import './TodoList.scss';
 
 export function TodoList(props) {
-  console.log(props);
   const itemElements = props.data.map((item) =>
     <li key={item.id}><TodoItem item={item} /></li>
   );
