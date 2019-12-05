@@ -184,7 +184,8 @@ export class TableController {
     return (this.checkEmptyName() &&
         this.checkLength() &&
         this.checkEmail() && 
-        this.checkSpaces())
+        this.checkSpaces() &&
+        this.checkEmptyCount() )
   }
 
   stopOtherSymbols = () => {
@@ -200,6 +201,16 @@ export class TableController {
       return false; 
     } else {
       this.view.hideError(this.view.nameInputValue);
+      return true;
+    }
+  }
+
+  checkEmptyCount = () => {
+    if (this.view.countInputValue.val() == '') {
+      this.view.showError( this.view.countInputValue, "Поле не может быть пустым");
+      return false; 
+    } else {
+      this.view.hideError(this.view.countInputValue);
       return true;
     }
   }
