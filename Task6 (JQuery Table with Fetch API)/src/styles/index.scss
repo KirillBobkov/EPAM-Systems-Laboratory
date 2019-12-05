@@ -1,5 +1,10 @@
 @import "bootstrap";
 
+td {
+  overflow-x: auto;
+  max-width: 200px;
+}
+
 input[type="button"] {
   margin-left: 10px;
 }

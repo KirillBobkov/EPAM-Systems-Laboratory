@@ -24,7 +24,7 @@ export class TableController {
       this.view.changeStateOfWindow(this.view.spinner, "none");
       this.view.renderTable(this.model.arrayData);
     });
-  }
+  } 
 
   deleteFromTable = () => {
     return this.model.deleteProductOnServer(this.model.currentItemId, DELETE_PRODUCT_URL)
@@ -181,15 +181,10 @@ export class TableController {
 
  //validator
   validator = () => {
-    if (this.checkEmptyName() &&
+    return (this.checkEmptyName() &&
         this.checkLength() &&
         this.checkEmail() && 
-        this.checkSpaces() 
-        )
-      {
-        return true;
-      }
-    return false;
+        this.checkSpaces())
   }
 
   stopOtherSymbols = () => {
