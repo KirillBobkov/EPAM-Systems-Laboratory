@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Button, Checkbox } from '../../primitives';
 import './TodoItem.scss';
 import { connect } from 'react-redux';
-import { checkTodo } from '../../../store/CategoryList/actions';
+import { checkTodo } from '../../../store/TodoList/actions';
 
 class TodoItem extends Component {
   constructor(props) {

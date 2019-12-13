@@ -3,15 +3,21 @@ import ReactDOM from 'react-dom';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import App from './components/App';
-import reducer from './store/CategoryList/index';
+import reducer from './store/rootReduser';
 // import { Router, Route, hashHistory } from 'react-router';
 
-const store = createStore(reducer);
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
-console.log(store.getState());
+const store = createStore(
+  reducer,
+  window.__REDUX_DEVTOOLS_EXTENSION__ &&
+  window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <Router>
+      <Route path='/' component={App} />
+    </Router>
   </Provider>,
   document.getElementById('root'));

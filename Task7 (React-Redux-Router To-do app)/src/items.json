@@ -1,51 +1,53 @@
-[{
-  "name":"Cola",
-  "id":"thydgfnfhj",
-  "categoryId": "2431324",
-  "done": false
-},
 {
-  "name":"Fanta",
-  "id":"djhytyj",
-  "categoryId": "2431324",
-  "done": true
-},
-{
-  "name":"Cakes",
-  "id":"ggnfdgf",
-  "categoryId": "243543698",
-  "done": false
-},
-{
-  "name":"Cookies",
-  "id":"sfdgsfdg",
-  "categoryId": "243543698",
-  "done": false
-},
-{
-  "name":"Boxing",
-  "id":"sdfgdfg",
-  "categoryId": "54762542235",
-  "done": true
-},
-{
-  "name":"Skiing",
-  "id":"ersfdgfdg",
-  "categoryId": "54762542235",
-  "done": false
-},
-{
-  "name":"Drinks",
-  "id":"2431324",
-  "checked": false
-},
-{
-  "name":"Eat",
-  "id":"243543698",
-  "checked": false
-},
-{
-  "name":"Sports",
-  "id":"54762542235",
-  "checked": false
-}]
+  "items": [{
+    "name":"Cola",
+    "id":"thydgfnfhj",
+    "categoryId": "2431324",
+    "done": false
+  },
+  {
+    "name":"Fanta",
+    "id":"djhytyj",
+    "categoryId": "2431324",
+    "done": true
+  },
+  {
+    "name":"Cakes",
+    "id":"ggnfdgf",
+    "categoryId": "243543698",
+    "done": false
+  },
+  {
+    "name":"Cookies",
+    "id":"sfdgsfdg",
+    "categoryId": "243543698",
+    "done": false
+  },
+  {
+    "name":"Boxing",
+    "id":"sdfgdfg",
+    "categoryId": "54762542235",
+    "done": true
+  },
+  {
+    "name":"Skiing",
+    "id":"ersfdgfdg",
+    "categoryId": "54762542235",
+    "done": false
+  }],
+  "categories": [{
+    "name":"Drinks",
+    "id":"2431324",
+    "checked": false
+  },
+  {
+    "name":"Eat",
+    "id":"243543698",
+    "checked": false
+  },
+  {
+    "name":"Sports",
+    "id":"54762542235",
+    "checked": false
+  }]
+}

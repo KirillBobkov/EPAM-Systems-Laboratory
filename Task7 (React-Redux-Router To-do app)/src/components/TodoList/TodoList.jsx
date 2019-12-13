@@ -4,21 +4,15 @@ import TodoItem from './TodoItem';
 import TodoAdd from './TodoAdd';
 import './TodoList.scss';
 import { connect } from 'react-redux';
+// import { useParams } from 'react-router';
 
 class TodoList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      checkedCategory: '243543698'
-    };
-  }
-
   render() {
-    console.log(this.props);
-
-    const todoElements = this.props.state.filter(element => element.categoryId).map((item, index) =>
-      <li key={item.id + index}><TodoItem item={item} /></li>
-    );
+    const todoElements = this.props.state.length
+      ? this.props.state.map((item, index) => {
+        return <li key={item.id + index}><TodoItem item={item} /></li>;
+      })
+      : <li>Let's create new task</li>;
 
     return (
       <div className='todo-list-container'>
@@ -35,9 +29,9 @@ TodoList.propTypes = {
   state: PropTypes.array
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
   return {
-    state
+    state: state.itemReducer.filter(task => task.categoryId === ownProps.match.params.id)
   };
 };
 

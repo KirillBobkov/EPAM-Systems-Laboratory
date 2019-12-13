@@ -1,2 +1,1 @@
-export * from './CategoryList';
-export * from './TodoList';
+export { default } from './rootReduser';

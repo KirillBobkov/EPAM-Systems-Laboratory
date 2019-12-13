@@ -6,7 +6,7 @@ import { Button } from '../primitives/Button';
 import './Header.scss';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { findTodoItem } from '../../store/CategoryList/actions';
+import { findTodoItem } from '../../store/TodoList/actions';
 
 class Header extends Component {
   constructor(props) {

@@ -1,13 +1,10 @@
 .category-item {
+    background: inherit;
     display: flex;
     justify-content: space-between;
     border: 1px solid #dddddd;
     padding: 5px;
     overflow: hidden;
-
-    &:hover {
-      background: #eeeeee;
-    }
   }
 
 .category-name {
@@ -17,9 +14,5 @@
     overflow: hidden;
     max-width: 140px;
     text-overflow: ellipsis;
-}
-
-.red {
-  outline: 2px solid red;
 }
 

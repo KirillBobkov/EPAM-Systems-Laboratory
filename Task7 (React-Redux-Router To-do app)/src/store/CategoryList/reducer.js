@@ -1,32 +1,35 @@
-import { ADD_TODO, CHECK_TODO, DELETE_TODO, FIND_TODO } from './actions';
+import { ADD_CATEGORY, DELETE_CATEGORY, CHECK_CATEGORY } from './actions';
 
 const initialState = require('../../items.json');
 
-export default (state = initialState, action) => {
+export default (state = initialState.categories, action) => {
   switch (action.type) {
-    case ADD_TODO: {
+    case ADD_CATEGORY: {
       const newState = [action.payload, ...state];
       return newState;
     }
-    case CHECK_TODO: {
+    case DELETE_CATEGORY: {
+      const newState = state.filter(item => item.id !== action.id);
+      return newState;
+    }
+
+    case CHECK_CATEGORY: {
       const newState = [...state].map(item => {
+        return {
+          ...item,
+          checked: false
+        };
+      });
+
+      return newState.map(item => {
         if (item.id !== action.id) {
           return item;
         }
         return {
           ...item,
-          done: !item.done
+          checked: !item.checked
         };
       });
-      return newState;
-    }
-    case FIND_TODO: {
-      const newState = [...state];
-      return newState.filter(item => item.name.toLowerCase().includes(action.payload.toLowerCase()));
-    }
-    case DELETE_TODO: {
-      const newState = state.filter(item => item.id !== action.id);
-      return newState;
     }
     default:
       return state;
