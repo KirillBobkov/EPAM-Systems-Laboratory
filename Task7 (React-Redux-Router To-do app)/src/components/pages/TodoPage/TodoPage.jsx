@@ -5,7 +5,7 @@ import CategoryList from '../../CategoryList';
 import { ProgressBar } from '../../primitives';
 import Header from '../../Header';
 import './TodoPage.scss';
-import { Switch, Route } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 
 export default class TodoPage extends Component {
   render() {
@@ -16,10 +16,7 @@ export default class TodoPage extends Component {
           <ProgressBar />
           <div className='content'>
             <CategoryList />
-
-            <Switch>
-              <Route path='/:id' component={TodoList} />
-            </Switch>
+            <Route path='/:id' component={TodoList} />
           </div>
         </main>
       </>

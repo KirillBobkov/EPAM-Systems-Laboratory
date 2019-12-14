@@ -27,7 +27,7 @@ class CategoryItem extends Component {
 
   render() {
     const { category } = this.props;
-    // console.log(category.checked);
+    console.log(category.checked);
     // const classes = category.checked ? 'category-item red' : 'category-item';
 
     return (

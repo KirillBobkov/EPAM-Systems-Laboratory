@@ -1,23 +1,31 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import App from './components/App';
-import reducer from './store/rootReduser';
-// import { Router, Route, hashHistory } from 'react-router';
+// import { Route } from 'react-router-dom';
 
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { createBrowserHistory } from 'history';
+import { applyMiddleware, createStore } from 'redux';
+import { routerMiddleware, ConnectedRouter } from 'connected-react-router';
+import createRootReducer from './store/rootReduser';
+import { composeWithDevTools } from 'redux-devtools-extension';
+
+const history = createBrowserHistory();
 
 const store = createStore(
-  reducer,
-  window.__REDUX_DEVTOOLS_EXTENSION__ &&
-  window.__REDUX_DEVTOOLS_EXTENSION__()
+  createRootReducer(history),
+  undefined,
+  composeWithDevTools(
+    applyMiddleware(
+      routerMiddleware(history)
+    )
+  )
 );
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router>
-      <Route path='/' component={App} />
-    </Router>
+    <ConnectedRouter history={history}>
+      <App />
+    </ConnectedRouter>
   </Provider>,
   document.getElementById('root'));
