@@ -5,16 +5,18 @@ const initialState = require('../../items.json');
 export default (state = initialState.items, action) => {
   switch (action.type) {
     case CHECK_TODO: {
-      const newState = [...state].map(item => {
+      const newState = [...state];
+
+      return newState.map(item => {
         if (item.id !== action.id) {
           return item;
+        } else {
+          return {
+            ...item,
+            done: !item.done
+          };
         }
-        return {
-          ...item,
-          done: !item.done
-        };
       });
-      return newState;
     }
     case DELETE_ITEMS: {
       const newState = state.filter(item => item.categoryId !== action.id);

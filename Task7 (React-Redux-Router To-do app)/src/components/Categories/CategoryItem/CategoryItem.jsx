@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import { Button } from '../../primitives';
 import './CategoryItem.scss';
 import { connect } from 'react-redux';
-import { deleteCategory, checkCategory } from '../../../store/CategoryList/actions';
-import { deleteAllItemsOfThisCategory } from '../../../store/TodoList/actions';
+import { deleteCategory } from '../../../store/Categories/actions';
+import { deleteAllItemsOfThisCategory } from '../../../store/Tasks/actions';
+import { push } from 'connected-react-router';
 
 class CategoryItem extends Component {
   constructor(props) {
@@ -15,22 +16,21 @@ class CategoryItem extends Component {
 
   handleDelete(event) {
     if (event.target.tagName === 'BUTTON') {
+      event.stopPropagation();
+      this.props.push('/');
       this.props.deleteCategory(this.props.category.id);
       this.props.deleteAllItemsOfThisCategory(this.props.category.id);
     }
   }
 
   handleClick() {
-    const { category } = this.props;
-    this.props.checkCategory(category.id);
+    this.props.push(`/${this.props.category.id}`);
   }
 
   render() {
     const { category } = this.props;
-    console.log(category.checked);
-    // const classes = category.checked ? 'category-item red' : 'category-item';
-
     return (
+
       <div className='category-item' onClick={this.handleClick} id={category.id}>
         <div>
           <Button className='fas fa-chevron-left' />
@@ -53,17 +53,14 @@ CategoryItem.propTypes = {
   category: PropTypes.object,
   name: PropTypes.string,
   deleteCategory: PropTypes.func,
-  checkCategory: PropTypes.func,
-  deleteAllItemsOfThisCategory: PropTypes.func
+  deleteAllItemsOfThisCategory: PropTypes.func,
+  push: PropTypes.func
 };
 
 const mapDispatchToProps = {
-  deleteCategory, checkCategory, deleteAllItemsOfThisCategory
+  deleteCategory,
+  deleteAllItemsOfThisCategory,
+  push
 };
 
-export default connect(
-  state => ({
-    state
-  }),
-  mapDispatchToProps
-)(CategoryItem);
+export default connect(state => ({}), mapDispatchToProps)(CategoryItem);

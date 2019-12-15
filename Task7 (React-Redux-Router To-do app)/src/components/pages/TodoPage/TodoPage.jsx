@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
 import React, { Component } from 'react';
-import TodoList from '../../TodoList';
-import CategoryList from '../../CategoryList';
-import { ProgressBar } from '../../primitives';
+import TodoList from '../../Tasks';
+import Categories from '../../Categories';
+import { ProgressBar, NoMatch } from '../../primitives';
 import Header from '../../Header';
 import './TodoPage.scss';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router';
 
 export default class TodoPage extends Component {
   render() {
@@ -15,8 +15,11 @@ export default class TodoPage extends Component {
         <main className='main'>
           <ProgressBar />
           <div className='content'>
-            <CategoryList />
-            <Route path='/:id' component={TodoList} />
+            <Categories />
+            <Switch>
+              <Route exact path='/:id' component={TodoList} />
+              <Route component={NoMatch} />
+            </Switch>
           </div>
         </main>
       </>

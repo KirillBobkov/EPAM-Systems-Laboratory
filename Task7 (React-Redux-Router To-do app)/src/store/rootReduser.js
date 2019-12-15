@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import categoryReducer from './CategoryList';
-import itemReducer from './TodoList';
+import categoryReducer from './Categories';
+import itemReducer from './Tasks';
 import { connectRouter } from 'connected-react-router';
 
 export default (history) => combineReducers({

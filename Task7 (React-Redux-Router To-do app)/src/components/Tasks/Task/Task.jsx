@@ -1,19 +1,29 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Checkbox } from '../../primitives';
-import './TodoItem.scss';
+import './Task.scss';
 import { connect } from 'react-redux';
-import { checkTodo } from '../../../store/TodoList/actions';
+import { checkTodo } from '../../../store/Tasks/actions';
+// import { Route } from 'react-router';
+import { push } from 'connected-react-router';
+// import { Link } from 'react-router-dom';
 
 class TodoItem extends Component {
   constructor(props) {
     super(props);
     this.handleCheck = this.handleCheck.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   handleCheck() {
     const { item } = this.props;
     this.props.checkTodo(item.id);
+  }
+
+  handleClick() {
+    const { item } = this.props;
+    console.log(this.props);
+    this.props.push(`/${item.categoryId}/edit`);
   }
 
   render() {
@@ -26,7 +36,7 @@ class TodoItem extends Component {
             <span className='todo-item-name'>{item.name}</span>
           </label>
         </div>
-        <Button className='fas fa-edit' />
+        <Button onClick={this.handleClick} className='fas fa-edit' />
       </div>
     );
   }
@@ -35,14 +45,16 @@ class TodoItem extends Component {
 TodoItem.propTypes = {
   name: PropTypes.string,
   item: PropTypes.object,
-  checkTodo: PropTypes.func
+  checkTodo: PropTypes.func,
+  push: PropTypes.func
 };
 
 const mapDispatchToProps = {
-  checkTodo
+  checkTodo, push
 };
 
-export default connect(
-  null,
-  mapDispatchToProps
-)(TodoItem);
+const mapStateToProps = (state) => {
+  return {};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(TodoItem);

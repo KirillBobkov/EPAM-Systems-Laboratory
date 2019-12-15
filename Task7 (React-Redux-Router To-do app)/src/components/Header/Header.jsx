@@ -6,7 +6,7 @@ import { Button } from '../primitives/Button';
 import './Header.scss';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { findTodoItem } from '../../store/TodoList/actions';
+import { findTodoItem } from '../../store/Tasks/actions';
 
 class Header extends Component {
   constructor(props) {
@@ -64,10 +64,7 @@ const mapDispatchToProps = {
   findTodoItem
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
 
 Header.propTypes = {
   findTodoItem: PropTypes.func

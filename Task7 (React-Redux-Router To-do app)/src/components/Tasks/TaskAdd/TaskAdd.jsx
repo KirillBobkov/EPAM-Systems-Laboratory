@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import './TodoAdd.scss';
+import './TaskAdd.scss';
 import PropTypes from 'prop-types';
 import { Button, Input } from '../../primitives';
-import { addTodoItem } from '../../../store/TodoList/actions';
+import { addTodoItem } from '../../../store/Tasks/actions';
 import { connect } from 'react-redux';
 
-class TodoAdd extends Component {
+class TaskAdd extends Component {
   constructor(props) {
     super(props);
     this.handleInputTodo = this.handleInputTodo.bind(this);
@@ -16,12 +16,10 @@ class TodoAdd extends Component {
   }
 
   handleAddTodo() {
-    console.log(this.props);
-    const { state } = this.props;
-    const checkedCategory = state.filter(category => category.checked === true)[0];
+    const { categoryId } = this.props;
 
     if (this.state.inputTodoValue) {
-      this.props.addTodoItem(this.state.inputTodoValue, checkedCategory.id);
+      this.props.addTodoItem(this.state.inputTodoValue, categoryId);
       this.setState({
         inputTodoValue: ''
       });
@@ -54,22 +52,22 @@ class TodoAdd extends Component {
   }
 }
 
-TodoAdd.propTypes = {
+TaskAdd.propTypes = {
   addTodoItem: PropTypes.func,
-  state: PropTypes.array
+  categoryId: PropTypes.string
+};
+
+const mapStateToProps = (state, ownProps) => {
+  return {
+    categoryId: window.location.pathname.slice(1)
+  };
 };
 
 const mapDispatchToProps = {
   addTodoItem
 };
 
-const mapStateToProps = (state) => {
-  return {
-    state: state.categoryReducer
-  };
-};
-
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(TodoAdd);
+)(TaskAdd);

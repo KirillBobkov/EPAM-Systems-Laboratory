@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Input } from '../../primitives';
 import './CategoryAdd.scss';
-import { addCategory } from '../../../store/CategoryList/actions';
+import { addCategory } from '../../../store/Categories/actions';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -63,7 +63,4 @@ const mapDispatchToProps = {
   addCategory
 };
 
-export default connect(
-  null,
-  mapDispatchToProps
-)(CategoryAdd);
+export default connect(null, mapDispatchToProps)(CategoryAdd);
