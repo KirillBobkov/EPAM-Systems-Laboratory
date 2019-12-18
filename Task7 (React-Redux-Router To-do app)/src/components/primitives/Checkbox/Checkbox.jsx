@@ -1,8 +1,8 @@
+import './Checkbox.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
-import './Checkbox.scss';
 
-export function Checkbox(props) {
+export function Checkbox (props) {
   return (
     <span className={props.className}>
       <input

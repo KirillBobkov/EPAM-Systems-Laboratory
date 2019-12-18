@@ -52,6 +52,7 @@
   "dependencies": {
     "connected-react-router": "^6.6.1",
     "normalize.css": "^8.0.1",
-    "redux-devtools-extension": "^2.13.8"
+    "redux-devtools-extension": "^2.13.8",
+    "urijs": "^1.19.2"
   }
 }

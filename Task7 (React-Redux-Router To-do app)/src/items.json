@@ -1,53 +1,56 @@
 {
   "items": [{
     "name":"Cola",
-    "id":"thydgfnfhj",
-    "categoryId": "2431324",
-    "done": false
+    "id":"cola",
+    "categoryId": "drinks",
+    "done": false,
+    "description": "Coca-cola is the best drink"
   },
   {
     "name":"Fanta",
-    "id":"djhytyj",
-    "categoryId": "2431324",
-    "done": true
+    "id":"fanta",
+    "categoryId": "drinks",
+    "done": true,
+    "description": "Fanta is orange, have you know this?"
   },
   {
     "name":"Cakes",
-    "id":"ggnfdgf",
-    "categoryId": "243543698",
-    "done": false
+    "id":"cakes",
+    "categoryId": "eat",
+    "done": false,
+    "description": "Cakes make you fat"
   },
   {
     "name":"Cookies",
-    "id":"sfdgsfdg",
-    "categoryId": "243543698",
-    "done": false
+    "id":"cookies",
+    "categoryId": "eat",
+    "done": false,
+    "description": "Cookies make you fat, like Cakes"
   },
   {
     "name":"Boxing",
-    "id":"sdfgdfg",
-    "categoryId": "54762542235",
-    "done": true
+    "id":"boxing",
+    "categoryId": "sports",
+    "done": true,
+    "description": "Boxing is a hard sport"
   },
   {
     "name":"Skiing",
-    "id":"ersfdgfdg",
-    "categoryId": "54762542235",
-    "done": false
+    "id":"skiing",
+    "categoryId": "sports",
+    "done": false,
+    "description": "Skiing is a dangerous winter sport"
   }],
   "categories": [{
     "name":"Drinks",
-    "id":"2431324",
-    "checked": false
+    "id":"drinks"
   },
   {
     "name":"Eat",
-    "id":"243543698",
-    "checked": false
+    "id":"eat"
   },
   {
     "name":"Sports",
-    "id":"54762542235",
-    "checked": false
+    "id":"sports"
   }]
 }

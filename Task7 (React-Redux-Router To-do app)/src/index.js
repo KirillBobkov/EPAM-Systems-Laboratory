@@ -9,7 +9,6 @@ import { applyMiddleware, createStore } from 'redux';
 import { routerMiddleware, ConnectedRouter } from 'connected-react-router';
 import createRootReducer from './store/rootReduser';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { Route, Switch } from 'react-router';
 // import { NoMatch } from './components/primitives';
 // import EditPage from './components/pages/EditPage';
 

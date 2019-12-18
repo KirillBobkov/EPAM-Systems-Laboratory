@@ -1,12 +1,10 @@
+import './Task.scss';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Checkbox } from '../../primitives';
-import './Task.scss';
 import { connect } from 'react-redux';
 import { checkTodo } from '../../../store/Tasks/actions';
-// import { Route } from 'react-router';
 import { push } from 'connected-react-router';
-// import { Link } from 'react-router-dom';
 
 class TodoItem extends Component {
   constructor(props) {
@@ -22,8 +20,7 @@ class TodoItem extends Component {
 
   handleClick() {
     const { item } = this.props;
-    console.log(this.props);
-    this.props.push(`/${item.categoryId}/edit`);
+    this.props.push(`/edit/${item.categoryId}/${item.id}`);
   }
 
   render() {
@@ -32,11 +29,19 @@ class TodoItem extends Component {
       <div className='todo-item-container'>
         <div>
           <label>
-            <Checkbox onChange={this.handleCheck} className='checkbox checkbox--margin' id={item.id} done={item.done} />
+            <Checkbox
+              onChange={this.handleCheck}
+              className='checkbox checkbox--margin'
+              id={item.id}
+              done={item.done}
+            />
             <span className='todo-item-name'>{item.name}</span>
           </label>
         </div>
-        <Button onClick={this.handleClick} className='fas fa-edit' />
+        <Button
+          onClick={this.handleClick}
+          className='fas fa-edit'
+        />
       </div>
     );
   }
@@ -54,7 +59,9 @@ const mapDispatchToProps = {
 };
 
 const mapStateToProps = (state) => {
-  return {};
+  return {
+    state
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodoItem);

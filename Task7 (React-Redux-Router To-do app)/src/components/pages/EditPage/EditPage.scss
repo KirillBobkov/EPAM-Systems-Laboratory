@@ -5,11 +5,10 @@
       align-items: flex-end;
   }
   
-  .content {
-    display: flex;
-    justify-content: space-between;
-    margin: 0 auto;
-    justify-content: flex-start;
-    align-content: center;
-  }
   
+  .main {
+    width: 800px;
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-bottom: 30px;
+  }

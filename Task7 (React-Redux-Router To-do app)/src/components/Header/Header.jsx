@@ -6,7 +6,9 @@ import { Button } from '../primitives/Button';
 import './Header.scss';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { findTodoItem } from '../../store/Tasks/actions';
+import { findTodoItem, showDoneTasks } from '../../store/Tasks/actions';
+import URI from 'urijs';
+import { push } from 'connected-react-router';
 
 class Header extends Component {
   constructor(props) {
@@ -15,7 +17,8 @@ class Header extends Component {
     this.handleClearSearchInput = this.handleClearSearchInput.bind(this);
     this.handleShowDone = this.handleShowDone.bind(this);
     this.state = {
-      inputSearchValue: ''
+      inputSearchValue: '',
+      checked: false
     };
   }
 
@@ -30,12 +33,28 @@ class Header extends Component {
     this.setState({
       inputSearchValue: value
     },
-    () => this.props.findTodoItem(this.state.inputSearchValue)
+    () => {
+      const currUri = new URI(window.location.pathname + window.location.search);
+      const searchObj = { ...currUri.search(true), ...this.state };
+      searchObj.input
+        ? this.props.push(currUri.search(searchObj).toString())
+        : this.props.push(currUri.search(searchObj).removeSearch('input').toString());
+    }
     );
   }
 
   handleShowDone() {
-    console.log('show All');
+    this.setState({
+      checked: !this.state.checked
+    },
+    () => {
+      const currUri = new URI(window.location.pathname);
+      const searchObj = { ...currUri.search(true), ...this.state };
+      searchObj.checked
+        ? this.props.push(currUri.search(searchObj).toString())
+        : this.props.push(currUri.search(searchObj).removeSearch('checked').toString());
+    }
+    );
   }
 
   render () {
@@ -43,7 +62,7 @@ class Header extends Component {
       <header className='header'>
         <h1 className='title'>To-do list</h1>
         <div className='search-bar'>
-          <label><Checkbox id='search' className='checkbox' onChange={this.handleShowDone} />Show done</label>
+          <label><Checkbox id='search' className='checkbox' onChange={this.handleShowDone} done={this.state.checked} />Show done</label>
           <div>
             <Input type='search' placeholder='Search' onChange={this.handleInputSearch} value={this.state.inputSearchValue} />
             <Button className='fa fa-times search-button' onClick={this.handleClearSearchInput} />
@@ -54,6 +73,11 @@ class Header extends Component {
   }
 }
 
+Header.propTypes = {
+  findTodoItem: PropTypes.func,
+  push: PropTypes.func
+};
+
 const mapStateToProps = state => {
   return {
     state
@@ -61,11 +85,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = {
-  findTodoItem
+  findTodoItem, showDoneTasks, push
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);
-
-Header.propTypes = {
-  findTodoItem: PropTypes.func
-};

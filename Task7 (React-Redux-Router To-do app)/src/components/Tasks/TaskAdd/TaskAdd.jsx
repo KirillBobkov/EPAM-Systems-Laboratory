@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Button, Input } from '../../primitives';
 import { addTodoItem } from '../../../store/Tasks/actions';
 import { connect } from 'react-redux';
+import URI from 'urijs';
 
 class TaskAdd extends Component {
   constructor(props) {
@@ -17,6 +18,8 @@ class TaskAdd extends Component {
 
   handleAddTodo() {
     const { categoryId } = this.props;
+
+    console.log()
 
     if (this.state.inputTodoValue) {
       this.props.addTodoItem(this.state.inputTodoValue, categoryId);
@@ -58,8 +61,10 @@ TaskAdd.propTypes = {
 };
 
 const mapStateToProps = (state, ownProps) => {
+  const currUri = new URI(window.location.pathname + window.location.search);
+  const arr = currUri.path().split('/');
   return {
-    categoryId: window.location.pathname.slice(1)
+    categoryId: arr[arr.length - 1]
   };
 };
 

@@ -1,12 +1,18 @@
-import { FIND_TODO, ADD_TODO, CHECK_TODO, DELETE_ITEMS } from './actions';
+import { FIND_TODO, ADD_TODO, CHECK_TODO, DELETE_ITEMS, EDIT_TODO, MOVE_TODO } from './actions';
 
 const initialState = require('../../items.json');
 
 export default (state = initialState.items, action) => {
   switch (action.type) {
+    case MOVE_TODO: {
+      const newState = [...state];
+      newState.filter(item => item.id === action.payload.id).map(item => {
+        item.categoryId = action.payload.categoryId;
+      });
+      return newState;
+    }
     case CHECK_TODO: {
       const newState = [...state];
-
       return newState.map(item => {
         if (item.id !== action.id) {
           return item;
@@ -30,7 +36,16 @@ export default (state = initialState.items, action) => {
       const newState = [...state];
       return newState.filter(item => item.name.toLowerCase().includes(action.payload.toLowerCase()));
     }
-    default:
+    case EDIT_TODO: {
+      const newState = [...state];
+      newState.filter(item => item.id === action.payload.id).map(item => {
+        item.name = action.payload.name;
+        item.description = action.payload.description;
+      });
+      return newState;
+    }
+    default: {
       return state;
+    }
   }
 };

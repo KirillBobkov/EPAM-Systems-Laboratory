@@ -1,16 +1,14 @@
-
-  
   .main {
     width: 800px;
     margin: 0 auto;
+    padding: 10px;
     margin-bottom: 30px;
-    outline: 1px solid red;
+    border: 1px solid #dddddd;
   }
   
   .content {
     display: flex;
     justify-content: space-between;
-    width: 800px;
     margin: 0 auto;
     justify-content: flex-start;
     align-content: center;

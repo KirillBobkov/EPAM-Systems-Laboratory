@@ -6,12 +6,21 @@ import { connect } from 'react-redux';
 import { deleteCategory } from '../../../store/Categories/actions';
 import { deleteAllItemsOfThisCategory } from '../../../store/Tasks/actions';
 import { push } from 'connected-react-router';
+import URI from 'urijs';
 
 class CategoryItem extends Component {
   constructor(props) {
     super(props);
     this.handleDelete = this.handleDelete.bind(this);
-    this.handleClick = this.handleClick.bind(this);
+    this.handleChooseCategory = this.handleChooseCategory.bind(this);
+    this.handleCreateCategory = this.handleCreateCategory.bind(this);
+  }
+
+  handleCreateCategory(event) {
+    if (event.target.tagName === 'BUTTON') {
+      event.stopPropagation();
+      console.log(1);
+    }
   }
 
   handleDelete(event) {
@@ -23,15 +32,19 @@ class CategoryItem extends Component {
     }
   }
 
-  handleClick() {
-    this.props.push(`/${this.props.category.id}`);
+  handleChooseCategory() {
+    this.props.push(`/main/${this.props.category.id}`);
   }
 
   render() {
     const { category } = this.props;
+    const currUri = new URI(window.location.pathname + window.location.search);
+    const arr = currUri.path().split('/');
+    const classCategory = (arr.includes(category.id)) ? 'category-item checked' : 'category-item';
+
     return (
 
-      <div className='category-item' onClick={this.handleClick} id={category.id}>
+      <div className={classCategory} onClick={this.handleChooseCategory} id={category.id}>
         <div>
           <Button className='fas fa-chevron-left' />
           <span className='category-name'>{category.name}</span>
@@ -42,7 +55,7 @@ class CategoryItem extends Component {
             className='fas fa-trash-alt'
             onClick={this.handleDelete}
           />
-          <Button className='fas fa-plus' />
+          <Button onClick={this.handleCreateCategory} className='fas fa-plus' />
         </div>
       </div>
     );

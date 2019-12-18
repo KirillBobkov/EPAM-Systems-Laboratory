@@ -1,10 +1,11 @@
+import './Tasks.scss';
 import React, { Component } from 'react';
+import { push } from 'connected-react-router';
 import PropTypes from 'prop-types';
 import Task from './Task';
 import TaskAdd from './TaskAdd';
-import './Tasks.scss';
 import { connect } from 'react-redux';
-import { push } from 'connected-react-router';
+import URI from 'urijs';
 
 class Tasks extends Component {
   render() {
@@ -15,7 +16,7 @@ class Tasks extends Component {
       : <p className='todo-message'>Let's create new task</p>;
 
     if (!this.props.category.length) {
-      this.props.push('/');
+      this.props.push('/main');
     }
 
     return (
@@ -36,8 +37,21 @@ Tasks.propTypes = {
 };
 
 const mapStateToProps = (state, ownProps) => {
+  const currUri = new URI(window.location.pathname + window.location.search);
+  const searchObj = { ...currUri.search(true) };
+  console.log(searchObj);
+
+  if (!searchObj.checked) {
+    return {
+      items: state.itemReducer
+        .filter(task => task.categoryId === ownProps.match.params.id)
+        .filter(task => task.done === false),
+      category: state.categoryReducer.filter(category => category.id === ownProps.match.params.id)
+    };
+  }
   return {
-    items: state.itemReducer.filter(task => task.categoryId === ownProps.match.params.id),
+    items: state.itemReducer
+      .filter(task => task.categoryId === ownProps.match.params.id),
     category: state.categoryReducer.filter(category => category.id === ownProps.match.params.id)
   };
 };
