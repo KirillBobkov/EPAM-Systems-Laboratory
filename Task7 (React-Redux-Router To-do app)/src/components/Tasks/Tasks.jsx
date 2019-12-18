@@ -10,14 +10,10 @@ import URI from 'urijs';
 class Tasks extends Component {
   render() {
     const todoElements = (this.props.items.length)
-      ? this.props.items.map((item, index) => {
-        return <li key={item.id + index}><Task item={item} /></li>;
-      })
+      ? this.props.items.map(item => <li key={item.id}><Task item={item} /></li>)
       : <p className='todo-message'>Let's create new task</p>;
 
-    if (!this.props.category.length) {
-      this.props.push('/main');
-    }
+    !this.props.category.length && this.props.push('/main');
 
     return (
       <div className='todo-list-container'>
@@ -37,21 +33,16 @@ Tasks.propTypes = {
 };
 
 const mapStateToProps = (state, ownProps) => {
-  const currUri = new URI(window.location.pathname + window.location.search);
-  const searchObj = { ...currUri.search(true) };
-  console.log(searchObj);
+  const currentURI = new URI(window.location.pathname + window.location.search);
+  const searchParameters = { ...currentURI.search(true) };
 
-  if (!searchObj.checked) {
-    return {
-      items: state.itemReducer
-        .filter(task => task.categoryId === ownProps.match.params.id)
-        .filter(task => task.done === false),
-      category: state.categoryReducer.filter(category => category.id === ownProps.match.params.id)
-    };
-  }
   return {
     items: state.itemReducer
-      .filter(task => task.categoryId === ownProps.match.params.id),
+      .filter(task => task.categoryId === ownProps.match.params.id)
+      .filter(task => searchParameters.checked ? true : task.done === false)
+      .filter(task => searchParameters.searchTo
+        ? task.name.toLowerCase().includes(searchParameters.searchTo.toLowerCase())
+        : true),
     category: state.categoryReducer.filter(category => category.id === ownProps.match.params.id)
   };
 };

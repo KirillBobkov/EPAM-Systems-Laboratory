@@ -35,7 +35,7 @@ class TodoItem extends Component {
               id={item.id}
               done={item.done}
             />
-            <span className='todo-item-name'>{item.name}</span>
+            <span className={item.done ? 'todo-item-name done' : 'todo-item-name'}>{item.name}</span>
           </label>
         </div>
         <Button

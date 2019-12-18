@@ -9,15 +9,13 @@ class EditPage extends Component {
   render() {
     const { currentItem: item } = this.props;
     return (
-      <>
-        <main className='main'>
-          <h1>{item.name}</h1>
-          <div className='content'>
-            <EditList />
-            <EditWindow id={item.id} />
-          </div>
-        </main>
-      </>
+      <main className='main'>
+        <h1>{item.name}</h1>
+        <div className='content'>
+          <EditList />
+          <EditWindow id={item.id} />
+        </div>
+      </main>
     );
   }
 }

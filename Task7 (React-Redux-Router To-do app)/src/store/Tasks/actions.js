@@ -4,7 +4,6 @@ export const CHECK_TODO = 'CHECK_TODO';
 export const DELETE_ITEMS = 'DELETE_ITEMS';
 export const EDIT_TODO = 'EDIT_TODO';
 export const MOVE_TODO = 'MOVE_TODO';
-export const SHOW_DONE = 'SHOW_DONE';
 
 export const addTodoItem = (value, categoryId) => ({
   type: ADD_TODO,
@@ -47,10 +46,3 @@ export const moveTaskToCategory = (id, categoryId) => ({
     categoryId
   }
 });
-
-// export const showDoneTasks = (checked) => ({
-//   type: SHOW_DONE,
-//   payload: {
-//     status: checked
-//   }
-// });

@@ -7,6 +7,13 @@
     "description": "Coca-cola is the best drink"
   },
   {
+    "name":"Coffee",
+    "id":"coffee",
+    "categoryId": "drinks",
+    "done": false,
+    "description": "Coffee is the best drink"
+  },
+  {
     "name":"Fanta",
     "id":"fanta",
     "categoryId": "drinks",
@@ -14,11 +21,32 @@
     "description": "Fanta is orange, have you know this?"
   },
   {
+    "name":"Sprite",
+    "id":"sprite",
+    "categoryId": "drinks",
+    "done": true,
+    "description": "Sprite is transparent, have you know this?"
+  },
+  {
     "name":"Cakes",
     "id":"cakes",
     "categoryId": "eat",
     "done": false,
     "description": "Cakes make you fat"
+  },
+  {
+    "name":"Apples",
+    "id":"apples",
+    "categoryId": "eat",
+    "done": true,
+    "description": "Apples make you more healthy"
+  },
+  {
+    "name":"Grapes",
+    "id":"grapes",
+    "categoryId": "eat",
+    "done": false,
+    "description": "Grapes make you more healthy"
   },
   {
     "name":"Cookies",
@@ -33,6 +61,20 @@
     "categoryId": "sports",
     "done": true,
     "description": "Boxing is a hard sport"
+  },
+  {
+    "name":"Racing",
+    "id":"racing",
+    "categoryId": "sports",
+    "done": true,
+    "description": "Racing is a hard sport"
+  },
+  {
+    "name":"Hockey",
+    "id":"hockey",
+    "categoryId": "sports",
+    "done": false,
+    "description": "Hockey is a hard sport"
   },
   {
     "name":"Skiing",

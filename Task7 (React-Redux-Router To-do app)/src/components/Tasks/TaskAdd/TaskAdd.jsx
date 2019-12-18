@@ -19,8 +19,6 @@ class TaskAdd extends Component {
   handleAddTodo() {
     const { categoryId } = this.props;
 
-    console.log()
-
     if (this.state.inputTodoValue) {
       this.props.addTodoItem(this.state.inputTodoValue, categoryId);
       this.setState({
@@ -72,7 +70,4 @@ const mapDispatchToProps = {
   addTodoItem
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(TaskAdd);
+export default connect(mapStateToProps, mapDispatchToProps)(TaskAdd);

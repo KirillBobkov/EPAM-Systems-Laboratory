@@ -1,13 +1,26 @@
 .button {
     background: transparent;
-    border: none;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    padding: 5px;
 
     &--with-border {
         border: 1px solid #dddddd;
+    }
+
+    &:hover {
+      background: #bbbbbb;
+      border: 1px solid #bbbbbb;
     }
 }
 
 .search-button {
     position: relative;
-    left: -23px;
+    left: -25px;
+}
+
+.fa-arrow-circle-left:after {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    content: ' MOVE';
+    font-size: 10px;
 }

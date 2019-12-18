@@ -4,6 +4,7 @@ import CategoryItem from './CategoryItem';
 import CategoryAdd from './CategoryAdd';
 import './Categories.scss';
 import { connect } from 'react-redux';
+import URI from 'urijs';
 
 class Category extends Component {
   render() {
@@ -15,9 +16,13 @@ class Category extends Component {
       </li>
     );
 
+    const currenURI = new URI(window.location.pathname + window.location.search);
+    const arr = currenURI.path().split('/');
+    const toolbar = (arr.includes('edit')) ? <span /> : <CategoryAdd />;
+
     return (
       <div className='category-list-container'>
-        <CategoryAdd />
+        {toolbar}
         <ul className='category-list'>
           {categoryElements}
         </ul>

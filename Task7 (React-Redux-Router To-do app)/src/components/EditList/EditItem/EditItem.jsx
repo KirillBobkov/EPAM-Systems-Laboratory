@@ -15,7 +15,7 @@ class EditItem extends Component {
     const { category } = this.props;
     const path = window.location.pathname.split('/');
     this.props.moveTaskToCategory(path[path.length - 1], category.id);
-    this.props.push(`/main/${category.id}`);
+    this.props.push(`/edit/${category.id}/${path[path.length - 1]}`);
   }
 
   render() {
@@ -23,11 +23,12 @@ class EditItem extends Component {
 
     const buttonPlace = window.location.pathname.includes(category.id)
       ? <span />
-      : <Button onClick={this.handleMoveCategory} className='fas fa-level-down-alt' />;
+      : <Button onClick={this.handleMoveCategory} className='fas fa-arrow-circle-left' />;
+    const classNames = window.location.pathname.includes(category.id) ? 'category-item checked' : 'category-item';
 
     return (
 
-      <div className='category-item' id={category.id}>
+      <div className={classNames} id={category.id}>
         <div>
           <span className='category-name'>{category.name}</span>
         </div>
