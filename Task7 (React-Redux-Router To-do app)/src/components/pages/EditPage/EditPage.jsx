@@ -12,7 +12,9 @@ class EditPage extends Component {
       <main className='main'>
         <h1>{item.name}</h1>
         <div className='content'>
-          <EditList />
+          <div className='categories-container'>
+            <EditList />
+          </div>
           <EditWindow id={item.id} />
         </div>
       </main>

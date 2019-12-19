@@ -1,28 +1,21 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import CategoryItem from './CategoryItem';
-import CategoryAdd from './CategoryAdd';
 import './Categories.scss';
 import { connect } from 'react-redux';
-import URI from 'urijs';
 
-class Category extends Component {
+class Categories extends Component {
   render() {
     const { categories } = this.props;
-
+    const classes = this.props.className ? 'category-list-container child' : 'category-list-container';
     const categoryElements = categories.map((category) =>
       <li key={category.id}>
         <CategoryItem category={category} />
       </li>
     );
 
-    const currenURI = new URI(window.location.pathname + window.location.search);
-    const arr = currenURI.path().split('/');
-    const toolbar = (arr.includes('edit')) ? <span /> : <CategoryAdd />;
-
     return (
-      <div className='category-list-container'>
-        {toolbar}
+      <div className={classes}>
         <ul className='category-list'>
           {categoryElements}
         </ul>
@@ -31,14 +24,17 @@ class Category extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
   return {
-    categories: state.categoryReducer
+    categories: state.categoryReducer.filter(category => ownProps.parentId
+      ? category.parentId === ownProps.parentId
+      : category.parentId === '')
   };
 };
 
-export default connect(mapStateToProps)(Category);
+export default connect(mapStateToProps)(Categories);
 
-Category.propTypes = {
-  categories: PropTypes.array
+Categories.propTypes = {
+  categories: PropTypes.array,
+  className: PropTypes.string
 };

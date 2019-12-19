@@ -1,19 +1,26 @@
 .category-item {
-    background: inherit;
-    display: flex;
-    justify-content: space-between;
-    border: 1px solid #dddddd;
-    padding: 5px;
-    overflow: hidden;
-  }
+  width: 90%;
+  cursor: pointer;
+  background: inherit;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  border: 1px solid #dddddd;
+  padding: 5px;
+  overflow: hidden;
+  border-radius: 5px;
+  margin: 2px;
+  min-width: 200px;
+}
 
 .category-name {
   padding: 0 5px;
+  white-space: nowrap;
   vertical-align: middle;
-    display: inline-block;
-    overflow: hidden;
-    max-width: 140px;
-    text-overflow: ellipsis;
+  display: inline-block;
+  overflow: hidden;
+  max-width: 140px;
+  text-overflow: ellipsis;
 }
 
 .checked {

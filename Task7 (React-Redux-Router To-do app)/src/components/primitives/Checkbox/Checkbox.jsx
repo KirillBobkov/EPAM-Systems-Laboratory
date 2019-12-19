@@ -19,6 +19,6 @@ export function Checkbox (props) {
 Checkbox.propTypes = {
   id: PropTypes.string,
   className: PropTypes.string,
-  done: PropTypes.boolean,
-  onChange: PropTypes.function
+  done: PropTypes.bool,
+  onChange: PropTypes.func
 };

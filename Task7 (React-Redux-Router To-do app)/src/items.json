@@ -14,7 +14,7 @@
     "description": "Coffee is the best drink"
   },
   {
-    "name":"Fanta",
+    "name":"Drink Fanta tonight",
     "id":"fanta",
     "categoryId": "drinks",
     "done": true,
@@ -85,14 +85,32 @@
   }],
   "categories": [{
     "name":"Drinks",
-    "id":"drinks"
+    "id":"drinks",
+    "parentId": ""
+  },
+  {
+    "name":"Americano",
+    "id":"americano",
+    "parentId": "drinks"
+  },
+  {
+    "name":"Afrodito",
+    "id":"afrodito",
+    "parentId": "americano"
+  },
+  {
+    "name":"Capuchino",
+    "id":"capuchino",
+    "parentId": "drinks"
   },
   {
     "name":"Eat",
-    "id":"eat"
+    "id":"eat",
+    "parentId": ""
   },
   {
     "name":"Sports",
-    "id":"sports"
+    "id":"sports",
+    "parentId": ""
   }]
 }

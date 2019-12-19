@@ -10,7 +10,6 @@ class CategoryAdd extends Component {
     super(props);
     this.handleInputCategory = this.handleInputCategory.bind(this);
     this.handleAddCategory = this.handleAddCategory.bind(this);
-
     this.state = {
       inputCategoryValue: ''
     };

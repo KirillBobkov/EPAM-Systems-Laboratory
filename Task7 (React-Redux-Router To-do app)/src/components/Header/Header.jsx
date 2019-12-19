@@ -19,10 +19,10 @@ class Header extends Component {
   }
 
   componentDidMount() {
-    const currentURI = new URI(window.location.pathname + window.location.search);
+    const { location, push } = this.props;
+    const currentURI = new URI(location.pathname + location.search);
     const searchParameters = { ...currentURI.search(true), ...this.state };
-    this.props.push(currentURI.search(searchParameters).toString());
-
+    push(currentURI.search(searchParameters).toString());
     this.setState({
       checked: searchParameters.checked,
       searchTo: searchParameters.searchTo
@@ -30,41 +30,43 @@ class Header extends Component {
   }
 
   handleClearSearchInput() {
-    this.setState({
-      searchTo: ''
-    });
-
-    const currentURI = new URI(window.location.pathname + window.location.search);
+    const { location, push } = this.props;
+    const currentURI = new URI(location.pathname + location.search);
     const searchParameters = { ...currentURI.search(true) };
     delete searchParameters.searchTo;
-    this.props.push(currentURI.search(searchParameters).toString());
+    this.setState({
+      searchTo: ''
+    },
+    () => push(currentURI.search(searchParameters).toString()));
   }
 
   handleInputSearch(event) {
+    const { location, push } = this.props;
     const { value } = event.target;
     this.setState({
       searchTo: value
     },
     () => {
-      const currentURI = new URI(window.location.pathname + window.location.search);
+      const currentURI = new URI(location.pathname + location.search);
       const searchParameters = { ...currentURI.search(true), ...this.state };
       searchParameters.searchTo
-        ? this.props.push(currentURI.search(searchParameters).toString())
-        : this.props.push(currentURI.search(searchParameters).removeSearch('searchTo').toString());
+        ? push(currentURI.search(searchParameters).toString())
+        : push(currentURI.search(searchParameters).removeSearch('searchTo').toString());
     }
     );
   }
 
   handleShowDone() {
+    const { location, push } = this.props;
     this.setState({
       checked: !this.state.checked
     },
     () => {
-      const currentURI = new URI(window.location.pathname);
+      const currentURI = new URI(location.pathname);
       const searchParameters = { ...currentURI.search(true), ...this.state };
       searchParameters.checked
-        ? this.props.push(currentURI.search(searchParameters).toString())
-        : this.props.push(currentURI.search(searchParameters).removeSearch('checked').toString());
+        ? push(currentURI.search(searchParameters).toString())
+        : push(currentURI.search(searchParameters).removeSearch('checked').toString());
     }
     );
   }
@@ -86,11 +88,12 @@ class Header extends Component {
 }
 
 Header.propTypes = {
-  push: PropTypes.func
+  push: PropTypes.func,
+  location: PropTypes.object
 };
 
 const mapStateToProps = state => ({
-  state
+  location: state.router.location
 });
 
 const mapDispatchToProps = {

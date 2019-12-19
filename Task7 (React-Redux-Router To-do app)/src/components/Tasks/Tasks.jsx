@@ -3,21 +3,21 @@ import React, { Component } from 'react';
 import { push } from 'connected-react-router';
 import PropTypes from 'prop-types';
 import Task from './Task';
-import TaskAdd from './TaskAdd';
 import { connect } from 'react-redux';
 import URI from 'urijs';
 
 class Tasks extends Component {
   render() {
-    const todoElements = (this.props.items.length)
-      ? this.props.items.map(item => <li key={item.id}><Task item={item} /></li>)
+    const { items, category, push } = this.props;
+
+    const todoElements = (items.length)
+      ? items.map(item => <li key={item.id}><Task item={item} /></li>)
       : <p className='todo-message'>Let's create new task</p>;
 
-    !this.props.category.length && this.props.push('/main');
+    !category.length && push('/main');
 
     return (
       <div className='todo-list-container'>
-        <TaskAdd />
         <ul className='todo-list'>
           {todoElements}
         </ul>
@@ -33,17 +33,18 @@ Tasks.propTypes = {
 };
 
 const mapStateToProps = (state, ownProps) => {
-  const currentURI = new URI(window.location.pathname + window.location.search);
+  const { pathname, search } = state.router.location;
+  const currentURI = new URI(pathname + search);
   const searchParameters = { ...currentURI.search(true) };
 
   return {
+    category: state.categoryReducer.filter(category => category.id === ownProps.match.params.id),
     items: state.itemReducer
       .filter(task => task.categoryId === ownProps.match.params.id)
       .filter(task => searchParameters.checked ? true : task.done === false)
       .filter(task => searchParameters.searchTo
         ? task.name.toLowerCase().includes(searchParameters.searchTo.toLowerCase())
-        : true),
-    category: state.categoryReducer.filter(category => category.id === ownProps.match.params.id)
+        : true)
   };
 };
 
