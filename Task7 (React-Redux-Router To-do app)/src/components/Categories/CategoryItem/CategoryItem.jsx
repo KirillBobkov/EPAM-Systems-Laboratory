@@ -12,20 +12,19 @@ import URI from 'urijs';
 class CategoryItem extends Component {
   constructor(props) {
     super(props);
-    this.handleDelete = this.handleDelete.bind(this);
-    this.handleChooseCategory = this.handleChooseCategory.bind(this);
-    this.handleCreateCategory = this.handleCreateCategory.bind(this);
-    this.handleEditCategory = this.handleEditCategory.bind(this);
-    this.handleInputCategory = this.handleInputCategory.bind(this);
-    this.handleSaveCategoryName = this.handleSaveCategoryName.bind(this);
-    this.handleCancelChangingNameOfCategory = this.handleCancelChangingNameOfCategory.bind(this);
-    this.handleHideSubCategories = this.handleHideSubCategories.bind(this);
-
     this.state = {
       editMode: false,
       hideMode: true,
       nameCategory: this.props.category.name
     };
+    this.handleDelete = this.handleDelete.bind(this);
+    this.handleEditCategory = this.handleEditCategory.bind(this);
+    this.handleInputCategory = this.handleInputCategory.bind(this);
+    this.handleChooseCategory = this.handleChooseCategory.bind(this);
+    this.handleCreateCategory = this.handleCreateCategory.bind(this);
+    this.handleSaveCategoryName = this.handleSaveCategoryName.bind(this);
+    this.handleHideSubCategories = this.handleHideSubCategories.bind(this);
+    this.handleCancelChangingNameOfCategory = this.handleCancelChangingNameOfCategory.bind(this);
   }
 
   handleHideSubCategories(event) {
@@ -64,11 +63,10 @@ class CategoryItem extends Component {
   handleSaveCategoryName() {
     const { category } = this.props;
     if (this.state.nameCategory) {
+      this.props.editCategoryItem(this.state.nameCategory, category.id);
       this.setState({
         editMode: !this.state.editMode
-      },
-      () => this.props.editCategoryItem(this.state.nameCategory, category.id)
-      );
+      });
     }
   }
 
@@ -119,15 +117,16 @@ class CategoryItem extends Component {
   }
 
   renderViewMode() {
-    const { category, location } = this.props;
+    const { category, location, categoriesHaveSub } = this.props;
     const classCategory = (location.pathname.includes(category.id)) ? 'category-item checked' : 'category-item';
     const subCategories = this.state.hideMode ? <Categories className='child' parentId={category.id} /> : <span />;
     const classButtonHide = this.state.hideMode ? 'fas fa-chevron-down' : 'fas fa-chevron-left';
+
     return (
       <>
         <div className={classCategory} onClick={this.handleChooseCategory} id={category.id}>
           <div>
-            <Button onClick={this.handleHideSubCategories} className={classButtonHide} />
+            {categoriesHaveSub.length > 0 ? <Button onClick={this.handleHideSubCategories} className={classButtonHide} /> : <span />}
             <span className='category-name'>{category.name}</span>
             <Button className='fas fa-edit' onClick={this.handleEditCategory} />
           </div>
@@ -159,11 +158,13 @@ CategoryItem.propTypes = {
   deleteAllItemsOfThisCategory: PropTypes.func,
   push: PropTypes.func,
   editCategoryItem: PropTypes.func,
-  addSubCategory: PropTypes.func
+  addSubCategory: PropTypes.func,
+  categoriesHaveSub: PropTypes.array
 };
 
-const mapStateToProps = state => ({
-  location: state.router.location
+const mapStateToProps = (state, ownProps) => ({
+  location: state.router.location,
+  categoriesHaveSub: state.categoryReducer.filter(category => category.parentId === ownProps.category.id)
 });
 
 const mapDispatchToProps = {

@@ -94,11 +94,6 @@
     "parentId": "drinks"
   },
   {
-    "name":"Afrodito",
-    "id":"afrodito",
-    "parentId": "americano"
-  },
-  {
     "name":"Capuchino",
     "id":"capuchino",
     "parentId": "drinks"
