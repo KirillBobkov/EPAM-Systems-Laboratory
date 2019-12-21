@@ -1,2 +1,2 @@
 # EPAM-Systems-Laboratory
-This repository consists of different tasks from Epam Systems
+This repository consists of projects for Epam Systems
