@@ -35,7 +35,13 @@ class TodoItem extends Component {
               id={item.id}
               done={item.done}
             />
-            <span className={item.done ? 'todo-item-name done' : 'todo-item-name'}>{item.name}</span>
+            <span
+              className={item.done
+                ? 'todo-item-name done'
+                : 'todo-item-name'}
+            >
+              {item.name}
+            </span>
           </label>
         </div>
         <Button
@@ -58,10 +64,8 @@ const mapDispatchToProps = {
   checkTodo, push
 };
 
-const mapStateToProps = (state) => {
-  return {
-    state
-  };
-};
+const mapStateToProps = (state) => ({
+  state
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodoItem);

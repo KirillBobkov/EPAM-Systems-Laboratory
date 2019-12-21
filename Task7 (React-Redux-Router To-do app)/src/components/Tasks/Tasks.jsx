@@ -8,13 +8,25 @@ import URI from 'urijs';
 
 class Tasks extends Component {
   render() {
-    const { items, category, push } = this.props;
+    const { items, category, push, itemsGlobal, location } = this.props;
 
-    const todoElements = (items.length)
-      ? items.map(item => <li key={item.id}><Task item={item} /></li>)
-      : <p className='todo-message'>Let's create new task</p>;
+    let todoElements;
 
-    !category.length && push('/main');
+    if (location.pathname.includes('search')) {
+      todoElements = itemsGlobal.map(item => (
+        <li key={item.id}>
+          <Task item={item} />
+        </li>));
+    } else {
+      todoElements = items.length
+        ? items.map(item => (
+          <li key={item.id}>
+            <Task item={item} />
+          </li>))
+        : <p className='todo-message'>Let's create new task</p>;
+
+      !category.length && push('/main');
+    }
 
     return (
       <div className='todo-list-container'>
@@ -28,8 +40,10 @@ class Tasks extends Component {
 
 Tasks.propTypes = {
   items: PropTypes.array,
+  itemsGlobal: PropTypes.array,
   push: PropTypes.func,
-  category: PropTypes.array
+  category: PropTypes.array,
+  location: PropTypes.object
 };
 
 const mapStateToProps = (state, ownProps) => {
@@ -38,9 +52,15 @@ const mapStateToProps = (state, ownProps) => {
   const searchParameters = { ...currentURI.search(true) };
 
   return {
+    location: state.router.location,
     category: state.categoryReducer.filter(category => category.id === ownProps.match.params.id),
     items: state.itemReducer
       .filter(task => task.categoryId === ownProps.match.params.id)
+      .filter(task => searchParameters.checked ? true : task.done === false)
+      .filter(task => searchParameters.searchTo
+        ? task.name.toLowerCase().includes(searchParameters.searchTo.toLowerCase())
+        : true),
+    itemsGlobal: state.itemReducer
       .filter(task => searchParameters.checked ? true : task.done === false)
       .filter(task => searchParameters.searchTo
         ? task.name.toLowerCase().includes(searchParameters.searchTo.toLowerCase())

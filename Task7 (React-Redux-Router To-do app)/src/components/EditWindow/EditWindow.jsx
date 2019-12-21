@@ -55,6 +55,7 @@ class EditWindow extends Component {
 
   render() {
     const { currentItem: item } = this.props;
+
     return (
       <div className='edit__window'>
         <div className='edit__control-buttons'>

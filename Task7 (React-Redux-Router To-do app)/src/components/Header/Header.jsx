@@ -31,8 +31,10 @@ class Header extends Component {
 
   handleClearSearchInput() {
     const { location, push } = this.props;
-    const currentURI = new URI(location.pathname + location.search);
+    const searchPath = location.pathname.replace(/\/search/g, '');
+    const currentURI = new URI(searchPath + location.search);
     const searchParameters = { ...currentURI.search(true) };
+
     delete searchParameters.searchTo;
     this.setState({
       searchTo: ''
@@ -43,12 +45,20 @@ class Header extends Component {
   handleInputSearch(event) {
     const { location, push } = this.props;
     const { value } = event.target;
+    let searchPath = location.pathname.includes('search')
+      ? location.pathname
+      : location.pathname + '/search';
+
+    if (value === '') searchPath = location.pathname.replace(/\/search/g, '');
+
     this.setState({
       searchTo: value
     },
     () => {
-      const currentURI = new URI(location.pathname + location.search);
+      const currentURI = new URI(searchPath + location.search);
       const searchParameters = { ...currentURI.search(true), ...this.state };
+
+      if (!searchParameters.checked) delete searchParameters.checked;
       searchParameters.searchTo
         ? push(currentURI.search(searchParameters).toString())
         : push(currentURI.search(searchParameters).removeSearch('searchTo').toString());
@@ -64,6 +74,7 @@ class Header extends Component {
     () => {
       const currentURI = new URI(location.pathname);
       const searchParameters = { ...currentURI.search(true), ...this.state };
+      if (searchParameters.searchTo === '') delete searchParameters.searchTo;
       searchParameters.checked
         ? push(currentURI.search(searchParameters).toString())
         : push(currentURI.search(searchParameters).removeSearch('checked').toString());
@@ -76,10 +87,26 @@ class Header extends Component {
       <header className='header'>
         <h1 className='title'>To-do list</h1>
         <div className='search-bar'>
-          <label><Checkbox id='search' className='checkbox' onChange={this.handleShowDone} done={this.state.checked} />Show done</label>
+          <label>
+            <Checkbox
+              id='search'
+              className='checkbox'
+              onChange={this.handleShowDone}
+              done={this.state.checked}
+            />
+            Show done
+          </label>
           <div>
-            <Input type='search' placeholder='Search' onChange={this.handleInputSearch} value={this.state.searchTo} />
-            <Button className='fa fa-times search-button' onClick={this.handleClearSearchInput} />
+            <Input
+              type='search'
+              placeholder='Search'
+              onChange={this.handleInputSearch}
+              value={this.state.searchTo}
+            />
+            <Button
+              className='fa fa-times search-button'
+              onClick={this.handleClearSearchInput}
+            />
           </div>
         </div>
       </header>

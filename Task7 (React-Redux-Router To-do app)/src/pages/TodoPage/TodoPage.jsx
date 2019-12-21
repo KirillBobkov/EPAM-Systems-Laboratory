@@ -1,11 +1,11 @@
 import './TodoPage.scss';
 import React, { Component } from 'react';
-import TodoList from '../../Tasks';
-import Categories from '../../Categories';
-import CategoryAdd from '../../Categories/CategoryAdd';
-import TaskAdd from '../../Tasks/TaskAdd';
-import { ProgressBar, NoMatch } from '../../primitives';
-import Header from '../../Header';
+import TodoList from '../../components/Tasks';
+import Categories from '../../components/Categories';
+import CategoryAdd from '../../components/Categories/CategoryAdd';
+import TaskAdd from '../../components/Tasks/TaskAdd';
+import { ProgressBar, NoMatch } from '../../components/primitives';
+import Header from '../../components/Header';
 import { Route, Switch } from 'react-router';
 
 export default class TodoPage extends Component {
@@ -23,6 +23,7 @@ export default class TodoPage extends Component {
             <Categories />
           </div>
           <Switch>
+            <Route exact path='/main/search' component={TodoList} />
             <Route path='/main/:id' component={TodoList} />
             <Route component={NoMatch} />
           </Switch>

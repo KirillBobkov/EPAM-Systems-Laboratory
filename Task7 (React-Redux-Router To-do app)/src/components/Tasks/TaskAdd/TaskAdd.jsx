@@ -17,9 +17,10 @@ class TaskAdd extends Component {
 
   handleAddTodo() {
     const { categoryId } = this.props;
+    const { inputTodoValue } = this.state;
 
-    if (this.state.inputTodoValue) {
-      this.props.addTodoItem(this.state.inputTodoValue, categoryId);
+    if (inputTodoValue) {
+      this.props.addTodoItem(inputTodoValue, categoryId);
       this.setState({
         inputTodoValue: ''
       });

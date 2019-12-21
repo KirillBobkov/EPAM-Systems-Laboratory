@@ -7,7 +7,9 @@ import { connect } from 'react-redux';
 class Categories extends Component {
   render() {
     const { categories } = this.props;
-    const classes = this.props.className ? 'category-list-container child' : 'category-list-container';
+    const classes = this.props.className
+      ? 'category-list-container child'
+      : 'category-list-container';
     const categoryElements = categories.map((category) =>
       <li key={category.id}>
         <CategoryItem category={category} />

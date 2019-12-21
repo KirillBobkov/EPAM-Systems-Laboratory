@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import EditList from '../../EditList';
-import EditWindow from '../../EditWindow';
+import EditList from '../../components/EditList';
+import EditWindow from '../../components/EditWindow';
 import './EditPage.scss';
 import { connect } from 'react-redux';
 

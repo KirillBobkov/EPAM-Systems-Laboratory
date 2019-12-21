@@ -1,4 +1,4 @@
-import '../assets/styles/index.scss';
+import './assets/styles/index.scss';
 import React, { Component } from 'react';
 import TodoPage from './pages/TodoPage';
 import { Route, Switch, Redirect } from 'react-router';

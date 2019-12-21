@@ -1,16 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import App from './components/App';
-// import { Route } from 'react-router-dom';
-
+import App from './App';
 import { createBrowserHistory } from 'history';
 import { applyMiddleware, createStore } from 'redux';
 import { routerMiddleware, ConnectedRouter } from 'connected-react-router';
 import createRootReducer from './store/rootReduser';
 import { composeWithDevTools } from 'redux-devtools-extension';
-// import { NoMatch } from './components/primitives';
-// import EditPage from './components/pages/EditPage';
 
 const history = createBrowserHistory();
 

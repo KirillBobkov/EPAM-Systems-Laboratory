@@ -1,13 +1,13 @@
+import './CategoryItem.scss';
+import URI from 'urijs';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Input } from '../../primitives';
 import Categories from '../../Categories';
-import './CategoryItem.scss';
 import { connect } from 'react-redux';
 import { deleteCategory, editCategoryItem, addSubCategory } from '../../../store/Categories/actions';
 import { deleteAllItemsOfThisCategory } from '../../../store/Tasks/actions';
 import { push } from 'connected-react-router';
-import URI from 'urijs';
 
 class CategoryItem extends Component {
   constructor(props) {
@@ -90,7 +90,9 @@ class CategoryItem extends Component {
 
   renderEditMode() {
     const { category } = this.props;
-    const subCategories = this.state.hideMode ? <Categories className='child' parentId={category.id} /> : <span />;
+    const subCategories = this.state.hideMode
+      ? <Categories className='child' parentId={category.id} />
+      : <span />;
     return (
       <>
         <div className='category-item checked' id={category.id}>
@@ -118,24 +120,42 @@ class CategoryItem extends Component {
 
   renderViewMode() {
     const { category, location, categoriesHaveSub } = this.props;
-    const classCategory = (location.pathname.includes(category.id)) ? 'category-item checked' : 'category-item';
-    const subCategories = this.state.hideMode ? <Categories className='child' parentId={category.id} /> : <span />;
-    const classButtonHide = this.state.hideMode ? 'fas fa-chevron-down' : 'fas fa-chevron-left';
+    const classCategory = (location.pathname.includes(category.id))
+      ? 'category-item checked'
+      : 'category-item';
+    const subCategories = this.state.hideMode
+      ? <Categories className='child' parentId={category.id} />
+      : <span />;
+    const classButtonHide = this.state.hideMode
+      ? 'fas fa-chevron-down'
+      : 'fas fa-chevron-left';
 
     return (
       <>
         <div className={classCategory} onClick={this.handleChooseCategory} id={category.id}>
           <div>
-            {categoriesHaveSub.length > 0 ? <Button onClick={this.handleHideSubCategories} className={classButtonHide} /> : <span />}
+            {categoriesHaveSub.length > 0
+              ? <Button
+                onClick={this.handleHideSubCategories}
+                className={classButtonHide}
+                // eslint-disable-next-line indent
+                />
+              : <span />}
             <span className='category-name'>{category.name}</span>
-            <Button className='fas fa-edit' onClick={this.handleEditCategory} />
+            <Button
+              className='fas fa-edit'
+              onClick={this.handleEditCategory}
+            />
           </div>
           <div>
             <Button
               className='fas fa-trash-alt'
               onClick={this.handleDelete}
             />
-            <Button onClick={this.handleCreateCategory} className='fas fa-plus' />
+            <Button
+              onClick={this.handleCreateCategory}
+              className='fas fa-plus'
+            />
           </div>
         </div>
         {subCategories}

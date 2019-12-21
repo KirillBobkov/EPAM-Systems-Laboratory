@@ -23,18 +23,30 @@ class EditItem extends Component {
     const { category } = this.props;
     const buttonPlace = window.location.pathname.includes(category.id)
       ? <span />
-      : <Button onClick={this.handleMoveCategory} className='fas fa-arrow-circle-left' />;
-    const classNames = window.location.pathname.includes(category.id) ? 'category-item checked' : 'category-item';
+      : <Button
+        onClick={this.handleMoveCategory}
+        className='fas fa-arrow-circle-left'
+        // eslint-disable-next-line indent
+        />;
+    const classNames = window.location.pathname.includes(category.id)
+      ? 'category-item checked'
+      : 'category-item';
 
     return (
       <>
-        <div className={classNames} id={category.id}>
+        <div
+          className={classNames}
+          id={category.id}
+        >
           <div>
             <span className='category-name'>{category.name}</span>
           </div>
           {buttonPlace}
         </div>
-        <EditList className parentId={category.id} />
+        <EditList
+          child
+          parentId={category.id}
+        />
       </>
     );
   }

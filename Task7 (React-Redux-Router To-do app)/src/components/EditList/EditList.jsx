@@ -6,7 +6,9 @@ import { connect } from 'react-redux';
 class EditList extends Component {
   render() {
     const { categories } = this.props;
-    const classes = this.props.className ? 'category-list-container child' : 'category-list-container';
+    const classesArray = this.props.child
+      ? 'category-list-container child'
+      : 'category-list-container';
     const categoryElements = categories.map((category) =>
       <li key={category.id}>
         <EditItem category={category} />
@@ -14,7 +16,7 @@ class EditList extends Component {
     );
 
     return (
-      <div className={classes}>
+      <div className={classesArray}>
         <ul className='category-list'>
           {categoryElements}
         </ul>
@@ -22,6 +24,11 @@ class EditList extends Component {
     );
   }
 }
+
+EditList.propTypes = {
+  categories: PropTypes.array,
+  child: PropTypes.bool
+};
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -32,7 +39,3 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 export default connect(mapStateToProps)(EditList);
-
-EditList.propTypes = {
-  categories: PropTypes.array
-};
