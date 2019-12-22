@@ -16,11 +16,11 @@ class TaskAdd extends Component {
   }
 
   handleAddTodo() {
-    const { categoryId } = this.props;
+    const { category } = this.props;
     const { inputTodoValue } = this.state;
 
     if (inputTodoValue) {
-      this.props.addTodoItem(inputTodoValue, categoryId);
+      this.props.addTodoItem(inputTodoValue, category.id);
       this.setState({
         inputTodoValue: ''
       });
@@ -35,6 +35,9 @@ class TaskAdd extends Component {
   }
 
   render () {
+    const { category } = this.props;
+    const disableValue = !category;
+
     return (
       <div className='todo-add'>
         <Input
@@ -42,6 +45,7 @@ class TaskAdd extends Component {
           onChange={this.handleInputTodo}
           placeholder='Enter to-do name'
           value={this.state.inputTodoValue}
+          disabled={disableValue}
         />
         <Button
           text='Add'
@@ -55,14 +59,14 @@ class TaskAdd extends Component {
 
 TaskAdd.propTypes = {
   addTodoItem: PropTypes.func,
-  categoryId: PropTypes.string
+  category: PropTypes.object
 };
 
 const mapStateToProps = (state) => {
   const { location } = state.router;
-  const currentCategory = location.pathname.split('/');
+  const path = location.pathname.split('/');
   return {
-    categoryId: currentCategory[currentCategory.length - 1]
+    category: state.categoryReducer.filter(category => category.id === path[path.length - 1])[0]
   };
 };
 

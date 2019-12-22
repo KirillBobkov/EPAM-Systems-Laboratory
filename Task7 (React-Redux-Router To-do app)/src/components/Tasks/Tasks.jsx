@@ -43,13 +43,13 @@ const mapStateToProps = (state, ownProps) => {
 
   return {
     location: state.router.location,
+    category: state.categoryReducer.filter(category => category.id === ownProps.match.params.id),
     items: state.itemReducer
       .filter(task => pathname.includes('search') ? true : task.categoryId === ownProps.match.params.id)
       .filter(task => searchParameters.checked ? true : task.done === false)
       .filter(task => searchParameters.searchTo
         ? task.name.toLowerCase().includes(searchParameters.searchTo.toLowerCase())
-        : true),
-    category: state.categoryReducer.filter(category => category.id === ownProps.match.params.id)
+        : true)
   };
 };
 

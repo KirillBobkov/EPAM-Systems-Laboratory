@@ -11,6 +11,7 @@ export function Input(props) {
       id={`${props.id || ''}`}
       value={props.value}
       onChange={props.onChange}
+      disabled={props.disabled}
     />
   );
 }

@@ -124,7 +124,10 @@ class CategoryItem extends Component {
       ? 'category-item checked'
       : 'category-item';
     const subCategories = this.state.hideMode
-      ? <Categories className='child' parentId={category.id} />
+      ? <Categories
+        className='child'
+        parentId={category.id}
+        />
       : <span />;
     const classButtonHide = this.state.hideMode
       ? 'fas fa-chevron-down'
