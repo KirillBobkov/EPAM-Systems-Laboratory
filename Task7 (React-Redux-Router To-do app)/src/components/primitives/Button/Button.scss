@@ -3,6 +3,7 @@
     border: 1px solid transparent;
     border-radius: 5px;
     padding: 5px;
+    transition: all 0.5s ease-out;
 
     &--with-border {
         border: 1px solid #dddddd;

@@ -1,12 +1,13 @@
 .progressBar {
-    height: 7px;
-    width: 100%;
-    border: 1px solid #dddddd;
-    margin-bottom: 20px;
+  width: 100%;
+  border: 1px solid #dddddd;
+  margin-bottom: 20px;
   }
 
-  .progressBar-loaded {
-    height: 6px;
-    width: 30%;
-    background: #a8a8a8;
-  }
+.progressBar-loaded {
+  box-sizing: border-box;
+  display: inline-block;
+  background: #dddddd;
+  white-space: nowrap;
+  transition: all 0.5s ease-out;
+}

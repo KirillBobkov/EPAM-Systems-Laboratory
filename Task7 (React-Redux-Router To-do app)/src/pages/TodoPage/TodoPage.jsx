@@ -4,7 +4,7 @@ import TodoList from '../../components/Tasks';
 import Categories from '../../components/Categories';
 import CategoryAdd from '../../components/Categories/CategoryAdd';
 import TaskAdd from '../../components/Tasks/TaskAdd';
-import { ProgressBar, NoMatch } from '../../components/primitives';
+import ProgressBar, { NoMatch } from '../../components/primitives';
 import Navigation from '../../components/Navigation';
 import { Route, Switch } from 'react-router';
 
