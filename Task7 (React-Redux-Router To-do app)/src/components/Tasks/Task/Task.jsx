@@ -14,13 +14,13 @@ class TodoItem extends Component {
   }
 
   handleCheck() {
-    const { item } = this.props;
-    this.props.checkTodo(item.id);
+    const { item, checkTodo } = this.props;
+    checkTodo(item.id);
   }
 
   handleClick() {
-    const { item } = this.props;
-    this.props.push(`/edit/${item.categoryId}/${item.id}`);
+    const { item, push } = this.props;
+    push(`/edit/${item.categoryId}/${item.id}`);
   }
 
   render() {

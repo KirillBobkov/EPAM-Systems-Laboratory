@@ -35,30 +35,31 @@ class EditWindow extends Component {
   }
 
   handleCheck() {
-    const { currentItem: item } = this.props;
-    this.props.checkTodo(item.id);
+    const { currentItem: item, checkTodo } = this.props;
+    checkTodo(item.id);
   }
 
   handleSaveChanges() {
-    const { currentItem: item } = this.props;
+    const { currentItem: item, editTodoItem, push } = this.props;
     const { inputTaskValue, textAreaValue } = this.state;
+
     if (inputTaskValue && textAreaValue) {
-      this.props.editTodoItem(inputTaskValue, item.id, textAreaValue);
+      editTodoItem(inputTaskValue, item.id, textAreaValue);
     }
-    this.props.push(`/${item.categoryId}`);
+    push(`/main/${item.categoryId}`);
   }
 
   handleCanselEdit() {
-    const { currentItem: item } = this.props;
-    this.props.push(`/${item.categoryId}`);
+    const { currentItem: item, push } = this.props;
+    push(`/main/${item.categoryId}`);
   }
 
   render() {
     const { currentItem: item } = this.props;
 
     return (
-      <div className='edit__window'>
-        <div className='edit__control-buttons'>
+      <article className='edit__window'>
+        <section className='edit__control-buttons'>
           <Button
             id='saveButtonEdit'
             text='Save changes'
@@ -71,14 +72,13 @@ class EditWindow extends Component {
             text='Cancel'
             className='button--with-border'
           />
-        </div>
-        <div className='edit__input'>
-          <Input
-            value={this.state.inputTaskValue}
-            onChange={this.handleInputTask}
-          />
-        </div>
-        <div className='edit__checkbox'>
+        </section>
+        <Input
+          className='edit__input'
+          value={this.state.inputTaskValue}
+          onChange={this.handleInputTask}
+        />
+        <section className='edit__checkbox'>
           <label>
             <Checkbox
               onChange={this.handleCheck}
@@ -88,13 +88,13 @@ class EditWindow extends Component {
             />
             Show done
           </label>
-        </div>
+        </section>
         <textarea
           onChange={this.handleTextArea}
           className='edit__text-area'
           value={this.state.textAreaValue}
         />
-      </div>
+      </article>
     );
   }
 }

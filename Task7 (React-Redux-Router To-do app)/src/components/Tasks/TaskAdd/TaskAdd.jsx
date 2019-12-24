@@ -8,19 +8,19 @@ import { connect } from 'react-redux';
 class TaskAdd extends Component {
   constructor(props) {
     super(props);
-    this.handleInputTodo = this.handleInputTodo.bind(this);
-    this.handleAddTodo = this.handleAddTodo.bind(this);
     this.state = {
       inputTodoValue: ''
     };
+    this.handleAddTodo = this.handleAddTodo.bind(this);
+    this.handleInputTodo = this.handleInputTodo.bind(this);
   }
 
   handleAddTodo() {
-    const { category } = this.props;
+    const { category, addTodoItem } = this.props;
     const { inputTodoValue } = this.state;
 
     if (inputTodoValue) {
-      this.props.addTodoItem(inputTodoValue, category.id);
+      addTodoItem(inputTodoValue, category.id);
       this.setState({
         inputTodoValue: ''
       });

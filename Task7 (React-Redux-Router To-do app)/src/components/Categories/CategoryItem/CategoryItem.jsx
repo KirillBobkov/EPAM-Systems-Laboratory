@@ -61,47 +61,51 @@ class CategoryItem extends Component {
   }
 
   handleSaveCategoryName() {
-    const { category } = this.props;
-    if (this.state.nameCategory) {
-      this.props.editCategoryItem(this.state.nameCategory, category.id);
+    const { category, editCategoryItem } = this.props;
+    const { editMode, nameCategory } = this.state;
+    if (nameCategory) {
+      editCategoryItem(nameCategory, category.id);
       this.setState({
-        editMode: !this.state.editMode
+        editMode: !editMode
       });
     }
   }
 
   handleDelete(event) {
     event.stopPropagation();
-    const { location } = this.props;
+    const { location, category, push, deleteCategory, deleteAllItemsOfThisCategory } = this.props;
     const currenURI = new URI(location.search);
     const searchParameters = { ...currenURI.search(true) };
 
-    this.props.push(`/main/${currenURI.search(searchParameters).toString()}`);
-    this.props.deleteCategory(this.props.category.id);
-    this.props.deleteAllItemsOfThisCategory(this.props.category.id);
+    deleteCategory(category.id, category.parentId);
+    deleteAllItemsOfThisCategory(category.id);
+    push(`/main${currenURI.search(searchParameters).toString()}`);
   }
 
   handleChooseCategory() {
-    const { location } = this.props;
+    const { location, push, category } = this.props;
     const currenURI = new URI(location.search);
     const searchParameters = { ...currenURI.search(true) };
-    this.props.push(`/main/${this.props.category.id + currenURI.search(searchParameters).toString()}`);
+    push(`/main/${category.id + currenURI.search(searchParameters).toString()}`);
   }
 
   renderEditMode() {
     const { category } = this.props;
-    const subCategories = this.state.hideMode
-      ? <Categories className='child' parentId={category.id} />
+    const { nameCategory, hideMode } = this.state;
+    const subCategories = hideMode
+      ? <Categories child parentId={category.id} />
       : <span />;
+
     return (
       <>
-        <div className='category-item checked' id={category.id}>
-          <div>
-            <Input
-              onChange={this.handleInputCategory}
-              value={this.state.nameCategory}
-            />
-          </div>
+        <div
+          className='category-item checked'
+          id={category.id}
+        >
+          <Input
+            onChange={this.handleInputCategory}
+            value={nameCategory}
+          />
           <div>
             <Button
               className='fas fa-check-circle'
@@ -125,17 +129,22 @@ class CategoryItem extends Component {
       : 'category-item';
     const subCategories = this.state.hideMode
       ? <Categories
-        className='child'
+        child
         parentId={category.id}
+        // eslint-disable-next-line indent
         />
       : <span />;
     const classButtonHide = this.state.hideMode
-      ? 'fas fa-chevron-down'
-      : 'fas fa-chevron-left';
+      ? 'fas fa-chevron-up'
+      : 'fas fa-chevron-down';
 
     return (
       <>
-        <div className={classCategory} onClick={this.handleChooseCategory} id={category.id}>
+        <div
+          className={classCategory}
+          onClick={this.handleChooseCategory}
+          id={category.id}
+        >
           <div>
             {categoriesHaveSub.length > 0
               ? <Button
@@ -144,7 +153,9 @@ class CategoryItem extends Component {
                 // eslint-disable-next-line indent
                 />
               : <span />}
-            <span className='category-name'>{category.name}</span>
+            <span className='category-name'>
+              {category.name}
+            </span>
             <Button
               className='fas fa-edit'
               onClick={this.handleEditCategory}

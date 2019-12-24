@@ -1,29 +1,37 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import EditList from '../../components/EditList';
+import Categories from '../../components/Categories';
 import EditWindow from '../../components/EditWindow';
 import './EditPage.scss';
 import { connect } from 'react-redux';
+import { push } from 'connected-react-router';
 
 class EditPage extends Component {
   render() {
-    const { currentItem: item } = this.props;
+    const { currentItem: item, push } = this.props;
+
+    if (!item) {
+      push('/main');
+      return null;
+    }
+
     return (
-      <main className='main'>
+      <div className='page'>
         <h1>{item.name}</h1>
-        <div className='content'>
-          <div className='categories-container'>
-            <EditList />
-          </div>
+        <main className='content'>
+          <aside className='categories-container'>
+            <Categories edit />
+          </aside>
           <EditWindow id={item.id} />
-        </div>
-      </main>
+        </main>
+      </div>
     );
   }
 }
 
 EditPage.propTypes = {
-  currentItem: PropTypes.object
+  currentItem: PropTypes.object,
+  push: PropTypes.func
 };
 
 const mapStateToProps = (state, ownProps) => {
@@ -32,4 +40,8 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-export default connect(mapStateToProps)(EditPage);
+const mapDispatchToProps = {
+  push
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditPage);

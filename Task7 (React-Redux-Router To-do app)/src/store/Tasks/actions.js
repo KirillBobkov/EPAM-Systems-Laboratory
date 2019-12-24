@@ -1,15 +1,15 @@
 export const ADD_TODO = 'ADD_TODO';
-export const FIND_TODO = 'FIND_TODO';
 export const CHECK_TODO = 'CHECK_TODO';
 export const DELETE_ITEMS = 'DELETE_ITEMS';
 export const EDIT_TODO = 'EDIT_TODO';
 export const MOVE_TODO = 'MOVE_TODO';
+const uuidv1 = require('uuid/v1');
 
 export const addTodoItem = (value, categoryId) => ({
   type: ADD_TODO,
   payload: {
     name: value,
-    id: Date.now().toString(),
+    id: uuidv1(),
     categoryId,
     done: false
   }
@@ -27,11 +27,6 @@ export const editTodoItem = (value, id, description) => ({
 export const checkTodo = id => ({
   type: CHECK_TODO,
   id
-});
-
-export const findTodoItem = value => ({
-  type: FIND_TODO,
-  payload: value
 });
 
 export const deleteAllItemsOfThisCategory = id => ({

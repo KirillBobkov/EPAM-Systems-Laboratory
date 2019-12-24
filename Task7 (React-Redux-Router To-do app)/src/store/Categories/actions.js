@@ -13,9 +13,12 @@ export const addCategory = (value) => ({
   }
 });
 
-export const deleteCategory = id => ({
+export const deleteCategory = (id, parentId) => ({
   type: DELETE_CATEGORY,
-  id
+  payload: {
+    id,
+    parentId
+  }
 });
 
 export const editCategoryItem = (value, id) => ({
@@ -31,6 +34,6 @@ export const addSubCategory = (id, name) => ({
   payload: {
     parentId: id,
     id: uuidv1(),
-    name: `Sub-${name}`
+    name: `Sub${name}`
   }
 });

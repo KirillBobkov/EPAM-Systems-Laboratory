@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
-import { Button } from '../../primitives';
-import { moveTaskToCategory } from '../../../store/Tasks';
-import EditList from '../EditList';
+import { Button } from '../primitives';
+import { moveTaskToCategory } from '../../store/Tasks';
+import Categories from '../Categories';
 
 class EditItem extends Component {
   constructor(props) {
@@ -13,22 +13,22 @@ class EditItem extends Component {
   }
 
   handleMoveCategory() {
-    const { category, location } = this.props;
+    const { category, location, moveTaskToCategory, push } = this.props;
     const path = location.pathname.split('/');
-    this.props.moveTaskToCategory(path[path.length - 1], category.id);
-    this.props.push(`/edit/${category.id}/${path[path.length - 1]}`);
+    moveTaskToCategory(path[path.length - 1], category.id);
+    push(`/edit/${category.id}/${path[path.length - 1]}`);
   }
 
   render() {
-    const { category } = this.props;
-    const buttonPlace = window.location.pathname.includes(category.id)
+    const { category, location } = this.props;
+    const buttonPlace = location.pathname.includes(category.id)
       ? <span />
       : <Button
         onClick={this.handleMoveCategory}
         className='fas fa-arrow-circle-left'
         // eslint-disable-next-line indent
         />;
-    const classNames = window.location.pathname.includes(category.id)
+    const classNames = location.pathname.includes(category.id)
       ? 'category-item checked'
       : 'category-item';
 
@@ -43,7 +43,8 @@ class EditItem extends Component {
           </div>
           {buttonPlace}
         </div>
-        <EditList
+        <Categories
+          edit
           child
           parentId={category.id}
         />

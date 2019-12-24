@@ -3,19 +3,19 @@ import React, { Component } from 'react';
 import { Checkbox } from '../primitives/Checkbox';
 import { Input } from '../primitives/Input';
 import { Button } from '../primitives/Button';
-import './Header.scss';
+import './Navigation.scss';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import URI from 'urijs';
 import { push } from 'connected-react-router';
 
-class Header extends Component {
+class Navigation extends Component {
   constructor(props) {
     super(props);
+    this.state = {};
+    this.handleShowDone = this.handleShowDone.bind(this);
     this.handleInputSearch = this.handleInputSearch.bind(this);
     this.handleClearSearchInput = this.handleClearSearchInput.bind(this);
-    this.handleShowDone = this.handleShowDone.bind(this);
-    this.state = {};
   }
 
   componentDidMount() {
@@ -84,9 +84,9 @@ class Header extends Component {
 
   render () {
     return (
-      <header className='header'>
+      <nav className='navigation'>
         <h1 className='title'>To-do list</h1>
-        <div className='search-bar'>
+        <section className='search-bar'>
           <label>
             <Checkbox
               id='search'
@@ -108,13 +108,13 @@ class Header extends Component {
               onClick={this.handleClearSearchInput}
             />
           </div>
-        </div>
-      </header>
+        </section>
+      </nav>
     );
   }
 }
 
-Header.propTypes = {
+Navigation.propTypes = {
   push: PropTypes.func,
   location: PropTypes.object
 };
@@ -127,4 +127,4 @@ const mapDispatchToProps = {
   push
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(Navigation);

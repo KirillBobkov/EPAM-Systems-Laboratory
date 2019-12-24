@@ -6,7 +6,7 @@ export function Input(props) {
   return (
     <input
       type={props.type}
-      className='input'
+      className={`input ${props.className || ''}`}
       placeholder={props.placeholder}
       id={`${props.id || ''}`}
       value={props.value}

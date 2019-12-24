@@ -7,7 +7,7 @@ import EditPage from './pages/EditPage';
 export default class App extends Component {
   render() {
     return (
-      <div className='page'>
+      <>
         <Switch>
           <Route path='/edit/:id/:item' component={EditPage} />
           <Route path='/main' component={TodoPage} />
@@ -15,7 +15,7 @@ export default class App extends Component {
             <Redirect to='/main' />
           </Route>
         </Switch>
-      </div>
+      </>
     );
   }
 }

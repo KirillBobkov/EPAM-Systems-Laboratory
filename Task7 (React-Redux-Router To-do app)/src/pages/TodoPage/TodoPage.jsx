@@ -5,30 +5,31 @@ import Categories from '../../components/Categories';
 import CategoryAdd from '../../components/Categories/CategoryAdd';
 import TaskAdd from '../../components/Tasks/TaskAdd';
 import { ProgressBar, NoMatch } from '../../components/primitives';
-import Header from '../../components/Header';
+import Navigation from '../../components/Navigation';
 import { Route, Switch } from 'react-router';
 
 export default class TodoPage extends Component {
   render() {
     return (
-      <main className='main'>
-        <Header />
-        <ProgressBar />
-        <section className='main__toolbar'>
-          <CategoryAdd />
-          <TaskAdd />
-        </section>
-        <section className='content'>
-          <div className='categories-container'>
+      <div className='page'>
+        <header>
+          <Navigation />
+          <ProgressBar />
+          <section className='main__toolbar'>
+            <CategoryAdd />
+            <TaskAdd />
+          </section>
+        </header>
+        <main className='content'>
+          <aside className='categories-container'>
             <Categories />
-          </div>
+          </aside>
           <Switch>
-            <Route exact path='/main/search' component={TodoList} />
             <Route path='/main/:id' component={TodoList} />
             <Route component={NoMatch} />
           </Switch>
-        </section>
-      </main>
+        </main>
+      </div>
     );
   }
 }

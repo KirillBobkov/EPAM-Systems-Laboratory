@@ -17,14 +17,14 @@ class Tasks extends Component {
         <li key={item.id}>
           <Task item={item} />
         </li>))
-      : <p className='todo-message'>Let's create new task</p>;
+      : <p className='todo-message'>There're no tasks.</p>;
 
     return (
-      <div className='todo-list-container'>
+      <article className='todo-list-container'>
         <ul className='todo-list'>
           {todoElements}
         </ul>
-      </div>
+      </article>
     );
   }
 }
