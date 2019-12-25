@@ -4,7 +4,7 @@ import {
   CHANGE_NAME_OF_CATEGORY
 } from './actions';
 
-const initialState = require('../../items.json');
+export const initialState = require('../../items.json');
 
 export default (state = initialState.categories, action) => {
   switch (action.type) {

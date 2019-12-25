@@ -9,7 +9,7 @@ export const addTodoItem = (value, categoryId) => ({
   type: ADD_TODO,
   payload: {
     name: value,
-    id: uuidv1(),
+    id: Date.now().toString(),
     categoryId,
     done: false
   }
