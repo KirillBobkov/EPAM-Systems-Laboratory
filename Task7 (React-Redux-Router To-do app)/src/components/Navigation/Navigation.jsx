@@ -11,8 +11,6 @@ import { push } from 'connected-react-router';
 
 class Navigation extends Component {
   state = {
-    checked: false,
-    searchTo: ''
   }
 
   componentDidMount() {
@@ -82,7 +80,7 @@ class Navigation extends Component {
   render () {
     return (
       <nav className='navigation'>
-        <h1 className='title'>To-do list</h1>
+        <h1 className='title'>Personal organizer</h1>
         <section className='search-bar'>
           <label>
             <Checkbox

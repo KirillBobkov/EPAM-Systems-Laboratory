@@ -38,7 +38,7 @@ class TaskAdd extends Component {
         <Input
           type='text'
           onChange={this.handleInputTodo}
-          placeholder='Enter to-do name'
+          placeholder='Enter name for event'
           value={this.state.inputTodoValue}
           disabled={disableValue}
         />
