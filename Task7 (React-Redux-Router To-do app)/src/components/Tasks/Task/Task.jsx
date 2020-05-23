@@ -7,18 +7,13 @@ import { checkTodo } from '../../../store/Tasks/actions';
 import { push } from 'connected-react-router';
 
 class TodoItem extends Component {
-  constructor(props) {
-    super(props);
-    this.handleCheck = this.handleCheck.bind(this);
-    this.handleClick = this.handleClick.bind(this);
-  }
 
-  handleCheck() {
+  handleCheck = () => {
     const { item, checkTodo } = this.props;
     checkTodo(item.id);
   }
 
-  handleClick() {
+  handleClick = () => {
     const { item, push } = this.props;
     push(`/edit/${item.categoryId}/${item.id}`);
   }

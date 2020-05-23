@@ -11,75 +11,60 @@ import { push } from 'connected-react-router';
 import ConfirmModal from '../../ConfirmModal';
 
 class CategoryItem extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      editMode: false,
-      hideMode: true,
-      nameCategory: this.props.category.name,
-      isModalOpen: false
-    };
-
-    this.handleDelete = this.handleDelete.bind(this);
-    this.handleEditCategory = this.handleEditCategory.bind(this);
-    this.handleInputCategory = this.handleInputCategory.bind(this);
-    this.handleChooseCategory = this.handleChooseCategory.bind(this);
-    this.handleCreateCategory = this.handleCreateCategory.bind(this);
-    this.handleSaveCategoryName = this.handleSaveCategoryName.bind(this);
-    this.handleHideSubCategories = this.handleHideSubCategories.bind(this);
-    this.handleCancelChangingNameOfCategory = this.handleCancelChangingNameOfCategory.bind(this);
-    this.handleConfirmAction = this.handleConfirmAction.bind(this);
-    this.handleDenyAction = this.handleDenyAction.bind(this);
-    this.handleOpenModalWindow = this.handleOpenModalWindow.bind(this);
+  state = {
+    editMode: false,
+    hideMode: true,
+    nameCategory: this.props.category.name,
+    isModalOpen: false
   }
 
-  handleOpenModalWindow() {
+  handleOpenModalWindow = () => {
     this.setState({ isModalOpen: !this.state.isModalOpen });
   }
 
-  handleConfirmAction(event) {
+  handleConfirmAction = (event) => {
     this.handleDelete(event);
     this.setState({ isModalOpen: !this.state.isModalOpen });
   }
 
-  handleDenyAction() {
+  handleDenyAction = () => {
     this.setState({ isModalOpen: !this.state.isModalOpen });
   }
 
-  handleHideSubCategories(event) {
+  handleHideSubCategories = (event) => {
     event.stopPropagation();
     this.setState({
       hideMode: !this.state.hideMode
     });
   }
 
-  handleCreateCategory(event) {
+  handleCreateCategory = (event) => {
     event.stopPropagation();
     const { id, name } = this.props.category;
     this.props.addSubCategory(id, name);
   }
 
-  handleInputCategory(event) {
+  handleInputCategory = (event) => {
     const { value } = event.target;
     this.setState({
       nameCategory: value
     });
   }
 
-  handleEditCategory(event) {
+  handleEditCategory = (event) => {
     event.stopPropagation();
     this.setState({
       editMode: !this.state.editMode
     });
   }
 
-  handleCancelChangingNameOfCategory() {
+  handleCancelChangingNameOfCategory = () => {
     this.setState({
       editMode: !this.state.editMode
     });
   }
 
-  handleSaveCategoryName() {
+  handleSaveCategoryName = () => {
     const { category, editCategoryItem } = this.props;
     const { editMode, nameCategory } = this.state;
     if (nameCategory) {
@@ -90,7 +75,7 @@ class CategoryItem extends Component {
     }
   }
 
-  handleDelete(event) {
+  handleDelete = (event) => {
     event.stopPropagation();
     const { location, category, push, deleteCategory, deleteAllItemsOfThisCategory } = this.props;
     const currenURI = new URI(location.search);
@@ -101,14 +86,14 @@ class CategoryItem extends Component {
     push(`/main${currenURI.search(searchParameters).toString()}`);
   }
 
-  handleChooseCategory() {
+  handleChooseCategory = () => {
     const { location, push, category } = this.props;
     const currenURI = new URI(location.search);
     const searchParameters = { ...currenURI.search(true) };
     push(`/main/${category.id + currenURI.search(searchParameters).toString()}`);
   }
 
-  renderEditMode() {
+  renderEditMode = () => {
     const { category } = this.props;
     const { nameCategory, hideMode } = this.state;
     const subCategories = hideMode
@@ -141,7 +126,7 @@ class CategoryItem extends Component {
     );
   }
 
-  renderViewMode() {
+  renderViewMode = () => {
     const { category, location, categoriesHaveSub } = this.props;
     const classCategory = (location.pathname.includes(category.id))
       ? 'category-item checked'

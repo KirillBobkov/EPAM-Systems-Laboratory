@@ -1,32 +1,30 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import CategoryItem from './CategoryItem';
 import EditItem from '../EditItem';
 import './Categories.scss';
 import { connect } from 'react-redux';
 
-class Categories extends Component {
-  render() {
-    const { categories, edit } = this.props;
-    const classes = this.props.child
-      ? 'category-list-container child'
-      : 'category-list-container';
-    const categoryElements = categories.map((category) =>
-      <li key={category.id}>
-        {edit
-          ? <EditItem category={category} />
-          : <CategoryItem category={category} />}
-      </li>
-    );
+function Categories(props) {
+  const { categories, edit } = props;
+  const classes = props.child
+    ? 'category-list-container child'
+    : 'category-list-container';
+  const categoryElements = categories.map((category) =>
+    <li key={category.id}>
+      {edit
+        ? <EditItem category={category} />
+        : <CategoryItem category={category} />}
+    </li>
+  );
 
-    return (
-      <div className={classes}>
-        <ul className='category-list'>
-          {categoryElements}
-        </ul>
-      </div>
-    );
-  }
+  return (
+    <div className={classes}>
+      <ul className='category-list'>
+        {categoryElements}
+      </ul>
+    </div>
+  );
 }
 
 Categories.propTypes = {

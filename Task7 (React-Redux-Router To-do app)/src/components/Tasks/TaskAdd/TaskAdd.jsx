@@ -6,16 +6,11 @@ import { addTodoItem } from '../../../store/Tasks/actions';
 import { connect } from 'react-redux';
 
 class TaskAdd extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      inputTodoValue: ''
-    };
-    this.handleAddTodo = this.handleAddTodo.bind(this);
-    this.handleInputTodo = this.handleInputTodo.bind(this);
-  }
+  state = {
+    inputTodoValue: ''
+  };
 
-  handleAddTodo() {
+  handleAddTodo = () => {
     const { category, addTodoItem } = this.props;
     const { inputTodoValue } = this.state;
 
@@ -27,7 +22,7 @@ class TaskAdd extends Component {
     }
   }
 
-  handleInputTodo(event) {
+  handleInputTodo = (event) => {
     const { value } = event.target;
     this.setState({
       inputTodoValue: value

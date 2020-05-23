@@ -11,7 +11,7 @@ export default function ConfirmModal(props) {
     <div className='modal-confirm'>
       <div className='modal-confirm__container'>
         <p className='modal-confirm__description'>
-      You want to delete category. Are you shure?
+      You want to delete category. Are you sure?
         </p>
         <div className='modal-confirm__actions'>
           <Button

@@ -6,16 +6,11 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 class CategoryAdd extends Component {
-  constructor(props) {
-    super(props);
-    this.handleInputCategory = this.handleInputCategory.bind(this);
-    this.handleAddCategory = this.handleAddCategory.bind(this);
-    this.state = {
-      inputCategoryValue: ''
-    };
+  state = {
+    inputCategoryValue: ''
   }
 
-  handleAddCategory() {
+  handleAddCategory = () => {
     const { inputCategoryValue } = this.state;
 
     if (inputCategoryValue) {
@@ -26,7 +21,7 @@ class CategoryAdd extends Component {
     }
   }
 
-  handleInputCategory(event) {
+  handleInputCategory = (event) => {
     const { value } = event.target;
     this.setState({
       inputCategoryValue: value

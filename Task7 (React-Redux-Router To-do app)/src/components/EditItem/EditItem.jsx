@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
@@ -6,51 +6,45 @@ import { Button } from '../primitives';
 import { moveTaskToCategory } from '../../store/Tasks';
 import Categories from '../Categories';
 
-class EditItem extends Component {
-  constructor(props) {
-    super(props);
-    this.handleMoveCategory = this.handleMoveCategory.bind(this);
-  }
+function EditItem(props) {
 
-  handleMoveCategory() {
-    const { category, location, moveTaskToCategory, push } = this.props;
+  function handleMoveCategory() {
+    const { category, location, moveTaskToCategory, push } = props;
     const path = location.pathname.split('/');
     moveTaskToCategory(path[path.length - 1], category.id);
     push(`/edit/${category.id}/${path[path.length - 1]}`);
-  }
+  };
 
-  render() {
-    const { category, location } = this.props;
-    const buttonPlace = location.pathname.includes(category.id)
-      ? <span />
-      : <Button
-        onClick={this.handleMoveCategory}
-        className='fas fa-arrow-circle-left'
-        // eslint-disable-next-line indent
-        />;
-    const classNames = location.pathname.includes(category.id)
-      ? 'category-item checked'
-      : 'category-item';
+  const { category, location } = props;
+  const buttonPlace = location.pathname.includes(category.id)
+    ? <span />
+    : <Button
+      onClick={handleMoveCategory}
+      className='fas fa-arrow-circle-left'
+    />;
 
-    return (
-      <>
-        <div
-          className={classNames}
-          id={category.id}
-        >
-          <div>
-            <span className='category-name'>{category.name}</span>
-          </div>
-          {buttonPlace}
+  const classNames = location.pathname.includes(category.id)
+    ? 'category-item checked'
+    : 'category-item';
+
+  return (
+    <>
+      <div
+        className={classNames}
+        id={category.id}
+      >
+        <div>
+          <span className='category-name'>{category.name}</span>
         </div>
-        <Categories
-          edit
-          child
-          parentId={category.id}
-        />
-      </>
-    );
-  }
+        {buttonPlace}
+      </div>
+      <Categories
+        edit
+        child
+        parentId={category.id}
+      />
+    </>
+  );
 }
 
 EditItem.propTypes = {

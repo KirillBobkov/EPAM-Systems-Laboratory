@@ -10,15 +10,9 @@ import URI from 'urijs';
 import { push } from 'connected-react-router';
 
 class Navigation extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      checked: false,
-      searchTo: ''
-    };
-    this.handleShowDone = this.handleShowDone.bind(this);
-    this.handleInputSearch = this.handleInputSearch.bind(this);
-    this.handleClearSearchInput = this.handleClearSearchInput.bind(this);
+  state = {
+    checked: false,
+    searchTo: ''
   }
 
   componentDidMount() {
@@ -32,7 +26,7 @@ class Navigation extends Component {
     });
   }
 
-  handleClearSearchInput() {
+  handleClearSearchInput = () => {
     const { location, push } = this.props;
     const searchPath = location.pathname.replace(/\/search/g, '');
     const currentURI = new URI(searchPath + location.search);
@@ -45,7 +39,7 @@ class Navigation extends Component {
     () => push(currentURI.search(searchParameters).toString()));
   }
 
-  handleInputSearch(event) {
+  handleInputSearch = (event) => {
     const { location, push } = this.props;
     const { value } = event.target;
     let searchPath = location.pathname.includes('search')
@@ -69,7 +63,7 @@ class Navigation extends Component {
     );
   }
 
-  handleShowDone() {
+  handleShowDone = () => {
     const { location, push } = this.props;
     this.setState({
       checked: !this.state.checked

@@ -1,32 +1,30 @@
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import React from 'react';
 import Categories from '../../components/Categories';
 import EditWindow from '../../components/EditWindow';
 import './EditPage.scss';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 
-class EditPage extends Component {
-  render() {
-    const { currentItem: item, push } = this.props;
+function EditPage(props) {
+  const { currentItem: item, push } = props;
 
-    if (!item) {
-      push('/main');
-      return null;
-    }
-
-    return (
-      <div className='page'>
-        <h1>{item.name}</h1>
-        <main className='content'>
-          <aside className='categories-container'>
-            <Categories edit />
-          </aside>
-          <EditWindow id={item.id} />
-        </main>
-      </div>
-    );
+  if (!item) {
+    push('/main');
+    return null;
   }
+
+  return (
+    <div className='page'>
+      <h1>{item.name}</h1>
+      <main className='content'>
+        <aside className='categories-container'>
+          <Categories edit />
+        </aside>
+        <EditWindow id={item.id} />
+      </main>
+    </div>
+  );
 }
 
 EditPage.propTypes = {

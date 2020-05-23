@@ -7,39 +7,31 @@ import { Button, Input, Checkbox } from '../primitives';
 import { checkTodo, editTodoItem } from '../../store/Tasks';
 
 class EditWindow extends Component {
-  constructor(props) {
-    super(props);
-    this.handleCheck = this.handleCheck.bind(this);
-    this.handleSaveChanges = this.handleSaveChanges.bind(this);
-    this.handleInputTask = this.handleInputTask.bind(this);
-    this.handleCanselEdit = this.handleCanselEdit.bind(this);
-    this.handleTextArea = this.handleTextArea.bind(this);
-    this.state = {
-      inputTaskValue: this.props.currentItem.name,
-      textAreaValue: this.props.currentItem.description
-    };
-  }
+  state = {
+    inputTaskValue: this.props.currentItem.name,
+    textAreaValue: this.props.currentItem.description
+  };
 
-  handleInputTask(event) {
+  handleInputTask = (event) => {
     const { value } = event.target;
     this.setState({
       inputTaskValue: value
     });
   }
 
-  handleTextArea(event) {
+  handleTextArea = (event) => {
     const { value } = event.target;
     this.setState({
       textAreaValue: value
     });
   }
 
-  handleCheck() {
+  handleCheck = () => {
     const { currentItem: item, checkTodo } = this.props;
     checkTodo(item.id);
   }
 
-  handleSaveChanges() {
+  handleSaveChanges = () => {
     const { currentItem: item, editTodoItem, push } = this.props;
     const { inputTaskValue, textAreaValue } = this.state;
 
@@ -49,7 +41,7 @@ class EditWindow extends Component {
     push(`/main/${item.categoryId}`);
   }
 
-  handleCanselEdit() {
+  handleCanselEdit = () => {
     const { currentItem: item, push } = this.props;
     push(`/main/${item.categoryId}`);
   }
