@@ -12,7 +12,10 @@ import { push } from 'connected-react-router';
 class Navigation extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      checked: false,
+      searchTo: ''
+    };
     this.handleShowDone = this.handleShowDone.bind(this);
     this.handleInputSearch = this.handleInputSearch.bind(this);
     this.handleClearSearchInput = this.handleClearSearchInput.bind(this);

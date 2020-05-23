@@ -21,5 +21,7 @@ Input.propTypes = {
   placeholder: PropTypes.string,
   id: PropTypes.string,
   onChange: PropTypes.func,
-  value: PropTypes.string
+  value: PropTypes.string,
+  className: PropTypes.string,
+  disabled: PropTypes.bool
 };

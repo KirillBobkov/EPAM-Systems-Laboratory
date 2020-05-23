@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import { deleteCategory, editCategoryItem, addSubCategory } from '../../../store/Categories/actions';
 import { deleteAllItemsOfThisCategory } from '../../../store/Tasks/actions';
 import { push } from 'connected-react-router';
+import ConfirmModal from '../../ConfirmModal';
 
 class CategoryItem extends Component {
   constructor(props) {
@@ -15,8 +16,10 @@ class CategoryItem extends Component {
     this.state = {
       editMode: false,
       hideMode: true,
-      nameCategory: this.props.category.name
+      nameCategory: this.props.category.name,
+      isModalOpen: false
     };
+
     this.handleDelete = this.handleDelete.bind(this);
     this.handleEditCategory = this.handleEditCategory.bind(this);
     this.handleInputCategory = this.handleInputCategory.bind(this);
@@ -25,6 +28,22 @@ class CategoryItem extends Component {
     this.handleSaveCategoryName = this.handleSaveCategoryName.bind(this);
     this.handleHideSubCategories = this.handleHideSubCategories.bind(this);
     this.handleCancelChangingNameOfCategory = this.handleCancelChangingNameOfCategory.bind(this);
+    this.handleConfirmAction = this.handleConfirmAction.bind(this);
+    this.handleDenyAction = this.handleDenyAction.bind(this);
+    this.handleOpenModalWindow = this.handleOpenModalWindow.bind(this);
+  }
+
+  handleOpenModalWindow() {
+    this.setState({ isModalOpen: !this.state.isModalOpen });
+  }
+
+  handleConfirmAction(event) {
+    this.handleDelete(event);
+    this.setState({ isModalOpen: !this.state.isModalOpen });
+  }
+
+  handleDenyAction() {
+    this.setState({ isModalOpen: !this.state.isModalOpen });
   }
 
   handleHideSubCategories(event) {
@@ -164,7 +183,7 @@ class CategoryItem extends Component {
           <div>
             <Button
               className='fas fa-trash-alt'
-              onClick={this.handleDelete}
+              onClick={this.handleOpenModalWindow}
             />
             <Button
               onClick={this.handleCreateCategory}
@@ -173,6 +192,7 @@ class CategoryItem extends Component {
           </div>
         </div>
         {subCategories}
+        {this.state.isModalOpen && <ConfirmModal onConfirm={this.handleConfirmAction} onDeny={this.handleDenyAction} />}
       </>);
   }
 
