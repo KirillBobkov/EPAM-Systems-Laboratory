@@ -5,8 +5,11 @@ import { push } from 'connected-react-router';
 import { connect } from 'react-redux';
 import { Button, Input, Checkbox } from '../primitives';
 import { checkTodo, editTodoItem } from '../../store/Tasks';
+import { LangContext } from '../../lang-context/lang-context';
 
 class EditWindow extends Component {
+  static contextType = LangContext;
+
   state = {
     inputTaskValue: this.props.currentItem.name,
     textAreaValue: this.props.currentItem.description
@@ -48,20 +51,20 @@ class EditWindow extends Component {
 
   render() {
     const { currentItem: item } = this.props;
-
+    const { lang } = this.context;
     return (
       <article className='edit__window'>
         <section className='edit__control-buttons'>
           <Button
             id='saveButtonEdit'
-            text='Save changes'
+            text={lang.save}
             className='button--with-border'
             onClick={this.handleSaveChanges}
           />
           <Button
             onClick={this.handleCanselEdit}
             id='cancelButtonEdit'
-            text='Cancel'
+            text={lang.cancel}
             className='button--with-border'
           />
         </section>
@@ -78,7 +81,7 @@ class EditWindow extends Component {
               className='checkbox'
               done={item.done}
             />
-            Show done
+            {lang.checkAsDone}
           </label>
         </section>
         <textarea

@@ -7,7 +7,6 @@ import { moveTaskToCategory } from '../../store/Tasks';
 import Categories from '../Categories';
 
 function EditItem(props) {
-
   function handleMoveCategory() {
     const { category, location, moveTaskToCategory, push } = props;
     const path = location.pathname.split('/');

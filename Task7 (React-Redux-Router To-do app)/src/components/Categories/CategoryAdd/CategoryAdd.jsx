@@ -4,8 +4,11 @@ import './CategoryAdd.scss';
 import { addCategory } from '../../../store/Categories/actions';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { LangContext } from '../../../lang-context/lang-context';
 
 class CategoryAdd extends Component {
+  static contextType = LangContext;
+
   state = {
     inputCategoryValue: ''
   }
@@ -29,19 +32,21 @@ class CategoryAdd extends Component {
   }
 
   render() {
+    const { lang } = this.context;
+
     return (
       <div className='category-input'>
         <Input
           id='categoryInputAdd'
           type='text'
-          placeholder='Enter category name'
+          placeholder={lang.categoryInputPlaceholder}
           onChange={this.handleInputCategory}
           value={this.state.inputCategoryValue}
         />
         <Button
           id='categoryButtonAdd'
           onClick={this.handleAddCategory}
-          text='Add'
+          text={lang.add}
           className='button--with-border'
         />
       </div>

@@ -4,8 +4,11 @@ import PropTypes from 'prop-types';
 import { Button, Input } from '../../primitives';
 import { addTodoItem } from '../../../store/Tasks/actions';
 import { connect } from 'react-redux';
+import { LangContext } from '../../../lang-context/lang-context';
 
 class TaskAdd extends Component {
+  static contextType = LangContext;
+
   state = {
     inputTodoValue: ''
   };
@@ -33,17 +36,20 @@ class TaskAdd extends Component {
     const { category } = this.props;
     const disableValue = !category;
 
+    const { lang } = this.context;
+
     return (
       <div className='todo-add'>
         <Input
+          className='todo-input'
           type='text'
           onChange={this.handleInputTodo}
-          placeholder='Enter name for event'
+          placeholder={lang.taskInputPlaceholder}
           value={this.state.inputTodoValue}
           disabled={disableValue}
         />
         <Button
-          text='Add'
+          text={lang.add}
           onClick={this.handleAddTodo}
           className='button--with-border'
         />

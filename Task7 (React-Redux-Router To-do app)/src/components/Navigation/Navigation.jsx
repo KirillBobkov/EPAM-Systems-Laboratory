@@ -8,8 +8,12 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import URI from 'urijs';
 import { push } from 'connected-react-router';
+import { LangContext } from '../../lang-context/lang-context';
+import LangButton from '../../components/LangButton';
 
 class Navigation extends Component {
+  static contextType = LangContext;
+
   state = {
   }
 
@@ -78,32 +82,37 @@ class Navigation extends Component {
   }
 
   render () {
+    const { lang } = this.context;
+
     return (
-      <nav className='navigation'>
-        <h1 className='title'>Personal organizer</h1>
-        <section className='search-bar'>
-          <label>
-            <Checkbox
-              id='search'
-              className='checkbox'
-              onChange={this.handleShowDone}
-              done={this.state.checked}
-            />
-            Show done
-          </label>
-          <div>
-            <Input
-              type='search'
-              placeholder='Search'
-              onChange={this.handleInputSearch}
-              value={this.state.searchTo}
-            />
-            <Button
-              className='fa fa-times search-button'
-              onClick={this.handleClearSearchInput}
-            />
-          </div>
-        </section>
+      <nav>
+        <LangButton />
+        <div className='navigation'>
+          <h1 className='title'>{lang.title}</h1>
+          <section className='search-bar'>
+            <label>
+              <Checkbox
+                id='search'
+                className='checkbox'
+                onChange={this.handleShowDone}
+                done={this.state.checked}
+              />
+              {lang.showDone}
+            </label>
+            <div>
+              <Input
+                type='search'
+                placeholder={lang.searchPlaceholder}
+                onChange={this.handleInputSearch}
+                value={this.state.searchTo}
+              />
+              <Button
+                className='fa fa-times search-button'
+                onClick={this.handleClearSearchInput}
+              />
+            </div>
+          </section>
+        </div>
       </nav>
     );
   }
