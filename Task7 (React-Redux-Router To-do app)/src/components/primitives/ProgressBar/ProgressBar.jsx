@@ -3,8 +3,11 @@ import React, { Component } from 'react';
 
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { LangContext } from '../../../lang-context/lang-context';
 
 class ProgressBar extends Component {
+  static contextType = LangContext;
+
   handleCountPersent() {
     const {
       itemsOfCategory,
@@ -27,11 +30,12 @@ class ProgressBar extends Component {
 
   render () {
     const persent = this.handleCountPersent();
+    const { lang } = this.context;
 
     return (
       <section className='progressBar'>
         <div className='progressBar-loaded' style={{ width: `${persent}%` }}>
-          {`Completed ${persent}% tasks`}
+          {`${lang.completed} ${persent}%`}
         </div>
       </section>
     );
